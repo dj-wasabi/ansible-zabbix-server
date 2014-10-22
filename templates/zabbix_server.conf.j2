@@ -1,0 +1,391 @@
+# this is a configuration file for zabbix server process
+# to get more information about zabbix,
+# visit http://www.zabbix.com
+
+############ general parameters #################
+### option: listenport
+#	listen port for trapper.
+#
+ListenPort={{ server_listenport }}
+
+### option: sourceip
+#	source ip address for outgoing connections.
+#
+{% if server_sourceip is defined and server_sourceip %}
+SourceIP={{ server_sourceip }}
+{% endif %}
+
+### option: logfile
+#	name of log file.
+#	if not set, syslog is used.
+#
+LogFile={{ server_logfile }}
+
+### option: logfilesize
+#	maximum size of log file in mb.
+#	0 - disable automatic log rotation.
+#
+LogFileSize={{ server_logfilesize }}
+
+### option: debuglevel
+#	specifies debug level
+#	0 - no debug
+#	1 - critical information
+#	2 - error information
+#	3 - warnings
+#	4 - for debugging (produces lots of information)
+#
+DebugLevel={{ server_debuglevel }}
+
+### option: pidfile
+#	name of pid file.
+#
+PidFile={{ server_pidfile }}
+
+### option: dbhost
+#	database host name.
+#	if set to localhost, socket is used for mysql.
+#	if set to empty string, socket is used for postgresql.
+#
+DBHost={{ server_dbhost }}
+
+### option: dbname
+#	database name.
+#	for sqlite3 path to database file must be provided. dbuser and dbpassword are ignored.
+#
+DBName={{ server_dbname }}
+
+### option: dbschema
+#	schema name. used for ibm db2.
+#
+{% if server_dbschema is defined and server_dbschema %}
+DBSchema={{ server_dbschema }}
+{% endif %}
+
+### option: dbuser
+#	database user. ignored for sqlite.
+#
+DBUser={{ server_dbuser }}
+
+### option: dbpassword
+#	database password. ignored for sqlite.
+#	comment this line if no password is used.
+#
+DBPassword={{ server_dbpassword }}
+
+### option: dbsocket
+#	path to mysql socket.
+#
+{% if server_dbsocket is defined and server_dbsocket %}
+DBSocket={{ server_dbsocket }}
+{% endif %}
+
+### option: dbport
+#	database port when not using local socket. ignored for sqlite.
+#
+{% if server_dbport is defined and server_dbport %}
+DBPort={{ server_dbport }}
+{% endif %}
+
+############ advanced parameters ################
+
+### option: startpollers
+#	number of pre-forked instances of pollers.
+#
+StartPollers={{ server_startpollers }}
+
+### option: startipmipollers
+#	number of pre-forked instances of ipmi pollers.
+#
+StartIPMIPollers={{ server_startipmipollers }}
+
+### option: startpollersunreachable
+#	number of pre-forked instances of pollers for unreachable hosts (including ipmi).
+#
+StartPollersUnreachable={{ server_startpollersunreachable }}
+
+### option: starttrappers
+#	number of pre-forked instances of trappers.
+#	trappers accept incoming connections from zabbix sender, active agents, active proxies and child nodes.
+#	at least one trapper process must be running to display server availability in the frontend.
+#
+StartTrappers={{ server_starttrappers }}
+
+### option: startpingers
+#	number of pre-forked instances of icmp pingers.
+#
+StartPingers={{ server_startpingers }}
+
+### option: startdiscoverers
+#	number of pre-forked instances of discoverers.
+#
+StartDiscoverers={{ server_startdiscoverers }}
+
+### option: starthttppollers
+#	number of pre-forked instances of http pollers.
+#
+StartHTTPPollers={{ server_starthttppollers }}
+
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+### option: starttimers
+#	number of pre-forked instances of timers.
+#	timers process time-based trigger functions and maintenance periods.
+#	only the first timer process handles the maintenance periods.
+#
+StartTimers={{ server_starttimers }}
+{% endif %}
+
+### option: javagateway
+#	ip address (or hostname) of zabbix java gateway.
+#	only required if java pollers are started.
+#
+{% if server_javagateway is defined and server_javagateway %}
+JavaGateway={{ server_javagateway }}
+
+### option: javagatewayport
+#	port that zabbix java gateway listens on.
+#
+JavaGatewayPort={{ server_javagatewayport }}
+
+### option: startjavapollers
+#	number of pre-forked instances of java pollers.
+#
+StartJavaPollers={{ server_startjavapollers }}
+{% endif  %}
+
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+### option: startvmwarecollectors
+#	number of pre-forked vmware collector instances.
+#
+StartVMwareCollectors={{ server_startvmwarecollectors }}
+
+### option: vmwarefrequency
+#	how often zabbix will connect to vmware service to obtain a new data.
+#
+VMwareFrequency={{ server_vmwarefrequency }}
+
+### option: vmwarecachesize
+#	size of vmware cache, in bytes.
+#	shared memory size for storing vmware data.
+#	only used if vmware collectors are started.
+#
+VMwareCacheSize={{ server_vmwarecachesize }}
+{% endif  %}
+
+### option: snmptrapperfile
+#	temporary file used for passing data from snmp trap daemon to the server.
+#	must be the same as in zabbix_trap_receiver.pl or snmptt configuration file.
+#
+SNMPTrapperFile={{ server_snmptrapperfile }}
+
+### option: startsnmptrapper
+#	if 1, snmp trapper process is started.
+#
+StartSNMPTrapper={{ server_startsnmptrapper }}
+
+### option: listenip
+#	list of comma delimited ip addresses that the trapper should listen on.
+#	trapper will listen on all network interfaces if this parameter is missing.
+#
+{% if server_listenip is defined and server_listenip %}
+ListenIp={{ server_listenip }}
+{% endif %}
+
+### option: housekeepingfrequency
+#	how often zabbix will perform housekeeping procedure (in hours).
+#	housekeeping is removing unnecessary information from history, alert, and alarms tables.
+#
+HousekeepingFrequency={{ server_housekeepingfrequency }}
+
+### option: maxhousekeeperdelete
+#	the table "housekeeper" contains "tasks" for housekeeping procedure in the format:
+#	[housekeeperid], [tablename], [field], [value].
+#	no more than 'maxhousekeeperdelete' rows (corresponding to [tablename], [field], [value])
+#	will be deleted per one task in one housekeeping cycle.
+#	sqlite3 does not use this parameter, deletes all corresponding rows without a limit.
+#	if set to 0 then no limit is used at all. in this case you must know what you are doing!
+#
+MaxHousekeeperDelete={{ server_maxhousekeeperdelete }}
+
+### option: senderfrequency
+#	how often zabbix will try to send unsent alerts (in seconds).
+#
+SenderFrequency={{ server_senderfrequency }}
+
+### option: cachesize
+#	size of configuration cache, in bytes.
+#	shared memory size for storing host, item and trigger data.
+#
+CacheSize={{ server_cachesize }}
+
+### option: cacheupdatefrequency
+#	how often zabbix will perform update of configuration cache, in seconds.
+#
+CacheUpdateFrequency={{ server_cacheupdatefrequency }}
+
+### option: startdbsyncers
+#	number of pre-forked instances of db syncers
+#
+StartDBSyncers={{ server_startdbsyncers }}
+
+### option: historycachesize
+#	size of history cache, in bytes.
+#	shared memory size for storing history data.
+#
+HistoryCacheSize={{ server_historycachesize }}
+
+### option: trendcachesize
+#	size of trend cache, in bytes.
+#	shared memory size for storing trends data.
+#
+TrendCacheSize={{ server_trendcachesize }}
+
+### option: historytextcachesize
+#	size of text history cache, in bytes.
+#	shared memory size for storing character, text or log history data.
+#
+HistoryTextCacheSize={{ server_historytextcachesize }}
+
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+### option: valuecachesize
+#	size of history value cache, in bytes.
+#	shared memory size for caching item history data requests
+#	setting to 0 disables value cache.
+#
+ValueCacheSize={{ server_valuecachesize }}
+{% endif %}
+
+{% if zabbix_version == '2.4' %}
+### option: nodenoevents
+#	if set to '1' local events won't be sent to master node.
+#	this won't impact ability of this node to propagate events from its child nodes.
+#
+NodeNoEvents={{ server_nodenoevents }}
+
+### option: nodenohistory
+#	if set to '1' local history won't be sent to master node.
+#	this won't impact ability of this node to propagate history from its child nodes.
+#
+NodeNoHistory={{ server_nodenohistory }}
+{% endif %}
+
+### option: timeout
+#	specifies how long we wait for agent, snmp device or external check (in seconds).
+#
+Timeout={{ server_timeout }}
+
+### option: trappertimeout
+#	specifies how many seconds trapper may spend processing new data.
+#
+TrapperTimeout={{ server_trappertimeout }}
+
+### option: unreachableperiod
+#	after how many seconds of unreachability treat a host as unavailable.
+#
+UnreachablePeriod={{ server_unreachableperiod }}
+
+### option: unavailabledelay
+#	how often host is checked for availability during the unavailability period, in seconds.
+#
+UnavailableDelay={{ server_unavailabledelay }}
+
+### option: unreachabledelay
+#	how often host is checked for availability during the unreachability period, in seconds.
+#
+UnreachableDelay={{ server_unreachabledelay }}
+
+### option: alertscriptspath
+#	full path to location of custom alert scripts.
+#	default depends on compilation options.
+#
+AlertScriptsPath={{ server_alertscriptspath }}
+
+### option: externalscripts
+#	full path to location of external scripts.
+#	default depends on compilation options.
+#
+ExternalScripts={{ server_externalscripts }}
+
+### option: fpinglocation
+#	location of fping.
+#	make sure that fping binary has root ownership and suid flag set.
+#
+FpingLocation={{ server_fpinglocation }}
+
+### option: fping6location
+#	location of fping6.
+#	make sure that fping6 binary has root ownership and suid flag set.
+#	make empty if your fping utility is capable to process ipv6 addresses.
+#
+Fping6Location={{ server_fping6location }}
+
+### option: sshkeylocation
+#	location of public and private keys for ssh checks and actions.
+#
+{% if server_sshkeylocation is defined and server_sshkeylocation %}
+SSHKeyLocation={{ server_sshkeylocation }}
+{% endif %}
+
+### option: logslowqueries
+#	how long a database query may take before being logged (in milliseconds).
+#	only works if debuglevel set to 3 or 4.
+#	0 - don't log slow queries.
+#
+LogSlowQueries={{ server_logslowqueries }}
+
+### option: tmpdir
+#	temporary directory.
+#
+TmpDir={{ server_tmpdir }}
+
+### option: startproxypollers
+#	number of pre-forked instances of pollers for passive proxies.
+#
+StartProxyPollers={{ server_startproxypollers }}
+
+### option: proxyconfigfrequency
+#	how often zabbix server sends configuration data to a zabbix proxy in seconds.
+#	this parameter is used only for proxies in the passive mode.
+#
+ProxyConfigFrequency={{ server_proxyconfigfrequency }}
+
+### option: proxydatafrequency
+#	how often zabbix server requests history data from a zabbix proxy in seconds.
+#	this parameter is used only for proxies in the passive mode.
+#
+ProxyDataFrequency={{ server_proxydatafrequency }}
+
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+### option: allowroot
+#	allow the server to run as 'root'. if disabled and the server is started by 'root', the server
+#	will try to switch to user 'zabbix' instead. has no effect if started under a regular user.
+#	0 - do not allow
+#	1 - allow
+#
+AllowRoot={{ server_allowroot }}
+{% endif %}
+
+### option: include
+#	you may include individual files or all files in a directory in the configuration file.
+#	installing zabbix will create include directory in /usr/local/etc, unless modified during the compile time.
+#
+Include={{ server_include }}
+
+####### loadable modules #######
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+### option: loadmodulepath
+#	full path to location of server modules.
+#	default depends on compilation options.
+#
+LoadModulePath={{ server_loadmodulepath }}
+{% endif %}
+
+### option: loadmodule
+#	module to load at server startup. modules are used to extend functionality of the server.
+#	format: loadmodule=<module.so>
+#	the modules must be located in directory specified by loadmodulepath.
+#	it is allowed to include multiple loadmodule parameters.
+#
+{% if server_loadmodule is defined and server_loadmodule %}
+LoadModule = <%= loadmodule }}
+{% endif %}

@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: your name
-  description: 
+  author: Werner Dijkerman
+  description: Installing and maintaining zabbix components
   company: your company (optional)
   # Some suggested licenses:
   # - BSD (default)

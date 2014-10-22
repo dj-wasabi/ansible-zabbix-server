@@ -1,2 +1,71 @@
 ---
 # vars file for wdijkerman.zabbix
+
+# Some role specific vars
+zabbix_version: 2.4
+#database_type: mysql
+database_type: pgsql
+
+
+# zabbix-server specific vars
+server_listenport: 10051
+server_sourceip: 192.1.1.1
+server_logfile: /var/log/zabbix/zabbix_server.log
+server_logfilesize: 10
+server_debuglevel: 3
+server_pidfile: /var/run/zabbix/zabbix_server.pid
+server_dbhost: localhost
+server_dbname: zabbix-server
+server_dbschema: 
+server_dbuser: zabbix-server
+server_dbpassword: zabbix-server
+server_dbsocket: 
+server_dbport: 
+server_startpollers: 5
+server_startipmipollers: 0
+server_startpollersunreachable: 1
+server_starttrappers: 5
+server_startpingers: 1
+server_startdiscoverers: 1
+server_starthttppollers: 1
+server_starttimers: 1
+server_javagateway: 
+server_javagatewayport: 10052
+server_startjavapollers: 5
+server_startvmwarecollectors: 0
+server_vmwarefrequency: 60
+server_vmwarecachesize: 8M
+server_snmptrapperfile: /tmp/zabbix_traps.tmp
+server_startsnmptrapper: 0
+server_listenip: 
+server_housekeepingfrequency: 1
+server_maxhousekeeperdelete: 500
+server_senderfrequency: 30
+server_cachesize: 8M
+server_cacheupdatefrequency: 60
+server_startdbsyncers: 4
+server_historycachesize: 8M
+server_trendcachesize: 4M
+server_historytextcachesize: 16M
+server_valuecachesize: 8M
+server_nodenoevents: 0
+server_nodenohistory: 0
+server_timeout: 3
+server_trappertimeout: 300
+server_unreachableperiod: 45
+server_unavailabledelay: 60
+server_unreachabledelay: 15
+server_alertscriptspath: ${datadir}/zabbix/alertscripts
+server_externalscripts: /usr/lib/zabbix/externalscripts
+server_fpinglocation: /usr/sbin/fping
+server_fping6location: /usr/sbin/fping6
+server_sshkeylocation: 
+server_logslowqueries: 0
+server_tmpdir: /tmp
+server_startproxypollers: 1
+server_proxyconfigfrequency: 3600
+server_proxydatafrequency: 1
+server_allowroot: 0
+server_include: /etc/zabbix/zabbix_server.conf.d
+server_loadmodulepath: ${libdir}/modules
+server_loadmodule: 
