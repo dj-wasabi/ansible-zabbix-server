@@ -1,0 +1,13 @@
+---
+# Tasks specific for RedHat systems
+
+- name: Install RH basic repo file
+  template: src=rhel.repo.j2
+            dest=/etc/yum.repos.d/zabbix.repo
+            owner=root 
+            group=root 
+            mode=0644
+
+- name: Installing RH zabbix-server-{{ database_type }}
+  yum: pkg=zabbix-server-{{ database_type }} state=present
+

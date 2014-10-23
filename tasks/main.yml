@@ -1,27 +1,25 @@
 ---
 # tasks file for wdijkerman.zabbix
 
-#TODO Put this in specific os file?
-- name: Installing release.rpm
-  shell: rpm -ivh http://repo.zabbix.com/zabbix/2.4/rhel/6/x86_64/zabbix-release-2.4-1.el6.noarch.rpm
-         creates=/etc/yum.repos.d/zabbix.repo 
-  tags:
-    - zabbix-server
+- name: Install the correct repository
+  include: "RedHat.yml"
+  when: ansible_os_family == "RedHat"
 
-- name: Installing zabbix-server-{{ database_type }}
-  yum: pkg=zabbix-server-{{ database_type }} state=present
-  tags: zabbix-server
-
-- name: Installing the zabbix-server package
-  yum: pkg=zabbix-server state=present
-  tags: zabbix-server
+- name: Install the correct repository
+  include: "Debian.yml"
+  when: ansible_os_family == "Debian"
 
 - name: Configure zabbix-server
-  template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf mode=0755 owner=zabbix group=zabbix
+  template: src=zabbix_server.conf.j2 
+            dest=/etc/zabbix/zabbix_server.conf 
+            owner=zabbix 
+            group=zabbix
+            mode=0755 
   notify: zabbix-server restarted
-  tags: zabbix-server
 
 - name: Create include dir zabbix-server
-  file: path={{ server_include }} owner=zabbix group=zabbix state=directory
-  tags: zabbix-server
+  file: path={{ server_include }} 
+        owner=zabbix 
+        group=zabbix 
+        state=directory
 

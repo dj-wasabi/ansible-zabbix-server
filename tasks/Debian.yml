@@ -1,0 +1,25 @@
+---
+#
+
+- name: Installing repository Debian
+  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" state=present
+  when: ansible_distribution == "Debian"
+
+- name: Installing repository Debian
+  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" state=present
+  when: ansible_distribution == "Debian"
+
+- name: Installing repository Ubuntu
+  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main" state=present
+  when: ansible_distribution == "ubuntu"
+
+- name: Installing repository Ubuntu
+  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main" state=present
+  when: ansible_distribution == "ubuntu"
+
+- name: Install gpg key
+  apt_key: url=http://repo.zabbix.com/zabbix-official-repo.key
+
+- name: Installing Deb zabbix-server-{{ database_type }}
+  apt: pkg=zabbix-server-{{ database_type }} state=present update_cache=yes
+
