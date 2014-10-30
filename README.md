@@ -53,4 +53,5 @@ Author Information
 This is my first attempt to create an ansible role, so please send suggestion or pull requests to make this role better. 
 
 Github: https://github.com/dj-wasabi/ansible-zabbix-server
-email: ikben [ at ] werner-dijkerman . nl
+
+mail: ikben [ at ] werner-dijkerman . nl
