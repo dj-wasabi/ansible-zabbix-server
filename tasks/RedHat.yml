@@ -18,7 +18,7 @@
   yum:  pkg=zabbix-web-{{ database_type }} 
         state=present
 
-- name: install apache vhost
+- name: install RH apache vhost
   template: src=apache_vhost.conf.j2
             dest=/etc/httpd/conf.d/zabbix.conf
             owner=root

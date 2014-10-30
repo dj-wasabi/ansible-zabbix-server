@@ -7,11 +7,9 @@
 database_type: pgsql
 database_type_long: postgresql
 
-# 
-
 # zabbix-server specific vars
 server_listenport: 10051
-server_sourceip: 192.1.1.1
+server_sourceip: 
 server_logfile: /var/log/zabbix/zabbix_server.log
 server_logfilesize: 10
 server_debuglevel: 3

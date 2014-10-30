@@ -41,7 +41,7 @@
         state=present 
         update_cache=yes
 
-- name: install apache vhost
+- name: install Deb apache vhost
   template: src=apache_vhost.conf.j2
             dest=/etc/apache2/sites-enabled/zabbix.conf
             owner=root
