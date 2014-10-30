@@ -1,0 +1,54 @@
+<VirtualHost *:80>
+  ServerName {{ zabbix_url }}
+
+  ## Vhost docroot
+  DocumentRoot "/usr/share/zabbix"
+
+  <Directory "/usr/share/zabbix">
+    AllowOverride None
+    Order Allow,Deny
+    Allow from all
+  </Directory>
+
+  <Directory "/usr/share/zabbix/conf">
+    AllowOverride None
+    Order Deny,Allow
+    Deny from all
+  </Directory>
+
+  <Directory "/usr/share/zabbix/api">
+    AllowOverride None
+    Order Deny,Allow
+    Deny from all
+  </Directory>
+
+  <Directory "/usr/share/zabbix/include">
+    AllowOverride None
+    Order Deny,Allow
+    Deny from all
+  </Directory>
+
+  <Directory "/usr/share/zabbix/include/classes">
+    AllowOverride None
+    Order Deny,Allow
+    Deny from all
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/{{ apache_log }}/{{ zabbix_url }}_error.log"
+  ServerSignature Off
+  CustomLog "/var/log/{{ apache_log }}/{{ zabbix_url }}_access.log" combined
+
+  ## Rewrite rules
+  RewriteEngine On
+  RewriteRule ^$ /index.php [L]
+
+  ## Custom fragment
+  php_value max_execution_time 300
+  php_value memory_limit 128M
+  php_value post_max_size 16M
+  php_value upload_max_filesize 2M
+  php_value max_input_time 300
+  # Set correct timezone.
+  php_value date.timezone {{ zabbix_timezone }}
+</VirtualHost>

@@ -1,6 +1,8 @@
 ---
 # Tasks specific for RedHat systems
 
+- set_fact: apache_log="httpd"
+
 - name: Install RH basic repo file
   template: src=rhel.repo.j2
             dest=/etc/yum.repos.d/zabbix.repo
@@ -9,5 +11,17 @@
             mode=0644
 
 - name: Installing RH zabbix-server-{{ database_type }}
-  yum: pkg=zabbix-server-{{ database_type }} state=present
+  yum:  pkg=zabbix-server-{{ database_type }} 
+        state=present
 
+- name: Install RH zabbix-web-{{ database_type }}
+  yum:  pkg=zabbix-web-{{ database_type }} 
+        state=present
+
+- name: install apache vhost
+  template: src=apache_vhost.conf.j2
+            dest=/etc/httpd/conf.d/zabbix.conf
+            owner=root
+            group=root
+            mode=0644
+  notify: restart apache

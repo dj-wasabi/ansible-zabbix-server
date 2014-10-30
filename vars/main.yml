@@ -2,10 +2,12 @@
 # vars file for wdijkerman.zabbix
 
 # Some role specific vars
-zabbix_version: 2.4
 #database_type: mysql
+#database_type_long: mysql
 database_type: pgsql
+database_type_long: postgresql
 
+# 
 
 # zabbix-server specific vars
 server_listenport: 10051
