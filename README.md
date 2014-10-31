@@ -3,6 +3,8 @@ dj-wasabi.zabbix-server
 
 This is an role for installing and maintaining the zabbix-server. There are other roles for the proxy, javagateway and the agent. (Which will be available soon..)
 
+* zabbix-server (https://galaxy.ansible.com/list#/roles/2070)
+
 Requirements
 ------------
 
@@ -49,7 +51,7 @@ Including an example of how to use your role (for instance, with variables passe
       sudo: yes
       roles:
          - { role: geerlingguy.apache }
-         - { role: wdijkerman.zabbix, zabbix_url: zabbix.dj-wasabi.nl }
+         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl }
 
 License
 -------
