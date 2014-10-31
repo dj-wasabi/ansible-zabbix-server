@@ -1,4 +1,4 @@
-wdijkerman.zabbix-server
+dj-wasabi.zabbix-server
 =========
 
 This is an role for installing and maintaining the zabbix-server. There are other roles for the proxy, javagateway and the agent. (Which will be available soon..)
@@ -36,7 +36,9 @@ Dependencies
 
 This role has 1 "hardcoded" dependency: geerlingguy.apache. This is an role which support the 3 main operating systems (Red Hat/Debian/Ubuntu). I can't find an mysql or postgresql role which also supports these 3 operating systems.
 
-`You'll need to find the correct role by yourself. If there is an role which supports these 3 operating systems, please let me know and I'll use it as dependency.`
+```text
+You'll need to find the correct database role by yourself. I only want to use roles which supports the 3 main operating systems as well and for now I can't find one. If there is an role which supports these 3 operating systems, please let me know and I'll use it as dependency.
+```
 
 Example Playbook
 ----------------
