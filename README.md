@@ -5,6 +5,7 @@ This is an role for installing and maintaining the zabbix-server. There are othe
 
 * zabbix-server (https://galaxy.ansible.com/list#/roles/2070)
 * zabbix-proxy (https://galaxy.ansible.com/list#/roles/2073)
+* zabbix-javagateway (https://galaxy.ansible.com/list#/roles/2076)
 
 Requirements
 ------------
