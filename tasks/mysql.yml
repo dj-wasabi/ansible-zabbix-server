@@ -1,0 +1,28 @@
+---
+# task file for mysql
+
+- name: MySQL | Create database
+  mysql_db: name={{ server_dbname }}
+            state=present
+
+- name: MySQL | Create database user
+  mysql_user: name={{ server_dbuser }}
+              password={{ server_dbpassword }}
+              priv={{ server_dbname }}.*:ALL 
+              state=present
+
+- name: MySQL | Importing schema file
+  shell: "cd {{ datafiles_path }} && mysql -u {{ server_dbuser }} -p{{ server_dbpassword }} -D {{ server_dbname }} < schema.sql && touch /etc/zabbix/schema.done"
+  args:
+    creates: /etc/zabbix/schema.done
+
+- name: MySQL | Importing images file
+  shell: "cd {{ datafiles_path }} && mysql -u {{ server_dbuser }} -p{{ server_dbpassword }} -D {{ server_dbname }} < images.sql && touch /etc/zabbix/images.done"
+  args:
+    creates: /etc/zabbix/images.done
+
+- name: MySQL | Importing data file
+  shell: "cd {{ datafiles_path }} && mysql -u {{ server_dbuser }} -p{{ server_dbpassword }} -D {{ server_dbname }} < data.sql && touch /etc/zabbix/data.done"
+  args:
+    creates: /etc/zabbix/data.done
+

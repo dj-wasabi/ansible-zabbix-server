@@ -9,6 +9,9 @@
   include: "Debian.yml"
   when: ansible_os_family == "Debian"
 
+- name: Installing the database
+  include: "{{ database_type_long }}.yml"
+
 - name: Configure zabbix-server
   template: src=zabbix_server.conf.j2 
             dest=/etc/zabbix/zabbix_server.conf 

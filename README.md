@@ -6,10 +6,17 @@ This is an role for installing and maintaining the zabbix-server. There are othe
 Requirements
 ------------
 
+This role will work on:
+* Red Hat
+* Debian
+* Ubuntu
+
+So, you'll need one of those operating systems.. :-)
+
 Role Variables
 --------------
 
-There are some variables in de default/main.yml which can be changed:
+There are some variables in de default/main.yml which can (Or needs to) be changed/overriden:
 * `zabbix_url`: This is the url on which the zabbix web interface is available. Default is zabbix.example.com, you should override it. For example, see "Example Playbook"
 * `zabbix_version`: This is the version of zabbix. Default it is 2.4, but can be overriden to 2.2 or 2.0.
 * `zabbix_timezone`: This is the timezone. The apache vhost needs this parameter. Default: Europe/Amsterdam
@@ -22,7 +29,7 @@ There are some zabbix-server specific variables which will be used for the zabbi
   database_type_long: postgresql
 ```
 
-There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use. In example from above, the postgresql database is used.
+There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use. In example from above, the postgresql database is used. If you want to use mysql, uncomment the 2 lines from mysql and comment the 2 lines for postgresql.
 
 Dependencies
 ------------

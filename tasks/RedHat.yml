@@ -1,7 +1,10 @@
 ---
 # Tasks specific for RedHat systems
 
-- set_fact: apache_log="httpd"
+- name: Set some RH facts
+  set_fact: 
+    apache_log: httpd
+    datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
 
 - name: Install RH basic repo file
   template: src=rhel.repo.j2
