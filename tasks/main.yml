@@ -28,7 +28,7 @@
 
 - name: Configure zabbix-web
   template: src=zabbix.conf.php.j2
-            dest=/etc/zabbix/web/zabbix.conf.php
+            dest=/etc/zabbix/zabbix.conf.php
             owner=zabbix
             group=zabbix
             mode=0755
