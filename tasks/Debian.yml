@@ -1,5 +1,4 @@
 ---
-#
 
 - name: Debian | Set some facts
   set_fact: 
@@ -9,26 +8,27 @@
 - name: Debian | Installing repository Debian
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
                   state=present
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" and manage_repo == True
 
 - name: Debian | Installing repository Debian
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
                   state=present
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" and manage_repo == True
 
 - name: Debian | Installing repository Ubuntu
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main" 
                   state=present
-  when: ansible_distribution == "ubuntu"
+  when: ansible_distribution == "ubuntu" and manage_repo == True
 
 - name: Debian | Installing repository Ubuntu
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "ubuntu"
+  when: ansible_distribution == "ubuntu" and manage_repo == True
 
 - name: Debian | Install gpg key
   apt_key: id=79EA5ED4
            url=http://repo.zabbix.com/zabbix-official-repo.key
+  when: manage_repo == True
 
 - name: Debian | Installing zabbix-server-{{ database_type }}
   apt: pkg=zabbix-server-{{ database_type }} 

@@ -11,10 +11,8 @@ manage_database_creation: True
 manage_database_sqlload: True
 
 # Database
-database_type: mysql
-database_type_long: mysql
-#database_type: pgsql
-##database_type_long: postgresql
+database_type: pgsql
+database_type_long: postgresql
 
 # zabbix-server specific vars
 server_listenport: 10051

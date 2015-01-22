@@ -4,6 +4,7 @@
 - name: PostgreSQL | Create database
   postgresql_db: name={{ server_dbname }}
                  state=present
+  when: manage_database_creation == True
 
 - name: PostgreSQL | Create database user
   postgresql_user: db={{ server_dbname }}
@@ -11,19 +12,23 @@
                     password={{ server_dbpassword }}
                     priv=ALL
                     state=present
+  when: manage_database_creation == True
 
 - name: PostgreSQL | Importing schema file
   shell: "cd {{ datafiles_path }} && psql -h localhost -U {{ server_dbuser }} -d {{ server_dbname }} -f schema.sql && touch /etc/zabbix/schema.done"
   args:
     creates: /etc/zabbix/schema.done
+  when: manage_database_sqlload == True
 
 - name: PostgreSQL | Importing images file
   shell: "cd {{ datafiles_path }} && psql -h localhost -U {{ server_dbuser }} -d {{ server_dbname }} -f images.sql && touch /etc/zabbix/images.done"
   args:
     creates: /etc/zabbix/images.done
+  when: manage_database_sqlload == True
 
 - name: PostgreSQL | Importing data file
   shell: "cd {{ datafiles_path }} && psql -h localhost -U {{ server_dbuser }} -d {{ server_dbname }} -f data.sql && touch /etc/zabbix/data.done"
   args:
     creates: /etc/zabbix/data.done
+  when: manage_database_sqlload == True
 

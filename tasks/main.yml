@@ -9,8 +9,13 @@
   include: "Debian.yml"
   when: ansible_os_family == "Debian"
 
-- name: Installing the database
-  include: "{{ database_type_long }}.yml"
+- name: Installing the postgresql database
+  include: "postgresql.yml"
+  when: database_type_long == "postgresql"
+
+- name: Installing the mysql database
+  include: "mysql.yml"
+  when: database_type_long == "mysql"
 
 - name: Configure zabbix-server
   template: src=zabbix_server.conf.j2 
