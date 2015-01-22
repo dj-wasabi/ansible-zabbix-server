@@ -32,7 +32,7 @@ There are some variables in de default/main.yml which can (Or needs to) be chang
 * `manage_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
 * `manage_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 
-There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the vars/main.yml file. There are 2 which needs some explanation:
+There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the defaults/main.yml file. There are 2 which needs some explanation:
 ```bash
   #database_type: mysql
   #database_type_long: mysql
