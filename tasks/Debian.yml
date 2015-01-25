@@ -1,54 +1,54 @@
 ---
 
-- name: Debian | Set some facts
+- name: "Debian | Set some facts"
   set_fact: 
     apache_log: apache2
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
 
-- name: Debian | Installing repository Debian
+- name: "Debian | Installing repository Debian"
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
                   state=present
   when: ansible_distribution == "Debian" and manage_repo == True
 
-- name: Debian | Installing repository Debian
+- name: "Debian | Installing repository Debian"
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
                   state=present
   when: ansible_distribution == "Debian" and manage_repo == True
 
-- name: Debian | Installing repository Ubuntu
+- name: "Debian | Installing repository Ubuntu"
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main" 
                   state=present
   when: ansible_distribution == "ubuntu" and manage_repo == True
 
-- name: Debian | Installing repository Ubuntu
+- name: "Debian | Installing repository Ubuntu"
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
   when: ansible_distribution == "ubuntu" and manage_repo == True
 
-- name: Debian | Install gpg key
+- name: "Debian | Install gpg key"
   apt_key: id=79EA5ED4
            url=http://repo.zabbix.com/zabbix-official-repo.key
   when: manage_repo == True
 
-- name: Debian | Installing zabbix-server-{{ database_type }}
+- name: "Debian | Installing zabbix-server-{{ database_type }}"
   apt: pkg=zabbix-server-{{ database_type }} 
        state=present 
        update_cache=yes
        cache_valid_time=3600
 
-- name: Debian | Install php5-{{ database_type }}
+- name: "Debian | Install php5-{{ database_type }}"
   apt: pkg=php5-{{ database_type }} 
        state=present 
        update_cache=yes
        cache_valid_time=3600
 
-- name: Debian | Install zabbix-web
+- name: "Debian | Install zabbix-web"
   apt:  pkg=zabbix-frontend-php 
         state=present 
         update_cache=yes
         cache_valid_time=3600
 
-- name: Debian | install apache vhost
+- name: "Debian | install apache vhost"
   template: src=apache_vhost.conf.j2
             dest=/etc/apache2/sites-enabled/zabbix.conf
             owner=root

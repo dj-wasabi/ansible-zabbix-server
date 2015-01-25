@@ -1,12 +1,12 @@
 ---
 # Tasks specific for RedHat systems
 
-- name: RedHat | Set some facts
+- name: "RedHat | Set some facts"
   set_fact: 
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
 
-- name: RedHat | Install basic repo file
+- name: "RedHat | Install basic repo file"
   template: src=rhel.repo.j2
             dest=/etc/yum.repos.d/zabbix.repo
             owner=root 
@@ -14,15 +14,15 @@
             mode=0644
   when: manage_repo == True
 
-- name: RedHat | Installing zabbix-server-{{ database_type }}
+- name: "RedHat | Installing zabbix-server-{{ database_type }}"
   yum:  pkg=zabbix-server-{{ database_type }} 
         state=present
 
-- name: RedHat | Install zabbix-web-{{ database_type }}
+- name: "RedHat | Install zabbix-web-{{ database_type }}"
   yum:  pkg=zabbix-web-{{ database_type }} 
         state=present
 
-- name: RedHat | Install apache vhost
+- name: "RedHat | Install apache vhost"
   template: src=apache_vhost.conf.j2
             dest=/etc/httpd/conf.d/zabbix.conf
             owner=root

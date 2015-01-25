@@ -1,23 +1,23 @@
 ---
 # tasks file for wdijkerman.zabbix
 
-- name: Install the correct repository
+- name: "Install the correct repository"
   include: "RedHat.yml"
   when: ansible_os_family == "RedHat"
 
-- name: Install the correct repository
+- name: "Install the correct repository"
   include: "Debian.yml"
   when: ansible_os_family == "Debian"
 
-- name: Installing the postgresql database
+- name: "Installing the postgresql database"
   include: "postgresql.yml"
   when: database_type_long == "postgresql"
 
-- name: Installing the mysql database
+- name: "Installing the mysql database"
   include: "mysql.yml"
   when: database_type_long == "mysql"
 
-- name: Configure zabbix-server
+- name: "Configure zabbix-server"
   template: src=zabbix_server.conf.j2 
             dest=/etc/zabbix/zabbix_server.conf 
             owner=zabbix 
@@ -25,13 +25,13 @@
             mode=0755 
   notify: zabbix-server restarted
 
-- name: Create include dir zabbix-server
+- name: "Create include dir zabbix-server"
   file: path={{ server_include }} 
         owner=zabbix 
         group=zabbix 
         state=directory
 
-- name: Configure zabbix-web
+- name: "Configure zabbix-web"
   template: src=zabbix.conf.php.j2
             dest=/etc/zabbix/zabbix.conf.php
             owner=zabbix
