@@ -24,13 +24,21 @@ Role Variables
 --------------
 
 There are some variables in de default/main.yml which can (Or needs to) be changed/overriden:
+
 * `zabbix_url`: This is the url on which the zabbix web interface is available. Default is zabbix.example.com, you should override it. For example, see "Example Playbook"
+
 * `zabbix_version`: This is the version of zabbix. Default it is 2.4, but can be overriden to 2.2 or 2.0.
+
 * `zabbix_timezone`: This is the timezone. The apache vhost needs this parameter. Default: Europe/Amsterdam
+
 * `zabbix_repo`: True / False. When you already have an repository with the zabbix components, you can set it to False.
+
 * `zabbix_vhost`: True / False. When you don't want to create an apache vhosts, you can set it to False.
+
 * `zabbix_web`: True / False. When you down't want to install the zabbix-web component. Setting this to False, this playbook will only install the zabbix-server incl. database (if the 2 parameters below are set to True).
+
 * `zabbix_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
+
 * `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 
 There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the defaults/main.yml file. There are 2 which needs some explanation:
