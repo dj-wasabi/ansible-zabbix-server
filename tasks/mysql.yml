@@ -4,36 +4,36 @@
 - name: "MySQL | Create database"
   mysql_db: name={{ server_dbname }}
             state=present
-  when: manage_database_creation == True
+  when: zabbix_database_creation == True
 
 - name: "MySQL | Create database user"
   mysql_user: name={{ server_dbuser }}
               password={{ server_dbpassword }}
               priv={{ server_dbname }}.*:ALL
               state=present
-  when: manage_database_creation == True
+  when: zabbix_database_creation == True
 
 - name: "unzip schema files"
   shell: "cd {{ datafiles_path }} && gunzip *.gz"
   args:
     creates: "{{ datafiles_path }}/schema.sql"
-  when: manage_database_sqlload == True
+  when: zabbix_database_sqlload == True
 
 - name: "MySQL | Importing schema file"
   shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < schema.sql && touch /etc/zabbix/schema.done"
   args:
     creates: /etc/zabbix/schema.done
-  when: manage_database_sqlload == True
+  when: zabbix_database_sqlload == True
 
 - name: "MySQL | Importing images file"
   shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }} '-p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < images.sql && touch /etc/zabbix/images.done"
   args:
     creates: /etc/zabbix/images.done
-  when: manage_database_sqlload == True
+  when: zabbix_database_sqlload == True
 
 - name: "MySQL | Importing data file"
   shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}'  -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < data.sql && touch /etc/zabbix/data.done"
   args:
     creates: /etc/zabbix/data.done
-  when: manage_database_sqlload == True
+  when: zabbix_database_sqlload == True
 

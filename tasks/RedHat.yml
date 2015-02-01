@@ -12,7 +12,7 @@
             owner=root 
             group=root 
             mode=0644
-  when: manage_repo == True
+  when: zabbix_repo == True
 
 - name: "RedHat | Installing zabbix-server-{{ database_type }}"
   yum:  pkg=zabbix-server-{{ database_type }} 
@@ -21,6 +21,7 @@
 - name: "RedHat | Install zabbix-web-{{ database_type }}"
   yum:  pkg=zabbix-web-{{ database_type }} 
         state=present
+  when: zabbix_web == True
 
 - name: "RedHat | Install apache vhost"
   template: src=apache_vhost.conf.j2
@@ -28,5 +29,5 @@
             owner=root
             group=root
             mode=0644
-  when: manage_vhost == True
+  when: zabbix_vhost == True and zabbix_web == True
   notify: restart apache

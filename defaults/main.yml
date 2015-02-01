@@ -5,8 +5,9 @@
 zabbix_url: zabbix.example.com
 zabbix_version: 2.4
 zabbix_timezone: Europe/Amsterdam
-manage_repo: True
-manage_vhost: True
+zabbix_repo: True
+zabbix_vhost: True
+zabbix_web: true
 manage_database_creation: True
 manage_database_sqlload: True
 
