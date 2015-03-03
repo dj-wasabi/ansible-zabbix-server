@@ -1,50 +1,50 @@
 ---
 
 - name: "Debian | Set some facts"
-  set_fact: 
+  set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
 
 - name: "Debian | Installing repository Debian"
-  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
+  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Debian" and zabbix_repo == True
+  when: ansible_distribution == "Debian" and zabbix_repo
 
 - name: "Debian | Installing repository Debian"
-  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main" 
+  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Debian" and zabbix_repo == True
+  when: ansible_distribution == "Debian" and zabbix_repo
 
 - name: "Debian | Installing repository Ubuntu"
-  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main" 
+  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "ubuntu" and zabbix_repo == True
+  when: ansible_distribution == "Ubuntu" and zabbix_repo
 
 - name: "Debian | Installing repository Ubuntu"
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "ubuntu" and zabbix_repo == True
+  when: ansible_distribution == "Ubuntu" and zabbix_repo
 
 - name: "Debian | Install gpg key"
   apt_key: id=79EA5ED4
            url=http://repo.zabbix.com/zabbix-official-repo.key
-  when: zabbix_repo == True
+  when: zabbix_repo
 
 - name: "Debian | Installing zabbix-server-{{ database_type }}"
-  apt: pkg=zabbix-server-{{ database_type }} 
-       state=present 
+  apt: pkg=zabbix-server-{{ database_type }}
+       state=present
        update_cache=yes
        cache_valid_time=3600
 
 - name: "Debian | Install php5-{{ database_type }}"
-  apt: pkg=php5-{{ database_type }} 
-       state=present 
+  apt: pkg=php5-{{ database_type }}
+       state=present
        update_cache=yes
        cache_valid_time=3600
 
 - name: "Debian | Install zabbix-web"
-  apt:  pkg=zabbix-frontend-php 
-        state=present 
+  apt:  pkg=zabbix-frontend-php
+        state=present
         update_cache=yes
         cache_valid_time=3600
   when: zabbix_web == True
