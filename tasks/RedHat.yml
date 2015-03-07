@@ -2,26 +2,26 @@
 # Tasks specific for RedHat systems
 
 - name: "RedHat | Set some facts"
-  set_fact: 
+  set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
 
 - name: "RedHat | Install basic repo file"
   template: src=rhel.repo.j2
             dest=/etc/yum.repos.d/zabbix.repo
-            owner=root 
-            group=root 
+            owner=root
+            group=root
             mode=0644
-  when: zabbix_repo == True
+  when: zabbix_repo
 
 - name: "RedHat | Installing zabbix-server-{{ database_type }}"
-  yum:  pkg=zabbix-server-{{ database_type }} 
+  yum:  pkg=zabbix-server-{{ database_type }}
         state=present
 
 - name: "RedHat | Install zabbix-web-{{ database_type }}"
-  yum:  pkg=zabbix-web-{{ database_type }} 
+  yum:  pkg=zabbix-web-{{ database_type }}
         state=present
-  when: zabbix_web == True
+  when: zabbix_web
 
 - name: "RedHat | Install apache vhost"
   template: src=apache_vhost.conf.j2
@@ -29,5 +29,11 @@
             owner=root
             group=root
             mode=0644
-  when: zabbix_vhost == True and zabbix_web == True
+  when: zabbix_vhost and zabbix_web
   notify: restart apache
+
+- name: "RedHat | Install Ansible module dependencies"
+  yum: name=python-psycopg2
+       state=present
+  when: zabbix_database_creation
+

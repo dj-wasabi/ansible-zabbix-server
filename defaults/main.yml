@@ -8,8 +8,8 @@ zabbix_timezone: Europe/Amsterdam
 zabbix_repo: True
 zabbix_vhost: True
 zabbix_web: true
-manage_database_creation: True
-manage_database_sqlload: True
+zabbix_database_creation: True
+zabbix_database_sqlload: True
 
 # Database
 database_type: pgsql
