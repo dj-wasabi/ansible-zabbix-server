@@ -31,3 +31,9 @@
             mode=0644
   when: zabbix_vhost and zabbix_web
   notify: restart apache
+
+- name: "RedHat | Install Ansible module dependencies"
+  yum: name=python-psycopg2
+       state=present
+  when: zabbix_database_creation
+

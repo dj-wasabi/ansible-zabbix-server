@@ -58,5 +58,8 @@
   when: zabbix_vhost and zabbix_web
   notify: restart apache
 
-
+- name: "Debian | Install Ansible module dependencies"
+  apt: name=python-psycopg2
+       state=present
+  when: zabbix_database_creation
 
