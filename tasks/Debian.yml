@@ -47,7 +47,7 @@
         state=present
         update_cache=yes
         cache_valid_time=3600
-  when: zabbix_web == True
+  when: zabbix_web
 
 - name: "Debian | install apache vhost"
   template: src=apache_vhost.conf.j2
@@ -55,7 +55,7 @@
             owner=root
             group=root
             mode=0644
-  when: zabbix_vhost == True and zabbix_web == True
+  when: zabbix_vhost and zabbix_web
   notify: restart apache
 
 
