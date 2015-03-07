@@ -22,17 +22,23 @@
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f schema.sql && touch /etc/zabbix/schema.done"
   args:
     creates: /etc/zabbix/schema.done
+  environment:
+    PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload == True
 
 - name: "PostgreSQL | Importing images file"
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f images.sql && touch /etc/zabbix/images.done"
   args:
     creates: /etc/zabbix/images.done
+  environment:
+    PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload == True
 
 - name: "PostgreSQL | Importing data file"
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f data.sql && touch /etc/zabbix/data.done"
   args:
     creates: /etc/zabbix/data.done
+  environment:
+    PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload == True
 
