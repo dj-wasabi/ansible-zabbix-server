@@ -4,14 +4,18 @@
 - name: "PostgreSQL | Create database"
   postgresql_db: name={{ server_dbname }}
                  state=present
+  sudo: yes
+  sudo_user: postgres
   when: zabbix_database_creation == True
 
 - name: "PostgreSQL | Create database user"
   postgresql_user: db={{ server_dbname }}
-                    name={{ server_dbuser }}
-                    password={{ server_dbpassword }}
-                    priv=ALL
-                    state=present
+                   name={{ server_dbuser }}
+                   password={{ server_dbpassword }}
+                   priv=ALL
+                   state=present
+  sudo: yes
+  sudo_user: postgres
   when: zabbix_database_creation == True
 
 - name: "PostgreSQL | Importing schema file"
