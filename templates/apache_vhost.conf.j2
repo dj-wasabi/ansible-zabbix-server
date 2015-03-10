@@ -1,5 +1,8 @@
 <VirtualHost *:80>
   ServerName {{ zabbix_url }}
+  {% for alias in zabbix_url_aliases %}
+  ServerAlias {{ alias }}
+  {% endfor %}
 
   ## Vhost docroot
   DocumentRoot "/usr/share/zabbix"
