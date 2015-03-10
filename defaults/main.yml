@@ -3,6 +3,7 @@
 # zabbix role specific
 
 zabbix_url: zabbix.example.com
+zabbix_url_aliases: []
 zabbix_version: 2.4
 zabbix_timezone: Europe/Amsterdam
 zabbix_repo: True
