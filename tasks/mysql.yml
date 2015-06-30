@@ -17,7 +17,7 @@
   shell: "cd {{ datafiles_path }} && gunzip *.gz"
   args:
     creates: "{{ datafiles_path }}/schema.sql"
-  when: zabbix_database_sqlload
+  when: zabbix_database_sqlload and ansible_os_family == "Debian"
 
 - name: "MySQL | Importing schema file"
   shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < schema.sql && touch /etc/zabbix/schema.done"
