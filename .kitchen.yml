@@ -1,0 +1,22 @@
+---
+driver:
+  name: docker
+  provision_command: sed -i '/tsflags=nodocs/d' /etc/yum.conf
+
+provisioner:
+  name: ansible_playbook
+  ansible_yum_repo: "http://mirror.logol.ru/epel/6/x86_64/epel-release-6-8.noarch.rpm"
+  hosts: localhost
+  requirements_path: requirements.yml
+  require_ruby_for_busser: false
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7
+    provisioner:
+      ansible_yum_repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+      playbook: default.yml
+
+
+suites:
+  - name: zabbix-20-mysql
