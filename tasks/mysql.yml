@@ -26,7 +26,7 @@
   when: zabbix_database_sqlload
 
 - name: "MySQL | Importing images file"
-  shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }} '-p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < images.sql && touch /etc/zabbix/images.done"
+  shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < images.sql && touch /etc/zabbix/images.done"
   args:
     creates: /etc/zabbix/images.done
   when: zabbix_database_sqlload
