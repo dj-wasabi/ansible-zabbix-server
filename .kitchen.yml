@@ -12,11 +12,14 @@ provisioner:
 
 platforms:
   - name: centos-6.6
-  - name: centos-7
     provisioner:
-      ansible_yum_repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-      playbook: default.yml
-
+      playbook: playbooks/rh6.yml
+      ansible_diff: true
 
 suites:
   - name: zabbix-20-mysql
+    attributes:
+      extra_vars:
+        zabbix_version: 2.0
+        database_type: mysql
+        database_type_long: mysql
