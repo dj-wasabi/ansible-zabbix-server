@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - yum: name=MySQL-python state=present
+    - yum: name=mariadb-server state=present
+    - service: name=mariadb state=started
+  roles:
+    - { role: ansible-zabbix-server }

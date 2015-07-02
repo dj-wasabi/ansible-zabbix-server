@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - yum: name=MySQL-python state=present
+    - yum: name=mysql-server state=present
+    - service: name=mysqld state=started
+  roles:
+    - { role: ansible-zabbix-server }
