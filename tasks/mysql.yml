@@ -19,10 +19,6 @@
     creates: "{{ datafiles_path }}/schema.sql"
   when: zabbix_database_sqlload and ansible_os_family == "Debian"
 
-- name: "Install Mysql package RHEL7"
-  yum: name=mariadb state=present
-  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat")  and ansible_distribution_major_version == "7"
-
 - name: "MySQL | Importing schema file"
   shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < schema.sql && touch /etc/zabbix/schema.done"
   args:
