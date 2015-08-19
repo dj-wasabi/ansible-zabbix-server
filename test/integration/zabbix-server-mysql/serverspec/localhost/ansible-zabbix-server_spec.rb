@@ -17,7 +17,7 @@ describe 'Zabbix Server Packages' do
     describe package('zabbix-frontend-php'), :if => os[:family] == 'debian' do
         it { should be_installed }
     end
-    describe package('mysql-client') do
+    describe package('mysql') do
         it { should be_installed }
     end
 end
