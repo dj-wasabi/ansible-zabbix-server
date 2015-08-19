@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  roles:
+    - role: geerlingguy.mysql
+    - role: ansible-zabbix-server
+      zabbix_url: zabbix.example.com
+      zabbix_version: 2.4
+      database_type: mysql
+      database_type_long: mysql
