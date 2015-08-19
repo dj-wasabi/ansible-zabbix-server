@@ -62,3 +62,10 @@
        state=present
   when: zabbix_database_creation
 
+- name: "Debian | Install Mysql Client packag"
+  apt: name=mysql-client state=present
+  when: database_type == 'mysql'
+
+- name: "Debian | Install Mysql Client packag"
+  apt: name=postgresql state=present
+  when: database_type == 'pgsql'

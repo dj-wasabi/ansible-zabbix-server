@@ -5,13 +5,19 @@ describe 'Zabbix Server Packages' do
     describe package('zabbix-server-mysql') do
         it { should be_installed }
     end
-    describe package('zabbix-web-mysql') do
+    describe package('zabbix-web-mysql') , :if => os[:family] == 'redhat' do
         it { should be_installed }
     end
     describe package('zabbix-server') do
         it { should be_installed }
     end
-    describe package('zabbix-web') do
+    describe package('zabbix-web') , :if => os[:family] == 'redhat' do
+        it { should be_installed }
+    end
+    describe package('zabbix-frontend-php'), :if => os[:family] == 'debian' do
+        it { should be_installed }
+    end
+    describe package('mysql-client') do
         it { should be_installed }
     end
 end
