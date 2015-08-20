@@ -42,9 +42,12 @@
   when: ansible_distribution_major_version == "7" and database_type == 'mysql'
 
 - name: "RedHat | Install Mysql Client package RHEL5 - 6"
-  yum: name=mysql state=present
-  when: ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5" and database_type == 'mysql'
+  yum: name=mysql
+       state=present
+  when: database_type == 'mysql' and ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
 
 - name: "RedHat | Install PostgreSQL client package"
-  yum: name=postgresql state=installed
+  yum: name=postgresql
+       state=latest
   when: database_type == 'pgsql'
+

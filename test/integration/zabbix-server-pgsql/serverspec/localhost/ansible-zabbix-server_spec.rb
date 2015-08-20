@@ -17,9 +17,6 @@ describe 'Zabbix Server Packages' do
     describe package('zabbix-frontend-php') , :if => os[:family] == 'debian' do
         it { should be_installed }
     end
-    describe package('postgresql') do
-        it { should be_installed }
-    end
 end
 
 describe 'Zabbix Server Services' do
