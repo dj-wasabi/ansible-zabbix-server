@@ -7,6 +7,9 @@
   sudo: yes
   sudo_user: postgres
   when: zabbix_database_creation
+  tags:
+    - zabbix-server
+    - database
 
 - name: "PostgreSQL | Create database user"
   postgresql_user: db={{ server_dbname }}
@@ -17,6 +20,9 @@
   sudo: yes
   sudo_user: postgres
   when: zabbix_database_creation
+  tags:
+    - zabbix-server
+    - database
 
 - name: "PostgreSQL | Importing schema file"
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f schema.sql && touch /etc/zabbix/schema.done"
@@ -25,6 +31,9 @@
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload
+  tags:
+    - zabbix-server
+    - database
 
 - name: "PostgreSQL | Importing images file"
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f images.sql && touch /etc/zabbix/images.done"
@@ -33,6 +42,9 @@
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload
+  tags:
+    - zabbix-server
+    - database
 
 - name: "PostgreSQL | Importing data file"
   shell: "cd {{ datafiles_path }} && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f data.sql && touch /etc/zabbix/data.done"
@@ -41,4 +53,7 @@
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_database_sqlload
+  tags:
+    - zabbix-server
+    - database
 

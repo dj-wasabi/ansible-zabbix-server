@@ -4,18 +4,26 @@
 - name: "Install the correct repository"
   include: "RedHat.yml"
   when: ansible_os_family == "RedHat"
+  tags:
+    - always
 
 - name: "Install the correct repository"
   include: "Debian.yml"
   when: ansible_os_family == "Debian"
+  tags:
+    - always
 
 - name: "Installing the postgresql database"
   include: "postgresql.yml"
   when: database_type_long == "postgresql"
+  tags:
+    - always
 
 - name: "Installing the mysql database"
   include: "mysql.yml"
   when: database_type_long == "mysql"
+  tags:
+    - always
 
 - name: "Configure zabbix-server"
   template: src=zabbix_server.conf.j2 
@@ -24,12 +32,20 @@
             group=zabbix
             mode=0755 
   notify: zabbix-server restarted
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "Create include dir zabbix-server"
   file: path={{ server_include }} 
         owner=zabbix 
         group=zabbix 
         state=directory
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "Configure zabbix-web"
   template: src=zabbix.conf.php.j2
@@ -37,3 +53,9 @@
             owner=zabbix
             group=zabbix
             mode=0755
+  tags:
+    - zabbix-server
+    - init
+    - config
+
+

@@ -5,6 +5,11 @@
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
+  tags:
+    - zabbix-server
+    - init
+    - config
+    - database
 
 - name: "RedHat | Install basic repo file"
   template: src=rhel.repo.j2
@@ -13,15 +18,27 @@
             group=root
             mode=0644
   when: zabbix_repo
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "RedHat | Installing zabbix-server-{{ database_type }}"
   yum:  pkg=zabbix-server-{{ database_type }}
         state=present
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "RedHat | Install zabbix-web-{{ database_type }}"
   yum:  pkg=zabbix-web-{{ database_type }}
         state=present
   when: zabbix_web
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "RedHat | Install apache vhost"
   template: src=apache_vhost.conf.j2
@@ -31,23 +48,47 @@
             mode=0644
   when: zabbix_vhost and zabbix_web
   notify: restart apache
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "RedHat | Install Ansible module dependencies"
   yum: name=python-psycopg2
        state=present
   when: zabbix_database_creation
+  tags:
+    - zabbix-server
+    - init
 
 - name: "RedHat | Install Mysql Client package RHEL7"
-  yum: name=mariadb state=present
-  when: ansible_distribution_major_version == "7" and database_type == 'mysql'
+  yum: name={{ item }}
+       state=present
+  with_items:
+    - mariadb
+    - mysql-python
+  when: database_type == 'mysql' and ansible_distribution_major_version == "7"
+  tags:
+    - zabbix-server
+    - init
 
 - name: "RedHat | Install Mysql Client package RHEL5 - 6"
-  yum: name=mysql
+  yum: name={{ item }}
        state=present
+  with_items:
+    - mysql
+    - mysql-python
   when: database_type == 'mysql' and ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
+  tags:
+    - zabbix-server
+    - init
+    - database
 
 - name: "RedHat | Install PostgreSQL client package"
   yum: name=postgresql
        state=latest
   when: database_type == 'pgsql'
-
+  tags:
+    - zabbix-server
+    - init
+    - database
