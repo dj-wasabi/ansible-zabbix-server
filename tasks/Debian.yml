@@ -109,7 +109,7 @@
        state=present
   with_items:
     - mysql-client
-    - mysql-python
+    - MySQL-python
   when: database_type == 'mysql'
   tags:
     - zabbix-server

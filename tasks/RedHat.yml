@@ -77,7 +77,7 @@
        state=present
   with_items:
     - mysql
-    - mysql-python
+    - MySQL-python
   when: database_type == 'mysql' and ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
   tags:
     - zabbix-server
