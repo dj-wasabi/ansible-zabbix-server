@@ -1,5 +1,8 @@
 ---
 - hosts: localhost
+  pre_tasks:
+    - name: "Add zabbix.example.com to hosts file."
+      action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
   roles:
     - role: geerlingguy.mysql
     - role: ansible-zabbix-server

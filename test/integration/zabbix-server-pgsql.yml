@@ -1,8 +1,11 @@
---- 
+---
 - hosts: localhost
-  roles: 
+  pre_tasks:
+    - name: "Add zabbix.example.com to hosts file."
+      action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
+  roles:
     - role: galaxyprojectdotorg.postgresql
-      postgresql_pg_hba_conf: 
+      postgresql_pg_hba_conf:
         - "host all all 127.0.0.1/32 trust"
         - "host all all ::1/128 trust"
       postgresql_pg_hba_local_ipv4: false
