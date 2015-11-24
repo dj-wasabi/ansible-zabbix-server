@@ -71,6 +71,21 @@ Including an example of how to use your role (for instance, with variables passe
          - { role: geerlingguy.apache }
          - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl database_type: mysql, database_type_long: mysql }
 
+
+##Test Kitchen
+
+This roles is configured to be tested with Test Kitchen. You can find on this page some more information regarding Test Kitchen: http://werner-dijkerman.nl/2015/08/20/using-test-kitchen-with-docker-and-serverspec-to-test-ansible-roles/
+
+##Contributors
+The following have contributed to this Ansible role (List of Fame):
+
+  * drmikecrowe
+  * srvg
+  * kostyrevaa
+  * clopnis
+  * SAL-e
+
+
 License
 -------
 
