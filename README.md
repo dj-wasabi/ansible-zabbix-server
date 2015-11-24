@@ -69,7 +69,7 @@ Including an example of how to use your role (for instance, with variables passe
       sudo: yes
       roles:
          - { role: geerlingguy.apache }
-         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nlm database_type: mysql, database_type_long: mysql }
+         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl database_type: mysql, database_type_long: mysql }
 
 License
 -------
