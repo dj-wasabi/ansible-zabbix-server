@@ -6,6 +6,7 @@
                  state=present
   sudo: yes
   sudo_user: postgres
+  delegate_to: "{{server_dbhost}}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
@@ -19,6 +20,7 @@
                    state=present
   sudo: yes
   sudo_user: postgres
+  delegate_to: "{{server_dbhost}}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
