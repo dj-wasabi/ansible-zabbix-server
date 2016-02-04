@@ -4,7 +4,7 @@
     - name: "Add zabbix.example.com to hosts file."
       action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
   roles:
-    - role: geerlingguy.mysql
+    - role: ANXS.mysql
     - role: ansible-zabbix-server
       zabbix_url: zabbix.example.com
       zabbix_version: 2.4
