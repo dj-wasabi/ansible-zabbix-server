@@ -4,6 +4,11 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.4.0   (2016-02-)
+
+  * fix #2: server_dbhost allows for remote database but role does not fully support setting up on remote db #11 (By pull request: lhoss (Thanks!))
+  * Added basic travis test
+
 0.3.0   (2015-11-24)
 
   * Add test-kitchen #7 (By pull request: kostyrevaa (Thanks!))

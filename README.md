@@ -1,19 +1,22 @@
 dj-wasabi.zabbix-server
 =========
 
+[![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server)
+
 This is an role for installing and maintaining the zabbix-server. 
 
 This is one of the 'dj-wasabi' roles which configures your whole zabbix environment. See an list for the complete list:
 
- * zabbix-server (https://galaxy.ansible.com/list#/roles/2070)
- * zabbix-proxy (https://galaxy.ansible.com/list#/roles/2073)
- * zabbix-javagateway (https://galaxy.ansible.com/list#/roles/2076)
- * zabbix-agent (https://galaxy.ansible.com/list#/roles/2079)
+ * zabbix-server (https://galaxy.ansible.com/dj-wasabi/zabbix-server/)
+ * zabbix-proxy (https://galaxy.ansible.com/dj-wasabi/zabbix-proxy/)
+ * zabbix-javagateway (https://galaxy.ansible.com/dj-wasabi/zabbix-javagateway/)
+ * zabbix-agent (https://galaxy.ansible.com/dj-wasabi/zabbix-agent/)
 
 Requirements
 ------------
 
 This role will work on:
+
 * Red Hat
 * Debian
 * Ubuntu
@@ -84,7 +87,7 @@ The following have contributed to this Ansible role (List of Fame):
   * kostyrevaa
   * clopnis
   * SAL-e
-
+  * lhoss
 
 License
 -------
