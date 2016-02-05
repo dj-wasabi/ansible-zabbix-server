@@ -1,11 +1,16 @@
 ---
 # task file for postgresql
 
+- name: set the correct delegated_dbhost (to support postgres db deployment on a remote dbhost)
+  set_fact:
+    delegated_dbhost: "{{server_dbhost if (server_dbhost != 'localhost') else inventory_hostname}}"
+
 - name: "PostgreSQL | Create database"
   postgresql_db: name={{ server_dbname }}
                  state=present
   sudo: yes
   sudo_user: postgres
+  delegate_to: "{{delegated_dbhost}}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
@@ -19,6 +24,7 @@
                    state=present
   sudo: yes
   sudo_user: postgres
+  delegate_to: "{{delegated_dbhost}}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
