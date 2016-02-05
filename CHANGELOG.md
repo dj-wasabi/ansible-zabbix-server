@@ -4,10 +4,11 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
-0.4.0   (2016-02-)
+0.4.0   (2016-02-05)
 
   * fix #2: server_dbhost allows for remote database but role does not fully support setting up on remote db #11 (By pull request: lhoss (Thanks!))
   * Added basic travis test
+  * Fixed installation on Debian / Ubuntu for installing mysqldb-python package.
 
 0.3.0   (2015-11-24)
 
