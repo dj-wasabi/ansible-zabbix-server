@@ -9,6 +9,7 @@ install:
   - echo -e 'localhost  ansible_connection=local' > test/inventory
   - echo -e '[defaults]\nroles_path = ../\nhostfile = ./test/inventory' > ansible.cfg
   - ansible-galaxy install geerlingguy.apache
+  - ansible-galaxy install geerlingguy.mysql
   - ansible-galaxy install ANXS.mysql
 script:
   - ansible-playbook test/integration/zabbix-server-mysql.yml --syntax-check
