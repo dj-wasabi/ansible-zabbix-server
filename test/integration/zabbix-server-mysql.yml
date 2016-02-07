@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  remote_user: root
+  sudo: yes
   pre_tasks:
     - name: "Add zabbix.example.com to hosts file."
       action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
