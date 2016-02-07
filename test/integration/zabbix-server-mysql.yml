@@ -5,11 +5,30 @@
   pre_tasks:
     - name: "Add zabbix.example.com to hosts file."
       action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
-  roles:
-    - role: ANXS.mysql
-      when: "ansible_os_family == 'Debian'"
-    - role: geerlingguy.mysql
+    - name: "Installing MySQL (RedHat)"
+      action: yum
+              pkg={{ item }}
+              state=installed
+      with_items:
+        - mysql-server
       when: "ansible_os_family == 'RedHat'"
+
+    - name: "Installing MySQL (Debian)"
+      action: apt
+              pkg={{ item }}
+              state=installed
+      with_items:
+        - mysql-server
+        - mysql-common
+        - libapache2-mod-php5
+      when: "ansible_os_family == 'Debian'"
+
+    - name: "Start mysql"
+      action: service
+              name=mysqld
+              state=started
+
+  roles:
     - role: ansible-zabbix-server
       zabbix_url: zabbix.example.com
       zabbix_version: 2.4
