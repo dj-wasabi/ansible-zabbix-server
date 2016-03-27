@@ -240,11 +240,13 @@ HistoryCacheSize={{ server_historycachesize }}
 #
 TrendCacheSize={{ server_trendcachesize }}
 
+{% if zabbix_version != 3.0 %}
 ### option: historytextcachesize
 #	size of text history cache, in bytes.
 #	shared memory size for storing character, text or log history data.
 #
 HistoryTextCacheSize={{ server_historytextcachesize }}
+{% endif %}
 
 {% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
 ### option: valuecachesize
@@ -387,5 +389,46 @@ LoadModulePath={{ server_loadmodulepath }}
 #	it is allowed to include multiple loadmodule parameters.
 #
 {% if server_loadmodule is defined and server_loadmodule %}
-LoadModule = <%= loadmodule }}
+LoadModule = {{ loadmodule }}
+{% endif %}
+
+{% if zabbix_version == '3.0' %}
+####### TLS-RELATED PARAMETERS #######
+
+### Option: TLSCAFile
+#	Full pathname of a file containing the top-level CA(s) certificates for
+#	peer certificate verification.
+#
+# Mandatory: no
+# Default:
+{% if server_tlscafile is defined and server_tlscafile is not none %}
+TLSCAFile={{ server_tlscafile }}
+{% endif %}
+
+### Option: TLSCRLFile
+#	Full pathname of a file containing revoked certificates.
+#
+# Mandatory: no
+# Default:
+{% if server_tlscrlfile is defined and server_tlscrlfile is not none %}
+TLSCRLFile={{ server_tlscrlfile }}
+{% endif %}
+
+### Option: TLSCertFile
+#	Full pathname of a file containing the server certificate or certificate chain.
+#
+# Mandatory: no
+# Default:
+{% if server_tlscertfile is defined and server_tlscertfile is not none %}
+TLSCertFile={{ server_tlscertfile }}
+{% endif %}
+
+### Option: TLSKeyFile
+#	Full pathname of a file containing the server private key.
+#
+# Mandatory: no
+# Default:
+{% if server_tlskeyfile is defined and server_tlskeyfile is not none %}
+TLSKeyFile={{ server_tlskeyfile }}
+{% endif %}
 {% endif %}

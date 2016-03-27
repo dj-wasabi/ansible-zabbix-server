@@ -4,6 +4,17 @@
   set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
+  when: zabbix_version != 3.0
+  tags:
+    - zabbix-server
+    - init
+    - config
+
+- name: "Debian | Set some facts for Zabbix 3.0"
+  set_fact:
+    apache_log: apache2
+    datafiles_path: /usr/share/doc/zabbix-server-{{ database_type }}
+  when: zabbix_version == 3.0
   tags:
     - zabbix-server
     - init

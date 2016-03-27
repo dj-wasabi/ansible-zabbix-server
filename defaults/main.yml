@@ -78,3 +78,8 @@ server_allowroot: 0
 server_include: /etc/zabbix/zabbix_server.conf.d
 server_loadmodulepath: ${libdir}/modules
 server_loadmodule:
+server_tlscafile:
+server_tlscrlfile:
+server_tlscertfile:
+server_tlskeyfile:
+

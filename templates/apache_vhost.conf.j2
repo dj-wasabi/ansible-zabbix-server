@@ -7,36 +7,32 @@
   ## Vhost docroot
   DocumentRoot "/usr/share/zabbix"
 
+{% set directory_paths = ['/usr/share/zabbix/conf', '/usr/share/zabbix/api', '/usr/share/zabbix/include', '/usr/share/zabbix/include/classes'] %}
+
   <Directory "/usr/share/zabbix">
+  {% if zabbix_version == 3.0 %}
+    Options FollowSymLinks
+    AllowOverride None
+    Require all granted
+  {% else %}
     AllowOverride None
     Order Allow,Deny
     Allow from all
+  {% endif %}
   </Directory>
 
-  <Directory "/usr/share/zabbix/conf">
+{% for my_path in directory_paths %}
+  <Directory "{{ my_path }}">
+  {% if zabbix_version == 3.0 %}
+    Require all granted
+  {% else %}
     AllowOverride None
     Order Deny,Allow
     Deny from all
+  {% endif %}
   </Directory>
 
-  <Directory "/usr/share/zabbix/api">
-    AllowOverride None
-    Order Deny,Allow
-    Deny from all
-  </Directory>
-
-  <Directory "/usr/share/zabbix/include">
-    AllowOverride None
-    Order Deny,Allow
-    Deny from all
-  </Directory>
-
-  <Directory "/usr/share/zabbix/include/classes">
-    AllowOverride None
-    Order Deny,Allow
-    Deny from all
-  </Directory>
-
+{% endfor %}
   ## Logging
   ErrorLog "/var/log/{{ apache_log }}/{{ zabbix_url }}_error.log"
   ServerSignature Off

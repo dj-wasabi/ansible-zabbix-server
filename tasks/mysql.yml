@@ -29,28 +29,37 @@
     - database
 
 - name: "MySQL | Importing schema file"
-  shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < schema.sql && touch /etc/zabbix/schema.done"
+  shell: "cd {{ datafiles_path }} && if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < create.sql && touch /etc/zabbix/create.done"
+  args:
+    creates: /etc/zabbix/create.done
+  when: zabbix_version == 3.0 and zabbix_database_sqlload
+  tags:
+    - zabbix-server
+    - database
+
+- name: "MySQL | Importing schema file"
+  shell: "cd {{ datafiles_path }} && if [ -f schema.sql.gz ]; then gunzip schema.sql.gz ; fi && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < schema.sql && touch /etc/zabbix/schema.done"
   args:
     creates: /etc/zabbix/schema.done
-  when: zabbix_database_sqlload
+  when: zabbix_version != 3.0 and zabbix_database_sqlload
   tags:
     - zabbix-server
     - database
 
 - name: "MySQL | Importing images file"
-  shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < images.sql && touch /etc/zabbix/images.done"
+  shell: "cd {{ datafiles_path }} && if [ -f images.sql.gz ]; then gunzip images.sql.gz ; fi && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < images.sql && touch /etc/zabbix/images.done"
   args:
     creates: /etc/zabbix/images.done
-  when: zabbix_database_sqlload
+  when: zabbix_version != 3.0 and zabbix_database_sqlload
   tags:
     - zabbix-server
     - database
 
 - name: "MySQL | Importing data file"
-  shell: "cd {{ datafiles_path }} && mysql -h '{{ server_dbhost }}'  -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < data.sql && touch /etc/zabbix/data.done"
+  shell: "cd {{ datafiles_path }} && if [ -f data.sql.gz ]; then gunzip data.sql.gz ; fi && mysql -h '{{ server_dbhost }}'  -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < data.sql && touch /etc/zabbix/data.done"
   args:
     creates: /etc/zabbix/data.done
-  when: zabbix_database_sqlload
+  when: zabbix_version != 3.0 and zabbix_database_sqlload
   tags:
     - zabbix-server
     - database
