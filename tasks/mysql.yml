@@ -1,10 +1,14 @@
 ---
 # task file for mysql
+- name: "Set the correct delegated_dbhost (to support MySQL db deployment on a remote dbhost)"
+  set_fact:
+    delegated_dbhost: "{{server_dbhost if (server_dbhost != 'localhost') else inventory_hostname}}"
 
 - name: "MySQL | Create database"
   mysql_db: name={{ server_dbname }}
             state=present
   when: zabbix_database_creation
+  delegate_to: "{{ delegated_dbhost }}"
   tags:
     - zabbix-server
     - database
@@ -15,6 +19,7 @@
               priv={{ server_dbname }}.*:ALL
               state=present
   when: zabbix_database_creation
+  delegate_to: "{{ delegated_dbhost }}"
   tags:
     - zabbix-server
     - database
