@@ -4,6 +4,11 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.5.0   (2016-03-28)
+
+  * Zabbix 3.0
+  * MySQL database creation on other host (delegation)
+
 0.4.0   (2016-02-05)
 
   * fix #2: server_dbhost allows for remote database but role does not fully support setting up on remote db #11 (By pull request: lhoss (Thanks!))
