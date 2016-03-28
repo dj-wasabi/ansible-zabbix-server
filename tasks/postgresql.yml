@@ -31,9 +31,9 @@
     - database
 
 - name: "PostgreSQL | Create schema"
-  shell: "cd {{ datafiles_path }} && if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f create.sql && touch /etc/zabbix/create.done"
+  shell: "cd {{ datafiles_path }} && if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi && psql -h '{{ server_dbhost }}' -U '{{ server_dbuser }}' -d '{{ server_dbname }}' -f create.sql && touch /etc/zabbix/schema.done"
   args:
-    creates: /etc/zabbix/create.done
+    creates: /etc/zabbix/schema.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
   when: zabbix_version == 3.0 and zabbix_database_sqlload

@@ -24,19 +24,10 @@
     - zabbix-server
     - database
 
-- name: "unzip schema files"
-  shell: "cd {{ datafiles_path }} && gunzip *.gz"
-  args:
-    creates: "{{ datafiles_path }}/schema.sql"
-  when: zabbix_database_sqlload and ansible_os_family == "Debian"
-  tags:
-    - zabbix-server
-    - database
-
 - name: "MySQL | Importing schema file"
-  shell: "cd {{ datafiles_path }} && if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < create.sql && touch /etc/zabbix/create.done"
+  shell: "cd {{ datafiles_path }} && if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi && mysql -h '{{ server_dbhost }}' -u '{{ server_dbuser }}' -p'{{ server_dbpassword }}' -D '{{ server_dbname }}' < create.sql && touch /etc/zabbix/schema.done"
   args:
-    creates: /etc/zabbix/create.done
+    creates: /etc/zabbix/schema.done
   when: zabbix_version == 3.0 and zabbix_database_sqlload
   tags:
     - zabbix-server
