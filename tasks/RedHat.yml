@@ -63,7 +63,7 @@
        state=present
   with_items:
     - mariadb
-    - mysql-python
+    - MySQL-python
   when: database_type == 'mysql' and ansible_distribution_major_version == "7"
   tags:
     - zabbix-server
