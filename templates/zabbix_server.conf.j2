@@ -126,13 +126,20 @@ StartDiscoverers={{ server_startdiscoverers }}
 #
 StartHTTPPollers={{ server_starthttppollers }}
 
-{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' or zabbix_version == '3.0' %}
 ### option: starttimers
 #	number of pre-forked instances of timers.
 #	timers process time-based trigger functions and maintenance periods.
 #	only the first timer process handles the maintenance periods.
 #
 StartTimers={{ server_starttimers }}
+{% endif %}
+
+{% if zabbix_version == '3.0' %}
+### Option: StartEscalators
+#   Number of pre-forked instances of escalators.
+#
+StartEscalators={{ server_startescalators }}
 {% endif %}
 
 ### option: javagateway
@@ -153,7 +160,7 @@ JavaGatewayPort={{ server_javagatewayport }}
 StartJavaPollers={{ server_startjavapollers }}
 {% endif  %}
 
-{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' or zabbix_version == '3.0' %}
 ### option: startvmwarecollectors
 #	number of pre-forked vmware collector instances.
 #
@@ -164,6 +171,14 @@ StartVMwareCollectors={{ server_startvmwarecollectors }}
 #
 VMwareFrequency={{ server_vmwarefrequency }}
 
+{% if zabbix_version == '3.0' %}
+### Option: VMwarePerfFrequency
+#       How often Zabbix will connect to VMware service to obtain performance data.
+#
+# Mandatory: no
+VMwarePerfFrequency={{ server_vmwareperffrequency }}
+{% endif %}
+
 ### option: vmwarecachesize
 #	size of vmware cache, in bytes.
 #	shared memory size for storing vmware data.
@@ -171,6 +186,13 @@ VMwareFrequency={{ server_vmwarefrequency }}
 #
 VMwareCacheSize={{ server_vmwarecachesize }}
 {% endif  %}
+
+{% if zabbix_version == '3.0' %}
+### Option: VMwareTimeout
+#       Specifies how many seconds vmware collector waits for response from VMware service.
+#
+VMwareTimeout={{ server_vmwaretimeout }}
+{% endif %}
 
 ### option: snmptrapperfile
 #	temporary file used for passing data from snmp trap daemon to the server.
@@ -234,6 +256,14 @@ StartDBSyncers={{ server_startdbsyncers }}
 #
 HistoryCacheSize={{ server_historycachesize }}
 
+{% if zabbix_version == '3.0' %}
+### Option: HistoryIndexCacheSize
+#       Size of history index cache, in bytes.
+#       Shared memory size for indexing history cache.
+#
+HistoryIndexCacheSize={{ server_historyindexcachesize }}
+{% endif %}
+
 ### option: trendcachesize
 #	size of trend cache, in bytes.
 #	shared memory size for storing trends data.
@@ -248,7 +278,7 @@ TrendCacheSize={{ server_trendcachesize }}
 HistoryTextCacheSize={{ server_historytextcachesize }}
 {% endif %}
 
-{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' or zabbix_version == '3.0' %}
 ### option: valuecachesize
 #	size of history value cache, in bytes.
 #	shared memory size for caching item history data requests
@@ -357,7 +387,7 @@ ProxyConfigFrequency={{ server_proxyconfigfrequency }}
 #
 ProxyDataFrequency={{ server_proxydatafrequency }}
 
-{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' or zabbix_version == '3.0'%}
 ### option: allowroot
 #	allow the server to run as 'root'. if disabled and the server is started by 'root', the server
 #	will try to switch to user 'zabbix' instead. has no effect if started under a regular user.
@@ -367,14 +397,45 @@ ProxyDataFrequency={{ server_proxydatafrequency }}
 AllowRoot={{ server_allowroot }}
 {% endif %}
 
+{% if zabbix_version == '3.0' %}
+### Option: User
+#       Drop privileges to a specific, existing user on the system.
+#       Only has effect if run as 'root' and AllowRoot is disabled.
+#
+User={{ server_user }}
+{% endif %}
+
 ### option: include
 #	you may include individual files or all files in a directory in the configuration file.
 #	installing zabbix will create include directory in /usr/local/etc, unless modified during the compile time.
 #
 Include={{ server_include }}
 
+{% if zabbix_version == '3.0' %}
+### Option: SSLCertLocation
+#       Location of SSL client certificates.
+#       This parameter is used only in web monitoring.
+#
+SSLCertLocation={{ server_sslcertlocation }}
+
+### Option: SSLKeyLocation
+#       Location of private keys for SSL client certificates.
+#       This parameter is used only in web monitoring.
+#
+SSLKeyLocation={{ server_sslkeylocation }}
+
+### Option: SSLCALocation
+#       Override the location of certificate authority (CA) files for SSL server certificate verification.
+#       If not set, system-wide directory will be used.
+#       This parameter is used only in web monitoring and SMTP authentication.
+#
+{% if server_sslcalocation is defined and server_sslcalocation is not none %}
+SSLCALocation={{ server_sslcalocation }}
+{% endif %}
+{% endif %}
+
 ####### loadable modules #######
-{% if zabbix_version == '2.2' or zabbix_version == '2.4' %}
+{% if zabbix_version == '2.2' or zabbix_version == '2.4' or zabbix_version == '3.0' %}
 ### option: loadmodulepath
 #	full path to location of server modules.
 #	default depends on compilation options.
