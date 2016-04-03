@@ -4,6 +4,11 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.5.1   (2016-04-03)
+
+  * Fix for: zabbix_server.conf file mode #14
+  * Fix for: Support for v3+ Server Configuration #13
+
 0.5.0   (2016-03-28)
 
   * Zabbix 3.0
