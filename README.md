@@ -94,7 +94,10 @@ There are some variables in de default/main.yml which can (Or needs to) be chang
 
 * `zabbix_timezone`: This is the timezone. The apache vhost needs this parameter. Default: Europe/Amsterdam
 
-* `zabbix_repo`: True / False. When you already have an repository with the zabbix components, you can set it to False.
+* `zabbix_repo`: Default: _zabbix_
+  * _epel_ install agent from EPEL repo
+  * _zabbix_ (default) install agent from Zabbix repo
+  * _other_ install agent from pre-existing or other repo
 
 * `zabbix_vhost`: True / False. When you don't want to create an apache vhosts, you can set it to False.
 
