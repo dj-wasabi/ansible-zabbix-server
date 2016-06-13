@@ -1,16 +1,16 @@
 ---
 # task file for postgresql
 
-- name: set the correct delegated_dbhost (to support postgres db deployment on a remote dbhost)
+- name: "Set the correct delegated_dbhost (to support postgres db deployment on a remote dbhost)"
   set_fact:
-    delegated_dbhost: "{{server_dbhost if (server_dbhost != 'localhost') else inventory_hostname}}"
+    delegated_dbhost: "{{ server_dbhost if (server_dbhost != 'localhost') else inventory_hostname }}"
 
 - name: "PostgreSQL | Create database"
   postgresql_db: name={{ server_dbname }}
                  state=present
-  sudo: yes
-  sudo_user: postgres
-  delegate_to: "{{delegated_dbhost}}"
+  become: yes
+  become_user: postgres
+  delegate_to: "{{ delegated_dbhost }}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
@@ -22,9 +22,9 @@
                    password={{ server_dbpassword }}
                    priv=ALL
                    state=present
-  sudo: yes
-  sudo_user: postgres
-  delegate_to: "{{delegated_dbhost}}"
+  become: yes
+  become_user: postgres
+  delegate_to: "{{ delegated_dbhost }}"
   when: zabbix_database_creation
   tags:
     - zabbix-server
@@ -47,7 +47,7 @@
     creates: /etc/zabbix/schema.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: zabbix_version != 3.0 and zabbix_database_sqlload
+  when: (zabbix_version != 3.0 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -58,7 +58,7 @@
     creates: /etc/zabbix/images.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: zabbix_version != 3.0 and zabbix_database_sqlload
+  when: (zabbix_version != 3.0 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -69,7 +69,7 @@
     creates: /etc/zabbix/data.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: zabbix_database_sqlload and zabbix_version != 3.0
+  when: (zabbix_database_sqlload and zabbix_version != 3.0) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database

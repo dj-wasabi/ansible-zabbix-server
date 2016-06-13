@@ -23,7 +23,7 @@
 - name: "Debian | Installing repository Debian"
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Debian" and zabbix_repo
+  when: ansible_distribution == "Debian" and zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
@@ -32,7 +32,7 @@
 - name: "Debian | Installing repository Debian"
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Debian" and zabbix_repo
+  when: ansible_distribution == "Debian" and zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
@@ -41,7 +41,7 @@
 - name: "Debian | Installing repository Ubuntu"
   apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Ubuntu" and zabbix_repo
+  when: ansible_distribution == "Ubuntu" and zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
@@ -50,7 +50,7 @@
 - name: "Debian | Installing repository Ubuntu"
   apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
                   state=present
-  when: ansible_distribution == "Ubuntu" and zabbix_repo
+  when: ansible_distribution == "Ubuntu" and zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
@@ -59,7 +59,7 @@
 - name: "Debian | Install gpg key"
   apt_key: id=79EA5ED4
            url=http://repo.zabbix.com/zabbix-official-repo.key
-  when: zabbix_repo
+  when: zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init

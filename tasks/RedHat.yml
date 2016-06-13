@@ -1,7 +1,35 @@
 ---
 # Tasks specific for RedHat systems
 
-- name: "RedHat | Set some facts"
+- name: "RedHat | Set short version name"
+  set_fact:
+      zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Use Zabbix package name"
+  set_fact:
+      zabbix_server_package: "zabbix-server-{{ database_type }}"
+  when: zabbix_repo == "zabbix"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Use EPEL package name"
+  set_fact:
+      zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ database_type }}"
+  when: zabbix_repo == "epel"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Set some facts EPEL"
+  set_fact:
+    apache_log: httpd
+    datafiles_path: "/usr/share/zabbix-{{ database_type_long }}"
+  when: zabbix_repo == "epel"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Set some facts Zabbix"
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
@@ -23,12 +51,12 @@
             owner=root
             group=root
             mode=0644
-  when: zabbix_repo
+  when: zabbix_repo == "zabbix"
   tags:
     - zabbix-server
 
 - name: "RedHat | Installing zabbix-server-{{ database_type }}"
-  yum:  pkg=zabbix-server-{{ database_type }}
+  yum:  pkg={{ zabbix_server_package }}
         state=present
   tags:
     - zabbix-server
