@@ -1,5 +1,6 @@
 <VirtualHost *:80>
   ServerName {{ zabbix_url }}
+  ServerAlias {{ apachectl_version.stdout }}
   {% for alias in zabbix_url_aliases %}
   ServerAlias {{ alias }}
   {% endfor %}
@@ -10,7 +11,7 @@
 {% set directory_paths = ['/usr/share/zabbix/conf', '/usr/share/zabbix/api', '/usr/share/zabbix/include', '/usr/share/zabbix/include/classes'] %}
 
   <Directory "/usr/share/zabbix">
-  {% if zabbix_version == 3.0 %}
+  {% if apache_version|string() == '2.4' %}
     Options FollowSymLinks
     AllowOverride None
     Require all granted
@@ -23,7 +24,7 @@
 
 {% for my_path in directory_paths %}
   <Directory "{{ my_path }}">
-  {% if zabbix_version == 3.0 %}
+  {% if apache_version|string() == '2.4' %}
     Require all granted
   {% else %}
     AllowOverride None

@@ -1,6 +1,14 @@
 ---
 # tasks file for wdijkerman.zabbix
 
+- name: "Get Apache version"
+  action: shell apachectl -v | grep 'version' | awk -F '/' '{ print $2 }'| awk '{ print $1 }' | cut -c 1-3
+  register: apachectl_version
+
+- name: "Set correct apache_version"
+  set_fact:
+    apache_version: "{{ apachectl_version.stdout }}"
+
 - name: "Install the correct repository"
   include: "RedHat.yml"
   when: ansible_os_family == "RedHat"
