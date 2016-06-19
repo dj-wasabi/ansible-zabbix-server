@@ -144,10 +144,10 @@ You'll need to find the correct database role by yourself. I only want to use ro
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: zabbix-server
-      sudo: yes
+      become: yes
       roles:
          - { role: geerlingguy.apache }
-         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl database_type: mysql, database_type_long: mysql }
+         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl, database_type: mysql, database_type_long: mysql }
 
 
 # Test Kitchen
