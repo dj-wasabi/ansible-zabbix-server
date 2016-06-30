@@ -81,7 +81,7 @@ Zabbix 2.2:
 
 #Installation
 
-Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-agent`
+Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-server`
 
 #Role Variables
 
