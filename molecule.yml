@@ -1,4 +1,13 @@
 ---
+molecule:
+  test:
+    sequence:
+      - destroy
+      - create
+      - converge
+      - idempotence
+      - verify
+
 ansible:
   playbook: playbook.yml
   requirements_file: requirements.yml
