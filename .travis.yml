@@ -1,18 +1,17 @@
 ---
+sudo: required
 language: python
-python: "2.7"
+services:
+  - docker
+
 before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq python-apt python-pycurl libapache2-mod-php5
+- sudo apt-get -qq update
+- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+
 install:
-  - pip install ansible==1.9.4
-  - echo -e 'localhost  ansible_connection=local' > test/inventory
-  - echo -e '[defaults]\nroles_path = ../\nhostfile = ./test/inventory' > ansible.cfg
-  - ansible-galaxy install geerlingguy.apache
-  - ansible-galaxy install geerlingguy.mysql
-  - ansible-galaxy install ANXS.mysql
+- pip install molecule
+
 script:
-  - ansible-playbook test/integration/zabbix-server-mysql.yml --syntax-check
-  - ansible-playbook test/integration/zabbix-server-mysql.yml --connection=local --sudo
+- molecule test
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

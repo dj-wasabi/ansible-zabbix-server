@@ -4,7 +4,7 @@
 
 zabbix_url: zabbix.example.com
 zabbix_url_aliases: []
-zabbix_version: 2.4
+zabbix_version: 3.0
 zabbix_timezone: Europe/Amsterdam
 zabbix_repo: zabbix
 zabbix_vhost: True
@@ -18,18 +18,18 @@ database_type_long: postgresql
 
 # zabbix-server specific vars
 server_listenport: 10051
-server_sourceip: 
+server_sourceip:
 server_logfile: /var/log/zabbix/zabbix_server.log
 server_logfilesize: 10
 server_debuglevel: 3
 server_pidfile: /var/run/zabbix/zabbix_server.pid
 server_dbhost: localhost
 server_dbname: zabbix-server
-server_dbschema: 
+server_dbschema:
 server_dbuser: zabbix-server
 server_dbpassword: zabbix-server
-server_dbsocket: 
-server_dbport: 
+server_dbsocket:
+server_dbport:
 server_startpollers: 5
 server_startipmipollers: 0
 server_startpollersunreachable: 1
@@ -38,7 +38,7 @@ server_startpingers: 1
 server_startdiscoverers: 1
 server_starthttppollers: 1
 server_starttimers: 1
-server_javagateway: 
+server_javagateway:
 server_javagatewayport: 10052
 server_startjavapollers: 5
 server_startvmwarecollectors: 0
@@ -46,7 +46,7 @@ server_vmwarefrequency: 60
 server_vmwarecachesize: 8M
 server_snmptrapperfile: /tmp/zabbix_traps.tmp
 server_startsnmptrapper: 0
-server_listenip: 
+server_listenip:
 server_housekeepingfrequency: 1
 server_maxhousekeeperdelete: 500
 server_senderfrequency: 30
@@ -69,7 +69,7 @@ server_alertscriptspath: ${datadir}/zabbix/alertscripts
 server_externalscripts: /usr/lib/zabbix/externalscripts
 server_fpinglocation: /usr/sbin/fping
 server_fping6location: /usr/sbin/fping6
-server_sshkeylocation: 
+server_sshkeylocation:
 server_logslowqueries: 0
 server_tmpdir: /tmp
 server_startproxypollers: 1

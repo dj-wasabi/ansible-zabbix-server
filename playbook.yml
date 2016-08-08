@@ -1,0 +1,23 @@
+---
+- hosts: all
+  pre_tasks:
+    - name: "Installing which"
+      action: yum
+              name={{ item }}
+              state=installed
+      with_items:
+        - net-tools
+        - which
+    - name: "Add zabbix.example.com to hosts file."
+      action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
+    - name: "Make sure we can sudo in the deployment"
+      lineinfile: dest=/etc/sudoers line="Defaults    !requiretty" state=present
+    - name: "Make sure the docs are installed to"
+      lineinfile: dest=/etc/yum.conf line="tsflags=nodocs" state=absent
+
+  roles:
+    - role: galaxyprojectdotorg.postgresql
+      when: inventory_hostname in groups['postgresql']
+    - role: geerlingguy.mysql
+      when: inventory_hostname in groups['mysql']
+    - role: ansible-zabbix-server
