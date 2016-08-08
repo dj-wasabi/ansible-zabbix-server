@@ -107,6 +107,10 @@ There are some variables in de default/main.yml which can (Or needs to) be chang
 
 * `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 
+* `server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
+
+* `server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin` 
+
 ## Zabbix 3
 
 These variables are specific for Zabbix 3.0
