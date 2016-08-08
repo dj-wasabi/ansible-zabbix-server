@@ -5,8 +5,8 @@ molecule:
       - destroy
       - create
       - converge
-      - idempotence
       - verify
+      - destroy
 
 ansible:
   playbook: playbook.yml
