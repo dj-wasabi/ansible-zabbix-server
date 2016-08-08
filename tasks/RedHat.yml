@@ -128,7 +128,7 @@
              persistent=yes
   with_items:
     - httpd_can_connect_zabbix
-  when: zabbix_web
+  when: zabbix_web and selinux_allow_zabbix_can_http
   tags:
     - zabbix-server 
 

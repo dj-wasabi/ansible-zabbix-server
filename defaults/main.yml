@@ -93,3 +93,4 @@ server_vmwaretimeout: 10
 
 # SELinux specific 
 selinux_allow_zabbix_can_network: False
+selinux_allow_zabbix_can_http: False
