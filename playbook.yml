@@ -8,6 +8,7 @@
       with_items:
         - net-tools
         - which
+        - libselinux-python
     - name: "Add zabbix.example.com to hosts file."
       action: shell echo '127.0.0.1 zabbix.example.com' >> /etc/hosts
     - name: "Make sure we can sudo in the deployment"
