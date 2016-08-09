@@ -7,6 +7,8 @@
 - name: "MySQL | Create database"
   mysql_db: name={{ server_dbname }}
             state=present
+            encoding={{ server_dbencoding }}
+            collation={{ server_dbcollation }}
   when: zabbix_database_creation
   delegate_to: "{{ delegated_dbhost }}"
   tags:
