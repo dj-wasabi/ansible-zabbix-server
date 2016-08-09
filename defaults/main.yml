@@ -25,6 +25,8 @@ server_debuglevel: 3
 server_pidfile: /var/run/zabbix/zabbix_server.pid
 server_dbhost: localhost
 server_dbname: zabbix-server
+server_dbencoding: utf8
+server_dbcollation: utf8_bin
 server_dbschema: 
 server_dbuser: zabbix-server
 server_dbpassword: zabbix-server
