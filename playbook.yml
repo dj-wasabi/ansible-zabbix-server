@@ -20,7 +20,7 @@
       register: my_hosts
     - name: "Debug"
       action: debug
-              var="{{ my_hosts }}"
+              var=my_hosts
 
   roles:
     - role: galaxyprojectdotorg.postgresql
