@@ -123,18 +123,18 @@
     - zabbix-server
 
 - name: "RedHat | Enable httpd_can_connect_zabbix SELinux boolean"
-  seboolean: name={{ item }} 
-             state=yes 
+  seboolean: name={{ item }}
+             state=yes
              persistent=yes
   with_items:
     - httpd_can_connect_zabbix
   when: zabbix_web and selinux_allow_zabbix_can_http
   tags:
-    - zabbix-server 
+    - zabbix-server
 
 - name: "RedHat | Enable zabbix_can_network SELinux boolean"
-  seboolean: name={{ item }} 
-             state=yes 
+  seboolean: name={{ item }}
+             state=yes
              persistent=yes
   with_items:
     - zabbix_can_network

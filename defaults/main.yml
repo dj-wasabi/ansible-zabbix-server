@@ -91,6 +91,6 @@ server_startescalators: 1
 server_vmwareperffrequency: 60
 server_vmwaretimeout: 10
 
-# SELinux specific 
+# SELinux specific
 selinux_allow_zabbix_can_network: False
 selinux_allow_zabbix_can_http: False
