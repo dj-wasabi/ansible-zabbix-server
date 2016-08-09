@@ -1,0 +1,41 @@
+---
+molecule:
+  test:
+    sequence:
+      - destroy
+      - create
+      - converge
+      - verify
+      - destroy
+
+ansible:
+  playbook: playbook.yml
+  requirements_file: requirements.yml
+  config_file: ansible.cfg
+  group_vars:
+    mysql:
+      - database_type: mysql
+        database_type_long: mysql
+    postgresql:
+      - database_type: pgsql
+        database_type_long: postgresql
+        postgresql_pg_hba_conf:
+          - "host all all 127.0.0.1/32 trust"
+          - "host all all ::1/128 trust"
+        postgresql_pg_hba_local_ipv4: false
+        postgresql_pg_hba_local_ipv6: false
+
+docker:
+  containers:
+  - name: zabbix-server-mysql-centos
+    ansible_groups:
+      - mysql
+    image: milcom/centos7-systemd
+    image_version: latest
+    privileged: True
+  - name: zabbix-server-pgsql-centos
+    ansible_groups:
+      - postgresql
+    image: milcom/centos7-systemd
+    image_version: latest
+    privileged: True

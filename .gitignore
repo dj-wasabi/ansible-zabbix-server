@@ -2,5 +2,5 @@
 .idea/
 .bundle/
 vendor/
-test/integration/zabbix-server-mysql/serverspec/localhost/.kitchen
-test/integration/zabbix-server-pgsql/serverspec/localhost/.kitchen
+*.retry
+.molecule
