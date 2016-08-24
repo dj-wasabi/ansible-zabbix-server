@@ -4,3 +4,5 @@
 vendor/
 *.retry
 .molecule
+.cache
+__pycache__
