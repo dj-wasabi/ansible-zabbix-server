@@ -4,6 +4,15 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.6.0   (2016-08-24)
+
+  * Removed Test Kitchen tests, added molecule tests
+  * Added collation and encoding for MySQL databases #23
+  * Add SELinux specifics #19 (By pull request: mescanef (Thanks!))
+  * Fixes in the README.md file #18 (By pull request: mescanef (Thanks!))
+  * Fix for: zabbix_repo - inconsistent use between server and agent roles. #17
+  * Fix for: apache 2.2. and 2.4 #15
+
 0.5.1   (2016-04-03)
 
   * Fix for: zabbix_server.conf file mode #14

@@ -27,7 +27,7 @@ server_dbhost: localhost
 server_dbname: zabbix-server
 server_dbencoding: utf8
 server_dbcollation: utf8_bin
-server_dbschema: 
+server_dbschema:
 server_dbuser: zabbix-server
 server_dbpassword: zabbix-server
 server_dbsocket:

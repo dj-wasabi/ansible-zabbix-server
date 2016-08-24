@@ -168,6 +168,7 @@ The following have contributed to this Ansible role (List of Fame):
   * clopnis
   * SAL-e
   * lhoss
+  * mescanef
 
 # License
 
