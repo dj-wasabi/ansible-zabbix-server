@@ -4,6 +4,10 @@ language: python
 services:
   - docker
 
+addons:
+  hosts:
+    - zabbix.example.com
+
 before_install:
 - sudo apt-get -qq update
 - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
