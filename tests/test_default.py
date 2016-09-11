@@ -64,12 +64,12 @@ def test_zabbix_web(File):
     assert zabbix_web.mode == 0o644
 
 
-# def test_http_status():
-#     zabbix = requests.get('http://zabbix.example.com')
-#     zabbix_status_code = zabbix.status_code
-#     assert zabbix_status_code == 200
-#
-#
+def test_http_status():
+    zabbix = requests.get('http://zabbix.example.com')
+    zabbix_status_code = zabbix.status_code
+    assert zabbix_status_code == 200
+
+
 # def test_http_api_login():
 #     data_login = '{"params": {"password":"zabbix", "user":"Admin"}, "jsonrpc":"2.0", "method":"user.login", "id":0}'
 #     headers = {'Content-Type': 'application/json-rpc'}
