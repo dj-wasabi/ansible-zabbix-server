@@ -4,7 +4,7 @@
 
 zabbix_url: zabbix.example.com
 zabbix_url_aliases: []
-zabbix_version: 3.0
+zabbix_version: 3.2
 zabbix_timezone: Europe/Amsterdam
 zabbix_repo: zabbix
 zabbix_vhost: True
