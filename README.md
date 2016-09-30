@@ -49,6 +49,16 @@ Please sent Pull Requests or suggestions when you want to use this role for othe
 
 See the following list of supported Operating systems with the Zabbix releases:
 
+Zabbix 3.2:
+
+  * CentOS 7.x
+  * Amazon 7.x
+  * RedHat 7.x
+  * OracleLinux 7.x
+  * Scientific Linux 7.x
+  * Ubuntu 14.04, 16.04
+  * Debian 7, 8
+
 Zabbix 3.0:
 
   * CentOS 5.x, 6.x, 7.x
@@ -90,7 +100,7 @@ There are some variables in de default/main.yml which can (Or needs to) be chang
 
 * `zabbix_url`: This is the url on which the zabbix web interface is available. Default is zabbix.example.com, you should override it. For example, see "Example Playbook"
 
-* `zabbix_version`: This is the version of zabbix. Default it is 3.0, but can be overriden to 2.4, 2.2 or 2.0.
+* `zabbix_version`: This is the version of zabbix. Default it is 3.2, but can be overriden to 2.0, 2.4, 2.2 or 2.0.
 
 * `zabbix_timezone`: This is the timezone. The apache vhost needs this parameter. Default: Europe/Amsterdam
 
