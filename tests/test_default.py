@@ -1,6 +1,5 @@
 from testinfra.utils.ansible_runner import AnsibleRunner
 import pytest
-import requests
 
 testinfra_hosts = AnsibleRunner('.molecule/ansible_inventory').get_hosts('all')
 
@@ -62,28 +61,3 @@ def test_zabbix_web(File):
     assert zabbix_web.user == "zabbix"
     assert zabbix_web.group == "zabbix"
     assert zabbix_web.mode == 0o644
-
-
-# def test_http_status():
-#     zabbix = requests.get('http://zabbix.example.com')
-#     zabbix_status_code = zabbix.status_code
-#     assert zabbix_status_code == 200
-#
-#
-# def test_http_api_login():
-#     data_login = '{"params": {"password":"zabbix", "user":"Admin"}, "jsonrpc":"2.0", "method":"user.login", "id":0}'
-#     headers = {'Content-Type': 'application/json-rpc'}
-#     zabbix = requests.post('http://zabbix.example.com/api_jsonrpc.php', data=data_login, headers=headers, timeout=30)
-#     zabbix_api_status = zabbix.status_code
-#     zabbix_api_json = zabbix.json()
-#     assert zabbix_api_status == 200
-#     assert zabbix_api_json['id'] == 0
-#
-#     zabbix_api_token = zabbix_api_json['result']
-#     data_search = '''{"jsonrpc": "2.0","method": "host.get","params":
-#     {"output": "extend","filter": {"host": ["Zabbix server"]}},"auth":"''' + zabbix_api_token + '''","id": 1}'''
-#     zabbix = requests.post('http://zabbix.example.com/api_jsonrpc.php', data=data_search, headers=headers, timeout=30)
-#     zabbix_api_search_status = zabbix.status_code
-#     zabbix_api_search_json = zabbix.json()
-#     assert zabbix_api_search_status == 200
-#     assert zabbix_api_search_json['result'][0]['host'] == 'Zabbix server'
