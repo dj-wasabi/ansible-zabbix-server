@@ -4,7 +4,7 @@
   set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
-  when: zabbix_version != 3.0
+  when: zabbix_short_version < 30
   tags:
     - zabbix-server
     - init
@@ -14,7 +14,7 @@
   set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/doc/zabbix-server-{{ database_type }}
-  when: zabbix_version == 3.0
+  when: zabbix_short_version >= 30
   tags:
     - zabbix-server
     - init
@@ -140,7 +140,8 @@
     - database
 
 - name: "Debian | Install PostgreSQL Client package"
-  apt: name=postgresql state=present
+  apt: name=postgresql
+       state=present
   when: database_type == 'pgsql'
   tags:
     - zabbix-server
