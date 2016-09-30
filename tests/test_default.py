@@ -27,11 +27,11 @@ def test_zabbix_package(Package, TestinfraBackend, server, web, SystemInfo):
         assert zabbix_web.is_installed
 
         if SystemInfo.distribution == 'debian':
-            assert zabbix_server.version.startswith("1:3.0")
-            assert zabbix_web.version.startswith("1:3.0")
+            assert zabbix_server.version.startswith("1:3.2")
+            assert zabbix_web.version.startswith("1:3.2")
         elif SystemInfo.distribution == 'centos':
-            assert zabbix_server.version.startswith("3.0")
-            assert zabbix_web.version.startswith("3.0")
+            assert zabbix_server.version.startswith("3.2")
+            assert zabbix_web.version.startswith("3.2")
 
 
 def test_socket(Socket):
