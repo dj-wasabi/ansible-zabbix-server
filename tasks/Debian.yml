@@ -140,7 +140,8 @@
     - database
 
 - name: "Debian | Install PostgreSQL Client package"
-  apt: name=postgresql state=present
+  apt: name=postgresql
+       state=present
   when: database_type == 'pgsql'
   tags:
     - zabbix-server

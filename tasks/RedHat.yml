@@ -102,7 +102,7 @@
 
 - name: "RedHat | Install PostgreSQL client package"
   yum: name=postgresql
-       state=latest
+       state=present
   when: database_type == 'pgsql'
   tags:
     - zabbix-server
