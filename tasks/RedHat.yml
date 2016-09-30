@@ -1,12 +1,6 @@
 ---
 # Tasks specific for RedHat systems
 
-- name: "RedHat | Set short version name"
-  set_fact:
-      zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
-  tags:
-    - zabbix-server
-
 - name: "RedHat | Use Zabbix package name"
   set_fact:
       zabbix_server_package: "zabbix-server-{{ database_type }}"
@@ -29,19 +23,19 @@
   tags:
     - zabbix-server
 
-- name: "RedHat | Set some facts Zabbix"
+- name: "RedHat | Set some facts Zabbix < 3.0"
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
-  when: zabbix_version != 3.0
+  when: zabbix_short_version < 30
   tags:
     - zabbix-server
 
-- name: "RedHat | Set facts for Zabbix 3.0"
+- name: "RedHat | Set facts for Zabbix >= 3.0"
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*"
-  when: zabbix_version == 3.0
+  when: zabbix_short_version >= 30
   tags:
     - zabbix-server
 
