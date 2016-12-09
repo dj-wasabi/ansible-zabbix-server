@@ -25,6 +25,10 @@ ansible:
         postgresql_pg_hba_local_ipv4: false
         postgresql_pg_hba_local_ipv6: false
 
+driver:
+  name: docker
+dependency:
+  name: galaxy
 docker:
   containers:
   - name: zabbix-server-mysql-centos
@@ -39,3 +43,6 @@ docker:
     image: milcom/centos7-systemd
     image_version: latest
     privileged: True
+
+verifier:
+  name: testinfra
