@@ -3,6 +3,7 @@
 # zabbix role specific
 
 zabbix_url: zabbix.example.com
+zabbix_apache_vhost_port: 80
 zabbix_url_aliases: []
 zabbix_version: 3.0
 zabbix_timezone: Europe/Amsterdam

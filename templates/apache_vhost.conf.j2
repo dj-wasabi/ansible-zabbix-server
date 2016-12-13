@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:{{ zabbix_apache_vhost_port }}>
   ServerName {{ zabbix_url }}
   ServerAlias {{ apachectl_version.stdout }}
   {% for alias in zabbix_url_aliases %}
