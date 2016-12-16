@@ -24,7 +24,7 @@ Build Status:
 
 [![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server)
 
-This is an role for installing and maintaining the zabbix-server. 
+This is an role for installing and maintaining the zabbix-server.
 
 This is one of the 'dj-wasabi' roles which configures your whole zabbix environment. See an list for the complete list:
 
@@ -109,7 +109,7 @@ There are some variables in de default/main.yml which can (Or needs to) be chang
 
 * `server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 
-* `server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin` 
+* `server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
 
 ## Zabbix 3
 
@@ -125,15 +125,17 @@ These variables are specific for Zabbix 3.0
 
 ## Database
 
-There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the defaults/main.yml file. There are 2 which needs some explanation:
+There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the defaults/main.yml file. There are 3 which needs some explanation:
 ```bash
   #database_type: mysql
   #database_type_long: mysql
   database_type: pgsql
   database_type_long: postgresql
+  [...]
+  server_dbport: 5432
 ```
 
-There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use. In example from above, the postgresql database is used. If you want to use mysql, uncomment the 2 lines from mysql and comment the 2 lines for postgresql.
+There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use and adjust the port number (`server_dbport`) accordingly (`5432` is the default postgresql port). In example from above, the postgresql database is used. If you want to use mysql, uncomment the 2 lines from mysql and comment the 2 lines for postgresql and change the database port to the mysql one (default mysql port is `3306`).
 
 # Dependencies
 
@@ -176,7 +178,7 @@ GPLv3
 
 # Author Information
 
-This is my first attempt to create an ansible role, so please send suggestion or pull requests to make this role better. 
+This is my first attempt to create an ansible role, so please send suggestion or pull requests to make this role better.
 
 Github: https://github.com/dj-wasabi/ansible-zabbix-server
 
