@@ -16,6 +16,7 @@ ansible:
     mysql:
       - database_type: mysql
         database_type_long: mysql
+        server_dbport: 3306
     postgresql:
       - database_type: pgsql
         database_type_long: postgresql
