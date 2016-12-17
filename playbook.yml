@@ -22,7 +22,9 @@
 
   roles:
     - role: galaxyprojectdotorg.postgresql
-      when: inventory_hostname in groups['postgresql']
+      when: inventory_hostname == "zabbix-server-pgsql-centos"
+      ignore_errors: True
     - role: geerlingguy.mysql
-      when: inventory_hostname in groups['mysql']
+      when: inventory_hostname == "zabbix-server-mysql-centos"
+      ignore_errors: True
     - role: ansible-zabbix-server

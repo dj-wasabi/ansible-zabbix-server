@@ -10,12 +10,13 @@ molecule:
 
 ansible:
   playbook: playbook.yml
-  requirements_file: requirements.yml
   config_file: ansible.cfg
+  inventory_file: inventory
   group_vars:
     mysql:
       - database_type: mysql
         database_type_long: mysql
+        server_dbport: 3306
     postgresql:
       - database_type: pgsql
         database_type_long: postgresql
@@ -25,17 +26,30 @@ ansible:
         postgresql_pg_hba_local_ipv4: false
         postgresql_pg_hba_local_ipv6: false
 
+dependency:
+  name: galaxy
+  requirements_file: requirements.yml
+  options:
+      ignore-certs: True
+      ignore-errors: True
+
+driver:
+  name: docker
+
 docker:
   containers:
-  - name: zabbix-server-mysql-centos
-    ansible_groups:
-      - mysql
-    image: milcom/centos7-systemd
-    image_version: latest
-    privileged: True
-  - name: zabbix-server-pgsql-centos
-    ansible_groups:
-      - postgresql
-    image: milcom/centos7-systemd
-    image_version: latest
-    privileged: True
+    - name: zabbix-server-mysql-centos
+      ansible_groups:
+        - mysql
+      image: milcom/centos7-systemd
+      image_version: latest
+      privileged: True
+    - name: zabbix-server-pgsql-centos
+      ansible_groups:
+        - postgresql
+      image: milcom/centos7-systemd
+      image_version: latest
+      privileged: True
+
+verifier:
+  name: testinfra

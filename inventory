@@ -1,0 +1,5 @@
+[postgresql]
+zabbix-server-pgsql-centos ansible_connection=docker
+
+[mysql]
+zabbix-server-mysql-centos ansible_connection=docker
