@@ -4,7 +4,7 @@ global $DB;
 
 $DB['TYPE']     = '{{ database_type_long|upper() }}';
 $DB['SERVER']   = '{{ server_dbhost }}';
-$DB['PORT']     = '0';
+$DB['PORT']     = '{{ server_dbport }}';
 $DB['DATABASE'] = '{{ server_dbname }}';
 $DB['USER']     = '{{ server_dbuser }}';
 $DB['PASSWORD'] = '{{ server_dbpassword }}';
