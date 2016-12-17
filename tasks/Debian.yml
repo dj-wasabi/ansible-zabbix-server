@@ -20,37 +20,14 @@
     - init
     - config
 
-- name: "Debian | Installing repository Debian"
-  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
-                  state=present
-  when: ansible_distribution == "Debian" and zabbix_repo == "zabbix"
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Debian | Installing repository Debian"
-  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/ {{ ansible_distribution_release }} main"
-                  state=present
-  when: ansible_distribution == "Debian" and zabbix_repo == "zabbix"
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Debian | Installing repository Ubuntu"
-  apt_repository: repo="deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
-                  state=present
-  when: ansible_distribution == "Ubuntu" and zabbix_repo == "zabbix"
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Debian | Installing repository Ubuntu"
-  apt_repository: repo="deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/ubuntu/ {{ ansible_distribution_release }} main"
-                  state=present
-  when: ansible_distribution == "Ubuntu" and zabbix_repo == "zabbix"
+- name: "Debian | Installing repository {{ ansible_distribution }}"
+  apt_repository:
+    repo: "{{ item }} http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/ {{ ansible_distribution_release }} main"
+    state: present
+  when: zabbix_repo == "zabbix"
+  with_items:
+    - deb-src
+    - deb
   tags:
     - zabbix-server
     - init
