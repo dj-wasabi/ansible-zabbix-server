@@ -5,16 +5,23 @@
   set_fact:
       zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
   tags:
-    - zabbix-server
+    - always
 
 - name: "Get Apache version"
   action: shell apachectl -v | grep 'version' | awk -F '/' '{ print $2 }'| awk '{ print $1 }' | cut -c 1-3
   changed_when: apachectl_version.rc == 7
   register: apachectl_version
+  always_run: yes
+  tags:
+    - zabbix-server
+    - apache
 
 - name: "Set correct apache_version"
   set_fact:
     apache_version: "{{ apachectl_version.stdout }}"
+  tags:
+    - zabbix-server
+    - apache
 
 - name: "Install the correct repository"
   include: "RedHat.yml"
