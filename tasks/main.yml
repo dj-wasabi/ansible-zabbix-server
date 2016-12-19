@@ -63,6 +63,17 @@
     - init
     - config
 
+- name: "Create zabbix-web directory"
+  file: path=/etc/zabbix/web
+        owner=zabbix
+        group=zabbix
+        state=directory
+        mode=0644
+  tags:
+    - zabbix-server
+    - init
+    - config
+        
 - name: "Configure zabbix-web"
   template: src=zabbix.conf.php.j2
             dest=/etc/zabbix/web/zabbix.conf.php
