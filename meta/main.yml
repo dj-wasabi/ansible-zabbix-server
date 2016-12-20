@@ -22,4 +22,4 @@ galaxy_info:
   categories:
   - monitoring
 dependencies:
-- { role: geerlingguy.apache }
+- { role: geerlingguy.apache, tags: apache }
