@@ -117,7 +117,7 @@
     - database
 
 - name: "Debian | Install PostgreSQL Client package"
-  apt: name=postgresql
+  apt: name=postgresql-client
        state=present
   when: database_type == 'pgsql'
   tags:
