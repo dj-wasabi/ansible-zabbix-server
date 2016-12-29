@@ -1,6 +1,9 @@
 ---
 # tasks file for wdijkerman.zabbix
 
+- name: "Include OS-specific variables"
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: "Set short version name"
   set_fact:
       zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
@@ -72,10 +75,10 @@
 
 - name: "Create zabbix-web directory"
   file: path=/etc/zabbix/web
-        owner=zabbix
-        group=zabbix
+        owner={{ apache_user }}
+        group={{ apache_group }}
         state=directory
-        mode=0644
+        mode=0755
   tags:
     - zabbix-server
     - init
@@ -84,8 +87,8 @@
 - name: "Configure zabbix-web"
   template: src=zabbix.conf.php.j2
             dest=/etc/zabbix/web/zabbix.conf.php
-            owner=zabbix
-            group=zabbix
+            owner={{ apache_user }}
+            group={{ apache_group }}
             mode=0644
   tags:
     - zabbix-server
