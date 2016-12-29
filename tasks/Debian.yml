@@ -3,8 +3,6 @@
 - name: "Debian | Set some facts"
   set_fact:
     apache_log: apache2
-    apache_user: www-data
-    apache_group: www-data
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
   when: zabbix_short_version < 30
   tags:

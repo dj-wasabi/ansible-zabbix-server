@@ -18,8 +18,6 @@
 - name: "RedHat | Set some facts EPEL"
   set_fact:
     apache_log: httpd
-    apache_user: apache
-    apache_group: apache
     datafiles_path: "/usr/share/zabbix-{{ database_type_long }}"
   when: zabbix_repo == "epel"
   tags:
