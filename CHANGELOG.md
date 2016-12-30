@@ -4,6 +4,17 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.7.0   (2016-12-30)
+
+  * Set up distributive-related config-ownership #40 (By pull request: envrm (Thanks!))
+  * fix apache restart when using tag 'apache' … #39 (By pull request: lhoss (Thanks!))
+  * debian/ubuntu: install postgresql-client pkg (instead of postgresql which contains the postgres server) #38 (By pull request: lhoss (Thanks!))
+  * fix early failures when running the zabbix-server playbook in check-mode #37 (By pull request: lhoss (Thanks!))
+  * Update main.yml #36 (By pull request: cognoscibilis (Thanks!))
+  * Configurable zabbix server port and database port #34 (By pull request: vincepii (Thanks!))
+  * debian and ubuntu repository install was generalized #32 (By pull request: matheuscunha (Thanks!))
+  * Zabbix 3.2.0
+
 0.6.0   (2016-08-24)
 
   * Removed Test Kitchen tests, added molecule tests
