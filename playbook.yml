@@ -16,14 +16,14 @@
         dest: /etc/sudoers
         line: "Defaults    !requiretty"
         state: present
-      changed_when: installation_dependencies.rc == 12
+      changed_when: installation_dependencies.changed
 
     - name: "Make sure the docs are installed."
       lineinfile:
         dest: /etc/yum.conf
         line: "tsflags=nodocs"
         state: absent
-      changed_when: installation_dependencies.rc == 12
+      changed_when: installation_dependencies.changed
 
   roles:
     - role: galaxyprojectdotorg.postgresql
