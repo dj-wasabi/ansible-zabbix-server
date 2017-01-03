@@ -1,7 +1,7 @@
 from testinfra.utils.ansible_runner import AnsibleRunner
 import pytest
 
-testinfra_hosts = AnsibleRunner('.molecule/ansible_inventory').get_hosts('all')
+testinfra_hosts = AnsibleRunner('inventory').get_hosts('all')
 
 
 def test_zabbiserver_running_and_enabled(Service):
@@ -58,6 +58,6 @@ def test_zabbix_include_dir(File):
 
 def test_zabbix_web(File):
     zabbix_web = File("/etc/zabbix/web/zabbix.conf.php")
-    assert zabbix_web.user == "zabbix"
-    assert zabbix_web.group == "zabbix"
+    assert zabbix_web.user == "apache"
+    assert zabbix_web.group == "apache"
     assert zabbix_web.mode == 0o644
