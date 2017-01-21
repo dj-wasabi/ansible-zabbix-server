@@ -50,8 +50,8 @@
     - zabbix-server
     - init
 
-- name: "Debian | Install php5-{{ database_type }}"
-  apt: pkg=php5-{{ database_type }}
+- name: "Debian | Install php-{{ database_type }}"
+  apt: pkg=php-{{ database_type }}
        state=present
        update_cache=yes
        cache_valid_time=3600
