@@ -72,10 +72,24 @@
 
 - name: "Debian | install apache vhost"
   template: src=apache_vhost.conf.j2
-            dest=/etc/apache2/sites-enabled/zabbix.conf
+            dest=/etc/apache2/sites-available/zabbix.conf
             owner=root
             group=root
             mode=0644
+  when: zabbix_vhost and zabbix_web
+  notify: restart apache
+  tags:
+    - zabbix-server
+    - init
+    - config
+    - apache
+
+- name: "Debian | enable apache vhost"
+  file: src=/etc/apache2/sites-available/zabbix.conf
+        dest=/etc/apache2/sites-enabled/zabbix.conf
+        owner=root
+        group=root
+        state=link
   when: zabbix_vhost and zabbix_web
   notify: restart apache
   tags:
