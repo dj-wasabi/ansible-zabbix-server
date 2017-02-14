@@ -15,17 +15,17 @@ ansible:
   inventory_file: inventory
   group_vars:
     mysql:
-      - database_type: mysql
-        database_type_long: mysql
-        server_dbport: 3306
+      database_type: mysql
+      database_type_long: mysql
+      server_dbport: 3306
     postgresql:
-      - database_type: pgsql
-        database_type_long: postgresql
-        postgresql_pg_hba_conf:
-          - "host all all 127.0.0.1/32 trust"
-          - "host all all ::1/128 trust"
-        postgresql_pg_hba_local_ipv4: false
-        postgresql_pg_hba_local_ipv6: false
+      database_type: pgsql
+      database_type_long: postgresql
+      postgresql_pg_hba_conf:
+        - "host all all 127.0.0.1/32 trust"
+        - "host all all ::1/128 trust"
+      postgresql_pg_hba_local_ipv4: false
+      postgresql_pg_hba_local_ipv6: false
 
 dependency:
   name: galaxy
