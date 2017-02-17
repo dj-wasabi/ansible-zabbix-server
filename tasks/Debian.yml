@@ -55,6 +55,20 @@
        state=present
        update_cache=yes
        cache_valid_time=3600
+  when: ansible_distribution != 'Ubuntu' and
+        ansible_distribution_version != '16.04'
+  tags:
+    - zabbix-server
+    - init
+
+- name: "Ubuntu | Install php7-{{ database_type }}"
+  apt: pkg={{ item }}
+       state=present
+       update_cache=yes
+       cache_valid_time=3600
+  with_items: "{{ ubuntu_packages }}"
+  when: ansible_distribution == 'Ubuntu' and
+        ansible_distribution_version == '16.04'
   tags:
     - zabbix-server
     - init

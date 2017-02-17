@@ -4,33 +4,37 @@ import pytest
 testinfra_hosts = AnsibleRunner('inventory').get_hosts('all')
 
 
-def test_zabbiserver_running_and_enabled(Service):
-    zabbix = Service("zabbix-server")
-    assert zabbix.is_enabled
-    assert zabbix.is_running
+def test_zabbiserver_running_and_enabled(Service, SystemInfo):
+    if SystemInfo.distribution == 'centos':
+        zabbix = Service("zabbix-server")
+        assert zabbix.is_enabled
+        assert zabbix.is_running
 
 
-@pytest.mark.parametrize("server, web", [
-    ("zabbix-server-pgsql", "zabbix-web-pgsql"),
-    ("zabbix-server-mysql", "zabbix-web-mysql"),
-])
-def test_zabbix_package(Package, TestinfraBackend, server, web, SystemInfo):
+@pytest.mark.parametrize("server, redhat, debian", (
+        ("zabbix-server-pgsql", "zabbix-web-pgsql", "zabbix-frontend-php"),
+        ("zabbix-server-mysql", "zabbix-web-mysql", "zabbix-frontend-php"),
+))
+def test_zabbix_package(Package, TestinfraBackend, server, redhat, debian, SystemInfo):
     host = TestinfraBackend.get_hostname()
     host = host.replace("-centos", "")
     host = host.replace("-debian", "")
+    host = host.replace("-ubuntu", "")
 
     if host == server:
-        zabbix_server = Package(server)
-        zabbix_web = Package(web)
-        assert zabbix_server.is_installed
-        assert zabbix_web.is_installed
-
-        if SystemInfo.distribution == 'debian':
+        if SystemInfo.distribution in ['debian', 'ubuntu']:
+            zabbix_server = Package(server)
+            zabbix_web = Package(debian)
             assert zabbix_server.version.startswith("1:3.2")
             assert zabbix_web.version.startswith("1:3.2")
         elif SystemInfo.distribution == 'centos':
+            zabbix_server = Package(server)
+            zabbix_web = Package(redhat)
             assert zabbix_server.version.startswith("3.2")
             assert zabbix_web.version.startswith("3.2")
+
+        assert zabbix_server.is_installed
+        assert zabbix_web.is_installed
 
 
 def test_socket(Socket):
@@ -56,8 +60,13 @@ def test_zabbix_include_dir(File):
     # assert zabbix_include_dir.mode == 0o644
 
 
-def test_zabbix_web(File):
+def test_zabbix_web(File, SystemInfo):
     zabbix_web = File("/etc/zabbix/web/zabbix.conf.php")
-    assert zabbix_web.user == "apache"
-    assert zabbix_web.group == "apache"
+
+    if SystemInfo.distribution in ['debian', 'ubuntu']:
+        assert zabbix_web.user == "www-data"
+        assert zabbix_web.group == "www-data"
+    elif SystemInfo.distribution == 'centos':
+        assert zabbix_web.user == "apache"
+        assert zabbix_web.group == "apache"
     assert zabbix_web.mode == 0o644
