@@ -10,6 +10,16 @@
         - which
         - libselinux-python
       register: installation_dependencies
+      when: ansible_distribution == 'CentOS'
+
+    - name: "Installing which on NON-CentOS"
+      action: apt
+              name={{ item }}
+              state=installed
+      with_items:
+        - net-tools
+      register: installation_dependencies
+      when: ansible_distribution != 'CentOS'
 
     - name: "Configure SUDO."
       lineinfile:
