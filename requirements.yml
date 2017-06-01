@@ -1,4 +1,4 @@
 ---
 - src: geerlingguy.apache
 - src: geerlingguy.mysql
-- src: galaxyprojectdotorg.postgresql
+- src: geerlingguy.postgresql

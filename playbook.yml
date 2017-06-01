@@ -2,9 +2,9 @@
 - hosts: all
   pre_tasks:
     - name: "Installing which"
-      action: yum
-              name={{ item }}
-              state=installed
+      yum:
+        name: "{{ item }}"
+        state: installed
       with_items:
         - net-tools
         - which
@@ -13,9 +13,9 @@
       when: ansible_distribution == 'CentOS'
 
     - name: "Installing which on NON-CentOS"
-      action: apt
-              name={{ item }}
-              state=installed
+      apt:
+        name: "{{ item }}"
+        state: installed
       with_items:
         - net-tools
       register: installation_dependencies
@@ -36,7 +36,7 @@
       changed_when: installation_dependencies.changed
 
   roles:
-    - role: galaxyprojectdotorg.postgresql
+    - role: geerlingguy.postgresql
       when: inventory_hostname in groups['postgresql']
       ignore_errors: True
     - role: geerlingguy.mysql
