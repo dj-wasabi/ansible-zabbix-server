@@ -56,7 +56,8 @@
        update_cache=yes
        cache_valid_time=3600
   when: ansible_distribution != 'Ubuntu' and
-        {{ ansible_distribution_version | version_compare('16.04', '<') }}
+        {{ ansible_distribution_version | version_compare('16.04', '<') }} and
+        zabbix_web
   tags:
     - zabbix-server
     - init
@@ -68,7 +69,8 @@
        cache_valid_time=3600
   with_items: "{{ ubuntu_packages }}"
   when: ansible_distribution == 'Ubuntu' and
-        {{ ansible_distribution_version | version_compare('16.04', '>=') }}
+        {{ ansible_distribution_version | version_compare('16.04', '>=') }} and
+        zabbix_web
   tags:
     - zabbix-server
     - init
