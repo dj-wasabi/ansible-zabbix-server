@@ -78,6 +78,7 @@
         group={{ apache_group }}
         state=directory
         mode=0755
+  when: zabbix_web
   tags:
     - zabbix-server
     - init
@@ -89,6 +90,7 @@
             owner={{ apache_user }}
             group={{ apache_group }}
             mode=0644
+  when: zabbix_web
   tags:
     - zabbix-server
     - init
