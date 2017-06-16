@@ -7,7 +7,7 @@
   ## Vhost docroot
   DocumentRoot "/usr/share/zabbix"
 
-{% set directory_paths = ['/usr/share/zabbix/conf', '/usr/share/zabbix/api', '/usr/share/zabbix/include', '/usr/share/zabbix/include/classes'] %}
+{% set directory_paths = ['/usr/share/zabbix/conf', '/usr/share/zabbix/app', '/usr/share/zabbix/include', '/usr/share/zabbix/include/classes'] %}
 
   <Directory "/usr/share/zabbix">
   {% if apache_version|string() == '2.4' %}
