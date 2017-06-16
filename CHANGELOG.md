@@ -4,6 +4,17 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+0.8.0   (2017-06-16)
+
+  * Changed the dependency-definition to get rid of a deprecation warning #41 (By pull request: madonius (Thanks!))
+  * Using a changed_when to fool ansible-lint #42
+  * Create vhost config in correct directory and link to enable #47 (By pull request: stephankn (Thanks!))
+  * Removing not needed ServerAlias entry #48
+  * Updating when statement due to comment #50
+  * Renaming docker-py to docker #54
+  * skip steps related to zabbix-web package when not installing it #56 (By pull request: flyapen (Thanks!))
+  * Fix for Wrong directory api instead of app in apache_vhost.conf.j2 #53
+
 0.7.0   (2016-12-30)
 
   * Set up distributive-related config-ownership #40 (By pull request: envrm (Thanks!))

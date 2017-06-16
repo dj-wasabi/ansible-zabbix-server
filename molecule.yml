@@ -1,13 +1,4 @@
 ---
-molecule:
-  test:
-    sequence:
-      - destroy
-      - syntax
-      - create
-      - converge
-      - verify
-      - destroy
 
 ansible:
   playbook: playbook.yml
