@@ -95,3 +95,9 @@
     - zabbix-server
     - init
     - config
+
+- name: "Make sure Zabbix Server is running"
+  service: name=zabbix-server
+           state=started
+           enabled=yes
+           use=service
