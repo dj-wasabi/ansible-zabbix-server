@@ -6,24 +6,9 @@
 
 - name: "Set short version name"
   set_fact:
-      zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
+    zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
   tags:
     - always
-
-- name: "Get Apache version"
-  action: shell apachectl -v | grep 'version' | awk -F '/' '{ print $2 }'| awk '{ print $1 }' | cut -c 1-3
-  changed_when: False
-  register: apachectl_version
-  tags:
-    - zabbix-server
-    - apache
-
-- name: "Set correct apache_version"
-  set_fact:
-    apache_version: "{{ apachectl_version.stdout }}"
-  tags:
-    - zabbix-server
-    - apache
 
 - name: "Install the correct repository"
   include: "RedHat.yml"
@@ -50,47 +35,26 @@
     - always
 
 - name: "Configure zabbix-server"
-  template: src=zabbix_server.conf.j2
-            dest=/etc/zabbix/zabbix_server.conf
-            owner=zabbix
-            group=zabbix
-            mode=0644
-  notify: zabbix-server restarted
+  template:
+    src: zabbix_server.conf.j2
+    dest: /etc/zabbix/zabbix_server.conf
+    owner: zabbix
+    group: zabbix
+    mode: 0644
+  notify:
+    - zabbix-server restarted
   tags:
     - zabbix-server
     - init
     - config
 
 - name: "Create include dir zabbix-server"
-  file: path={{ server_include }}
-        owner=zabbix
-        group=zabbix
-        state=directory
-        mode=0644
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Create zabbix-web directory"
-  file: path=/etc/zabbix/web
-        owner={{ apache_user }}
-        group={{ apache_group }}
-        state=directory
-        mode=0755
-  when: zabbix_web
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Configure zabbix-web"
-  template: src=zabbix.conf.php.j2
-            dest=/etc/zabbix/web/zabbix.conf.php
-            owner={{ apache_user }}
-            group={{ apache_group }}
-            mode=0644
-  when: zabbix_web
+  file:
+    path: "{{ server_include }}"
+    owner: zabbix
+    group: zabbix
+    state: directory
+    mode: 0644
   tags:
     - zabbix-server
     - init

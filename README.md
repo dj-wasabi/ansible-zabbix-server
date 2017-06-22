@@ -28,13 +28,14 @@ This is an role for installing and maintaining the zabbix-server.
 
 This is one of the 'dj-wasabi' roles which configures your whole zabbix environment. See an list for the complete list:
 
+ * zabbix-web (https://galaxy.ansible.com/dj-wasabi/zabbix-web/)
  * zabbix-server (https://galaxy.ansible.com/dj-wasabi/zabbix-server/)
  * zabbix-proxy (https://galaxy.ansible.com/dj-wasabi/zabbix-proxy/)
  * zabbix-javagateway (https://galaxy.ansible.com/dj-wasabi/zabbix-javagateway/)
  * zabbix-agent (https://galaxy.ansible.com/dj-wasabi/zabbix-agent/)
 
-#Requirements
-##Operating systems
+# Requirements
+## Operating systems
 
 This role will work on the following operating systems:
 
@@ -45,11 +46,11 @@ This role will work on the following operating systems:
 So, you'll need one of those operating systems.. :-)
 Please sent Pull Requests or suggestions when you want to use this role for other Operating systems.
 
-##Zabbix Versions
+## Zabbix Versions
 
-See the following list of supported Operating systems with the Zabbix releases:
+See the following list of supported Operating systems with the Zabbix releases.
 
-Zabbix 3.2:
+### Zabbix 3.2
 
   * CentOS 7.x
   * Amazon 7.x
@@ -59,7 +60,7 @@ Zabbix 3.2:
   * Ubuntu 14.04, 16.04
   * Debian 7, 8
 
-Zabbix 3.0:
+### Zabbix 3.0
 
   * CentOS 5.x, 6.x, 7.x
   * Amazon 5.x, 6.x, 7.x
@@ -69,7 +70,7 @@ Zabbix 3.0:
   * Ubuntu 14.04
   * Debian 7, 8
 
-Zabbix 2.4:
+### Zabbix 2.4
 
   * CentOS 6.x, 7.x
   * Amazon 6.x, 7.x
@@ -79,7 +80,7 @@ Zabbix 2.4:
   * Ubuntu 12.04 14.04
   * Debian 7
 
-Zabbix 2.2:
+### Zabbix 2.2
 
   * CentOS 5.x, 6.x
   * RedHat 5.x, 6.x
@@ -93,45 +94,43 @@ Zabbix 2.2:
 
 Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-server`
 
+Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`  
+
 #Role Variables
 
 ## Main variables
-There are some variables in de default/main.yml which can (Or needs to) be changed/overriden:
 
-* `zabbix_url`: This is the url on which the zabbix web interface is available. Default is zabbix.example.com, you should override it. For example, see "Example Playbook"
+The following is an overview of all available configuration default for this role.
 
-* `zabbix_version`: This is the version of zabbix. Default it is 3.2, but can be overriden to 2.0, 2.4, 2.2 or 2.0.
+### Overall Zabbix
 
-* `zabbix_timezone`: This is the timezone. The apache vhost needs this parameter. Default: Europe/Amsterdam
-
+* `zabbix_version`: This is the version of zabbix. Default: 3.2. Can be overridden to 2.0, 2.4, 2.2 or 2.0.
+* `zabbix_repo_yum`: A list with Yum repository configuration.
 * `zabbix_repo`: Default: _zabbix_
   * _epel_ install agent from EPEL repo
   * _zabbix_ (default) install agent from Zabbix repo
   * _other_ install agent from pre-existing or other repo
 
-* `zabbix_vhost`: True / False. When you don't want to create an apache vhosts, you can set it to False.
+### Zabbix Server
 
-* `zabbix_web`: True / False. When you down't want to install the zabbix-web component. Setting this to False, this playbook will only install the zabbix-server incl. database (if the 2 parameters below are set to True).
-
+* `zabbix_server_name`: The name of the Zabbix Server.
+* `zabbix_server_database`: The type of database used. Can be: mysql or pgsql
+* `zabbix_server_database_long`: The type of database used, but long name. Can be: mysql or postgresql
+* `zabbix_server_hostname`: The hostname on which the zabbix-server is running. Default set to: {{ inventory_hostname }}
+* `zabbix_server_listenport`: On which port the Zabbix Server is available. Default: 10051
+* `zabbix_server_dbhost`: The hostname on which the database is running.
+* `zabbix_server_dbname`: The database name which is used by the Zabbix Server.
+* `zabbix_server_dbuser`: The database username which is used by the Zabbix Server.
+* `zabbix_server_dbpassword`: The database user password which is used by the Zabbix Server.
+* `zabbix_server_dbport`: The database port which is used by the Zabbix Server.
 * `zabbix_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
-
 * `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
-
-* `server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
-
-* `server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
-
-## Zabbix 3
-
-These variables are specific for Zabbix 3.0
-
-* `server_tlscafile`: Full pathname of a file containing the top-level CA(s) certificates for peer certificate verification.
-
-* `server_tlscrlfile`: Full pathname of a file containing revoked certificates.
-
-* `server_tlscertfile`: Full pathname of a file containing the agent certificate or certificate chain.
-
-* `server_tlskeyfile`: Full pathname of a file containing the agent private key.
+* `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
+* `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
+* `zabbix_server_tlscafile`: Full pathname of a file containing the top-level CA(s) certificates for peer certificate verification.
+* `zabbix_server_tlscrlfile`: Full pathname of a file containing revoked certificates.
+* `zabbix_server_tlscertfile`: Full pathname of a file containing the agent certificate or certificate chain.
+* `zabbix_server_tlskeyfile`: Full pathname of a file containing the agent private key.
 
 ## Database
 

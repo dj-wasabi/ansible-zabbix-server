@@ -6,9 +6,10 @@
     delegated_dbhost: "{{ server_dbhost if (server_dbhost != 'localhost') else inventory_hostname }}"
 
 - name: "PostgreSQL | Create database"
-  postgresql_db: name={{ server_dbname }}
-                 port={{ server_dbport }}
-                 state=present
+  postgresql_db:
+    name: "{{ server_dbname }}"
+    port: "{{ server_dbport }}"
+    state: present
   become: yes
   become_user: postgres
   delegate_to: "{{ delegated_dbhost }}"
@@ -18,12 +19,13 @@
     - database
 
 - name: "PostgreSQL | Create database user"
-  postgresql_user: db={{ server_dbname }}
-                   name={{ server_dbuser }}
-                   password={{ server_dbpassword }}
-                   port={{ server_dbport }}
-                   priv=ALL
-                   state=present
+  postgresql_user:
+    db: "{{ server_dbname }}"
+    name: "{{ server_dbuser }}"
+    password: "{{ server_dbpassword }}"
+    port: "{{ server_dbport }}"
+    priv: ALL
+    state: present
   become: yes
   become_user: postgres
   delegate_to: "{{ delegated_dbhost }}"

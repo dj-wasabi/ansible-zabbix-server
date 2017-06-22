@@ -5,10 +5,11 @@
     delegated_dbhost: "{{server_dbhost if (server_dbhost != 'localhost') else inventory_hostname}}"
 
 - name: "MySQL | Create database"
-  mysql_db: name={{ server_dbname }}
-            state=present
-            encoding={{ server_dbencoding }}
-            collation={{ server_dbcollation }}
+  mysql_db:
+    name: "{{ server_dbname }}"
+    encoding: "{{ server_dbencoding }}"
+    collation: "{{ server_dbcollation }}"
+    state: present
   when: zabbix_database_creation
   delegate_to: "{{ delegated_dbhost }}"
   tags:
@@ -16,10 +17,11 @@
     - database
 
 - name: "MySQL | Create database user"
-  mysql_user: name={{ server_dbuser }}
-              password={{ server_dbpassword }}
-              priv={{ server_dbname }}.*:ALL
-              state=present
+  mysql_user:
+    name: "{{ server_dbuser }}"
+    password: "{{ server_dbpassword }}"
+    priv: "{{ server_dbname }}.*:ALL"
+    state: present
   when: zabbix_database_creation
   delegate_to: "{{ delegated_dbhost }}"
   tags:

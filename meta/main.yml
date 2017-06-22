@@ -21,5 +21,4 @@ galaxy_info:
     - wheezy
   categories:
   - monitoring
-dependencies:
-- { name: geerlingguy.apache, src: geerlingguy.apache, tags: apache }
+dependencies: []

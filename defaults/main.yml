@@ -2,97 +2,105 @@
 # defaults file;
 # zabbix role specific
 
-zabbix_url: zabbix.example.com
-zabbix_apache_vhost_port: 80
-zabbix_url_aliases: []
 zabbix_version: 3.2
-zabbix_timezone: Europe/Amsterdam
 zabbix_repo: zabbix
-zabbix_vhost: True
-zabbix_web: true
-zabbix_database_creation: True
-zabbix_database_sqlload: True
+
+zabbix_repo_yum:
+  - name: zabbix
+    description: Zabbix Official Repository - $basearch
+    baseurl: http://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/{{ ansible_distribution_major_version }}/$basearch/
+    gpgcheck: 0
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+    state: present
+  - name: zabbix
+    description: Zabbix Official Repository non-supported - $basearch
+    baseurl: http://repo.zabbix.com/non-supported/rhel/{{ ansible_distribution_major_version }}/$basearch/
+    gpgcheck: 0
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+    state: present
 
 # Database
 database_type: pgsql
 database_type_long: postgresql
+zabbix_database_creation: True
+zabbix_database_sqlload: True
 
 # zabbix-server specific vars
-server_listenport: 10051
-server_sourceip:
-server_logfile: /var/log/zabbix/zabbix_server.log
-server_logfilesize: 10
-server_debuglevel: 3
-server_pidfile: /var/run/zabbix/zabbix_server.pid
-server_dbhost: localhost
-server_dbname: zabbix-server
-server_dbencoding: utf8
-server_dbcollation: utf8_bin
-server_dbschema:
-server_dbuser: zabbix-server
-server_dbpassword: zabbix-server
-server_dbsocket:
-server_dbport: 5432
-server_startpollers: 5
-server_startipmipollers: 0
-server_startpollersunreachable: 1
-server_starttrappers: 5
-server_startpingers: 1
-server_startdiscoverers: 1
-server_starthttppollers: 1
-server_starttimers: 1
-server_javagateway:
-server_javagatewayport: 10052
-server_startjavapollers: 5
-server_startvmwarecollectors: 0
-server_vmwarefrequency: 60
-server_vmwarecachesize: 8M
-server_snmptrapperfile: /tmp/zabbix_traps.tmp
-server_startsnmptrapper: 0
-server_listenip:
-server_housekeepingfrequency: 1
-server_maxhousekeeperdelete: 500
-server_senderfrequency: 30
-server_cachesize: 8M
-server_cacheupdatefrequency: 60
-server_startdbsyncers: 4
-server_historycachesize: 8M
-server_historyindexcachesize: 4M
-server_trendcachesize: 4M
-server_historytextcachesize: 16M
-server_valuecachesize: 8M
-server_nodenoevents: 0
-server_nodenohistory: 0
-server_timeout: 3
-server_trappertimeout: 300
-server_unreachableperiod: 45
-server_unavailabledelay: 60
-server_unreachabledelay: 15
-server_alertscriptspath: ${datadir}/zabbix/alertscripts
-server_externalscripts: /usr/lib/zabbix/externalscripts
-server_fpinglocation: /usr/sbin/fping
-server_fping6location: /usr/sbin/fping6
-server_sshkeylocation:
-server_logslowqueries: 0
-server_tmpdir: /tmp
-server_startproxypollers: 1
-server_proxyconfigfrequency: 3600
-server_proxydatafrequency: 1
-server_allowroot: 0
-server_user: zabbix
-server_include: /etc/zabbix/zabbix_server.conf.d
-server_sslcertlocation: ${datadir}/zabbix/ssl/certs
-server_sslkeylocation: ${datadir}/zabbix/ssl/keys
-server_sslcalocation:
-server_loadmodulepath: ${libdir}/modules
-server_loadmodule:
-server_tlscafile:
-server_tlscrlfile:
-server_tlscertfile:
-server_tlskeyfile:
-server_startescalators: 1
-server_vmwareperffrequency: 60
-server_vmwaretimeout: 10
+zabbix_server_listenport: 10051
+zabbix_server_sourceip:
+zabbix_server_logfile: /var/log/zabbix/zabbix_server.log
+zabbix_server_logfilesize: 10
+zabbix_server_debuglevel: 3
+zabbix_server_pidfile: /var/run/zabbix/zabbix_server.pid
+zabbix_server_dbhost: localhost
+zabbix_server_dbname: zabbix-server
+zabbix_server_dbencoding: utf8
+zabbix_server_dbcollation: utf8_bin
+zabbix_server_dbschema:
+zabbix_server_dbuser: zabbix-server
+zabbix_server_dbpassword: zabbix-server
+zabbix_server_dbsocket:
+zabbix_server_dbport: 5432
+zabbix_server_startpollers: 5
+zabbix_server_startipmipollers: 0
+zabbix_server_startpollersunreachable: 1
+zabbix_server_starttrappers: 5
+zabbix_server_startpingers: 1
+zabbix_server_startdiscoverers: 1
+zabbix_server_starthttppollers: 1
+zabbix_server_starttimers: 1
+zabbix_server_javagateway:
+zabbix_server_javagatewayport: 10052
+zabbix_server_startjavapollers: 5
+zabbix_server_startvmwarecollectors: 0
+zabbix_server_vmwarefrequency: 60
+zabbix_server_vmwarecachesize: 8M
+zabbix_server_snmptrapperfile: /tmp/zabbix_traps.tmp
+zabbix_server_startsnmptrapper: 0
+zabbix_server_listenip:
+zabbix_server_housekeepingfrequency: 1
+zabbix_server_maxhousekeeperdelete: 500
+zabbix_server_senderfrequency: 30
+zabbix_server_cachesize: 8M
+zabbix_server_cacheupdatefrequency: 60
+zabbix_server_startdbsyncers: 4
+zabbix_server_historycachesize: 8M
+zabbix_server_historyindexcachesize: 4M
+zabbix_server_trendcachesize: 4M
+zabbix_server_historytextcachesize: 16M
+zabbix_server_valuecachesize: 8M
+zabbix_server_nodenoevents: 0
+zabbix_server_nodenohistory: 0
+zabbix_server_timeout: 3
+zabbix_server_trappertimeout: 300
+zabbix_server_unreachableperiod: 45
+zabbix_server_unavailabledelay: 60
+zabbix_server_unreachabledelay: 15
+zabbix_server_alertscriptspath: ${datadir}/zabbix/alertscripts
+zabbix_server_externalscripts: /usr/lib/zabbix/externalscripts
+zabbix_server_fpinglocation: /usr/sbin/fping
+zabbix_server_fping6location: /usr/sbin/fping6
+zabbix_server_sshkeylocation:
+zabbix_server_logslowqueries: 0
+zabbix_server_tmpdir: /tmp
+zabbix_server_startproxypollers: 1
+zabbix_server_proxyconfigfrequency: 3600
+zabbix_server_proxydatafrequency: 1
+zabbix_server_allowroot: 0
+zabbix_server_user: zabbix
+zabbix_server_include: /etc/zabbix/zabbix_server.conf.d
+zabbix_server_sslcertlocation: ${datadir}/zabbix/ssl/certs
+zabbix_server_sslkeylocation: ${datadir}/zabbix/ssl/keys
+zabbix_server_sslcalocation:
+zabbix_server_loadmodulepath: ${libdir}/modules
+zabbix_server_loadmodule:
+zabbix_server_tlscafile:
+zabbix_server_tlscrlfile:
+zabbix_server_tlscertfile:
+zabbix_server_tlskeyfile:
+zabbix_server_startescalators: 1
+zabbix_server_vmwareperffrequency: 60
+zabbix_server_vmwaretimeout: 10
 
 # SELinux specific
 selinux_allow_zabbix_can_network: False
