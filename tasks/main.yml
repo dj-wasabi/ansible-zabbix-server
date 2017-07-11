@@ -58,7 +58,7 @@
     - init
     - config
 
-- name: "Zabbix-server restarted"
+- name: "Zabbix-server started"
   systemd:
     name: zabbix-server
     state: started
