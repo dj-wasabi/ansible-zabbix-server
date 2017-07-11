@@ -4,35 +4,40 @@
 - name: "RedHat | Use Zabbix package name"
   set_fact:
     zabbix_server_package: "zabbix-server-{{ database_type }}"
-  when: zabbix_repo == "zabbix"
+  when:
+    - zabbix_repo == "zabbix"
   tags:
     - zabbix-server
 
 - name: "RedHat | Use EPEL package name"
   set_fact:
     zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ database_type }}"
-  when: zabbix_repo == "epel"
+  when:
+    - zabbix_repo == "epel"
   tags:
     - zabbix-server
 
 - name: "RedHat | Set some facts EPEL"
   set_fact:
     datafiles_path: "/usr/share/zabbix-{{ database_type_long }}"
-  when: zabbix_repo == "epel"
+  when:
+    - zabbix_repo == "epel"
   tags:
     - zabbix-server
 
 - name: "RedHat | Set some facts Zabbix < 3.0"
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
-  when: zabbix_short_version < 30
+  when:
+    - zabbix_version | version_compare('3.0', '<')
   tags:
     - zabbix-server
 
 - name: "RedHat | Set facts for Zabbix >= 3.0"
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*"
-  when: zabbix_short_version >= 30
+  when:
+    - zabbix_version | version_compare('3.0', '>=')
   tags:
     - zabbix-server
 
@@ -59,7 +64,8 @@
   yum:
     name: python-psycopg2
     state: present
-  when: zabbix_database_creation
+  when:
+    - zabbix_database_creation
   tags:
     - zabbix-server
 
@@ -70,7 +76,9 @@
   with_items:
     - mariadb
     - MySQL-python
-  when: database_type == 'mysql' and ansible_distribution_major_version == "7"
+  when:
+    - database_type == 'mysql'
+    - ansible_distribution_major_version == "7"
   tags:
     - zabbix-server
 
@@ -81,7 +89,9 @@
   with_items:
     - mysql
     - MySQL-python
-  when: database_type == 'mysql' and ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
+  when:
+    - database_type == 'mysql'
+    - ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
   tags:
     - zabbix-server
 
@@ -89,7 +99,8 @@
   yum:
     name: postgresql
     state: present
-  when: database_type == 'pgsql'
+  when:
+    - database_type == 'pgsql'
   tags:
     - zabbix-server
 
@@ -99,7 +110,8 @@
     state: present
   with_items:
     - libsemanage-python
-  when: zabbix_web or selinux_allow_zabbix_can_network
+  when:
+    - selinux_allow_zabbix_can_network
   tags:
     - zabbix-server
 
@@ -110,7 +122,8 @@
     persistent: yes
   with_items:
     - httpd_can_connect_zabbix
-  when: selinux_allow_zabbix_can_http
+  when:
+    - selinux_allow_zabbix_can_http
   tags:
     - zabbix-server
 
@@ -121,6 +134,7 @@
     persistent: yes
   with_items:
     - zabbix_can_network
-  when: selinux_allow_zabbix_can_network
+  when:
+    - selinux_allow_zabbix_can_network
   tags:
     - zabbix-server

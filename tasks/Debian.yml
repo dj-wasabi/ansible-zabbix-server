@@ -3,7 +3,8 @@
 - name: "Debian | Set some facts"
   set_fact:
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
-  when: zabbix_short_version < 30
+  when:
+    - zabbix_version | version_compare('3.0', '<')
   tags:
     - zabbix-server
     - init
@@ -12,7 +13,8 @@
 - name: "Debian | Set some facts for Zabbix 3.0"
   set_fact:
     datafiles_path: /usr/share/doc/zabbix-server-{{ database_type }}
-  when: zabbix_short_version >= 30
+  when:
+    - zabbix_version | version_compare('3.0', '>=')
   tags:
     - zabbix-server
     - init
@@ -22,7 +24,8 @@
   apt_repository:
     repo: "{{ item }} http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/ {{ ansible_distribution_release }} main"
     state: present
-  when: zabbix_repo == "zabbix"
+  when:
+    - zabbix_repo == "zabbix"
   with_items:
     - deb-src
     - deb
@@ -35,7 +38,8 @@
   apt_key:
     id: 79EA5ED4
     url: http://repo.zabbix.com/zabbix-official-repo.key
-  when: zabbix_repo == "zabbix"
+  when:
+    - zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
@@ -54,22 +58,11 @@
   apt:
     name: python-psycopg2
     state: present
-  when: zabbix_database_creation
+  when:
+    - zabbix_database_creation
   tags:
     - zabbix-server
     - init
-
-#- name: "Debian | Install Mysql Client package"
-#  apt: name={{ item }}
-#       state=present
-#  with_items:
-#    - mysql-client
-#    - MySQL-python
-#  when: database_type == 'mysql' and ansible_distribution == "Debian"
-#  tags:
-#    - zabbix-server
-#    - init
-#    - database
 
 - name: "Debian | Install Mysql Client package"
   apt:
@@ -78,7 +71,8 @@
   with_items:
     - mysql-client
     - python-mysqldb
-  when: database_type == 'mysql'
+  when:
+    - database_type == 'mysql'
   tags:
     - zabbix-server
     - init
@@ -88,7 +82,8 @@
   apt:
     name: postgresql-client
     state: present
-  when: database_type == 'pgsql'
+  when:
+    - database_type == 'pgsql'
   tags:
     - zabbix-server
     - init

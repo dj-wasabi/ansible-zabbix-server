@@ -4,33 +4,31 @@
 - name: "Include OS-specific variables"
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: "Set short version name"
-  set_fact:
-    zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
-  tags:
-    - always
-
 - name: "Install the correct repository"
   include: "RedHat.yml"
-  when: ansible_os_family == "RedHat"
+  when:
+    - ansible_os_family == "RedHat"
   tags:
     - always
 
 - name: "Install the correct repository"
   include: "Debian.yml"
-  when: ansible_os_family == "Debian"
+  when:
+    - ansible_os_family == "Debian"
   tags:
     - always
 
 - name: "Installing the postgresql database"
   include: "postgresql.yml"
-  when: database_type_long == "postgresql"
+  when:
+    - database_type_long == "postgresql"
   tags:
     - always
 
 - name: "Installing the mysql database"
   include: "mysql.yml"
-  when: database_type_long == "mysql"
+  when:
+    - database_type_long == "mysql"
   tags:
     - always
 
@@ -50,7 +48,7 @@
 
 - name: "Create include dir zabbix-server"
   file:
-    path: "{{ server_include }}"
+    path: "{{ zabbix_server_include }}"
     owner: zabbix
     group: zabbix
     state: directory
@@ -59,3 +57,10 @@
     - zabbix-server
     - init
     - config
+
+- name: "Zabbix-server restarted"
+  systemd:
+    name: zabbix-server
+    state: started
+    enabled: yes
+  tags: zabbix-server
