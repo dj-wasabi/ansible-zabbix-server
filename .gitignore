@@ -6,3 +6,5 @@ vendor/
 .molecule
 .cache
 __pycache__
+.env
+.virtualenv
