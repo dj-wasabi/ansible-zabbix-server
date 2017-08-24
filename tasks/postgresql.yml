@@ -38,7 +38,7 @@
     creates: /etc/zabbix/schema.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: zabbix_short_version >= 30 and zabbix_database_sqlload
+  when: zabbix_version >= 3.0 and zabbix_database_sqlload
   tags:
     - zabbix-server
     - database
@@ -49,7 +49,7 @@
     creates: /etc/zabbix/schema.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: (zabbix_short_version < 30 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+  when: (zabbix_version < 3.0 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -60,7 +60,7 @@
     creates: /etc/zabbix/images.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: (zabbix_short_version < 30 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+  when: (zabbix_version < 3.0 and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -71,7 +71,7 @@
     creates: /etc/zabbix/data.done
   environment:
     PGPASSWORD: '{{ server_dbpassword }}'
-  when: (zabbix_database_sqlload and zabbix_short_version < 30) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+  when: (zabbix_database_sqlload and zabbix_version < 3.0) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
