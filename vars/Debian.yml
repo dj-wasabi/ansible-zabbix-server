@@ -1,11 +1,12 @@
 ---
+
 apache_user: www-data
 apache_group: www-data
 
-ubuntu_packages:
+php_packages:
   - libapache2-mod-php7.0
-  - php7.0-bcmath
-  - php7.0-mbstring
-  - php7.0-ldap
-  - php7.0-{{ database_type }}
-  - php7.0-xml
+  - php-bcmath
+  - php-mbstring
+  - php-ldap
+  - php-{{ database_type }}
+  - php-xml

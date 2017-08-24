@@ -1,25 +1,14 @@
 ---
 galaxy_info:
-  author: Werner Dijkerman
-  description: Installing and maintaining zabbix-server for RedHat/Debian/Ubuntu.
-  company: myCompany.Dotcom
-  license: license (GPLv3)
-  min_ansible_version: 1.9
+  author: ston3o
+  description: Installing and maintaining zabbix-server for Debian.
+  license: MIT
+  min_ansible_version: 2.2
   platforms:
-  - name: EL
-    versions:
-    - 6
-    - 7
-  - name: Ubuntu
-    versions:
-    - lucid
-    - precise
-    - trusty
-  - name: Debian
-    versions:
-    - squeeze
-    - wheezy
+    - name: Debian
+      versions:
+        - stretch
   categories:
-  - monitoring
+    - monitoring
 dependencies:
-- { name: geerlingguy.apache, src: geerlingguy.apache, tags: apache }
+  - { name: geerlingguy.apache, src: geerlingguy.apache, tags: apache }
