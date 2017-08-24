@@ -1,45 +1,8 @@
 ---
+
 - hosts: all
-  pre_tasks:
-    - name: "Installing which"
-      yum:
-        name: "{{ item }}"
-        state: installed
-      with_items:
-        - net-tools
-        - which
-        - libselinux-python
-      register: installation_dependencies
-      when: ansible_distribution == 'CentOS'
-
-    - name: "Installing which on NON-CentOS"
-      apt:
-        name: "{{ item }}"
-        state: installed
-      with_items:
-        - net-tools
-      register: installation_dependencies
-      when: ansible_distribution != 'CentOS'
-
-    - name: "Configure SUDO."
-      lineinfile:
-        dest: /etc/sudoers
-        line: "Defaults    !requiretty"
-        state: present
-      changed_when: installation_dependencies.changed
-
-    - name: "Make sure the docs are installed."
-      lineinfile:
-        dest: /etc/yum.conf
-        line: "tsflags=nodocs"
-        state: absent
-      changed_when: installation_dependencies.changed
+  vars:
+    - zabbix_url: zabbix.example.com
 
   roles:
-    - role: geerlingguy.postgresql
-      when: inventory_hostname in groups['postgresql']
-      ignore_errors: True
-    - role: geerlingguy.mysql
-      when: inventory_hostname in groups['mysql']
-      ignore_errors: True
     - role: ansible-zabbix-server

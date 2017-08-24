@@ -5,7 +5,7 @@
 zabbix_url: zabbix.example.com
 zabbix_apache_vhost_port: 80
 zabbix_url_aliases: []
-zabbix_version: 3.2
+zabbix_version: 3.4
 zabbix_timezone: Europe/Amsterdam
 zabbix_repo: zabbix
 zabbix_vhost: True
@@ -14,8 +14,8 @@ zabbix_database_creation: True
 zabbix_database_sqlload: True
 
 # Database
-database_type: pgsql
-database_type_long: postgresql
+database_type: mysql
+database_type_long: mysql
 
 # zabbix-server specific vars
 server_listenport: 10051
@@ -32,7 +32,7 @@ server_dbschema:
 server_dbuser: zabbix-server
 server_dbpassword: zabbix-server
 server_dbsocket:
-server_dbport: 5432
+server_dbport: 3306
 server_startpollers: 5
 server_startipmipollers: 0
 server_startpollersunreachable: 1

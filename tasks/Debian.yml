@@ -4,21 +4,13 @@
   set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/zabbix-server-{{ database_type }}
-  when: zabbix_short_version < 30
-  tags:
-    - zabbix-server
-    - init
-    - config
+  when: zabbix_version < 3.0
 
 - name: "Debian | Set some facts for Zabbix 3.0"
   set_fact:
     apache_log: apache2
     datafiles_path: /usr/share/doc/zabbix-server-{{ database_type }}
-  when: zabbix_short_version >= 30
-  tags:
-    - zabbix-server
-    - init
-    - config
+  when: zabbix_version >= 3.0
 
 - name: "Debian | Installing repository {{ ansible_distribution }}"
   apt_repository:
@@ -28,63 +20,32 @@
   with_items:
     - deb-src
     - deb
-  tags:
-    - zabbix-server
-    - init
-    - config
 
 - name: "Debian | Install gpg key"
   apt_key: id=79EA5ED4
            url=http://repo.zabbix.com/zabbix-official-repo.key
   when: zabbix_repo == "zabbix"
-  tags:
-    - zabbix-server
-    - init
-    - config
 
 - name: "Debian | Installing zabbix-server-{{ database_type }}"
   apt: pkg=zabbix-server-{{ database_type }}
        state=present
        update_cache=yes
-  tags:
-    - zabbix-server
-    - init
 
-- name: "Debian | Install php5-{{ database_type }}"
-  apt: pkg=php5-{{ database_type }}
+- name: "Debian | Install php-{{ database_type }}"
+  apt: pkg=php-{{ database_type }}
        state=present
        update_cache=yes
        cache_valid_time=3600
   when: ansible_distribution != 'Ubuntu' and
         {{ ansible_distribution_version | version_compare('16.04', '<') }} and
         zabbix_web
-  tags:
-    - zabbix-server
-    - init
-
-- name: "Ubuntu | Install php7-{{ database_type }}"
-  apt: pkg={{ item }}
-       state=present
-       update_cache=yes
-       cache_valid_time=3600
-  with_items: "{{ ubuntu_packages }}"
-  when: ansible_distribution == 'Ubuntu' and
-        {{ ansible_distribution_version | version_compare('16.04', '>=') }} and
-        zabbix_web
-  tags:
-    - zabbix-server
-    - init
 
 - name: "Debian | Install zabbix-web"
-  apt:  pkg=zabbix-frontend-php
+  apt: pkg=zabbix-frontend-php
         state=present
         update_cache=yes
         cache_valid_time=3600
   when: zabbix_web
-  tags:
-    - zabbix-server
-    - init
-    - config
 
 - name: "Debian | install apache vhost"
   template: src=apache_vhost.conf.j2
@@ -94,11 +55,6 @@
             mode=0644
   when: zabbix_vhost and zabbix_web
   notify: restart apache
-  tags:
-    - zabbix-server
-    - init
-    - config
-    - apache
 
 - name: "Debian | enable apache vhost"
   file: src=/etc/apache2/sites-available/zabbix.conf
@@ -108,49 +64,17 @@
         state=link
   when: zabbix_vhost and zabbix_web
   notify: restart apache
-  tags:
-    - zabbix-server
-    - init
-    - config
-    - apache
 
 - name: "Debian | Install Ansible module dependencies"
-  apt: name=python-psycopg2
-       state=present
+  apt: name=python-psycopg2 state=present
   when: zabbix_database_creation
-  tags:
-    - zabbix-server
-    - init
-
-#- name: "Debian | Install Mysql Client package"
-#  apt: name={{ item }}
-#       state=present
-#  with_items:
-#    - mysql-client
-#    - MySQL-python
-#  when: database_type == 'mysql' and ansible_distribution == "Debian"
-#  tags:
-#    - zabbix-server
-#    - init
-#    - database
 
 - name: "Debian | Install Mysql Client package"
-  apt: name={{ item }}
-       state=present
+  apt: name={{ item }} state=present
   with_items:
     - mysql-client
     - python-mysqldb
-  when: database_type == 'mysql'
-  tags:
-    - zabbix-server
-    - init
-    - database
 
-- name: "Debian | Install PostgreSQL Client package"
-  apt: name=postgresql-client
-       state=present
-  when: database_type == 'pgsql'
-  tags:
-    - zabbix-server
-    - init
-    - database
+- name: "Debian | Install php packages"
+  apt: name={{ item }} state=present
+  with_items: "{{ php_packages }}"
