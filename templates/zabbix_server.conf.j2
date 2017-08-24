@@ -126,7 +126,7 @@ StartDiscoverers={{ server_startdiscoverers }}
 #
 StartHTTPPollers={{ server_starthttppollers }}
 
-{% if zabbix_short_version >= '20' %}
+{% if zabbix_version >= 2.0 %}
 ### option: starttimers
 #	number of pre-forked instances of timers.
 #	timers process time-based trigger functions and maintenance periods.
@@ -135,7 +135,7 @@ StartHTTPPollers={{ server_starthttppollers }}
 StartTimers={{ server_starttimers }}
 {% endif %}
 
-{% if zabbix_short_version >= '30' %}
+{% if zabbix_version >= 3.0 %}
 ### Option: StartEscalators
 #   Number of pre-forked instances of escalators.
 #
@@ -160,7 +160,7 @@ JavaGatewayPort={{ server_javagatewayport }}
 StartJavaPollers={{ server_startjavapollers }}
 {% endif  %}
 
-{% if zabbix_short_version >= '2.2' %}
+{% if zabbix_version >= 2.2 %}
 ### option: startvmwarecollectors
 #	number of pre-forked vmware collector instances.
 #
@@ -171,7 +171,7 @@ StartVMwareCollectors={{ server_startvmwarecollectors }}
 #
 VMwareFrequency={{ server_vmwarefrequency }}
 
-{% if zabbix_short_version >= '30' %}
+{% if zabbix_version >= 3.0 %}
 ### Option: VMwarePerfFrequency
 #       How often Zabbix will connect to VMware service to obtain performance data.
 #
@@ -187,7 +187,7 @@ VMwarePerfFrequency={{ server_vmwareperffrequency }}
 VMwareCacheSize={{ server_vmwarecachesize }}
 {% endif  %}
 
-{% if zabbix_short_version >= '30' %}
+{% if zabbix_version >= 3.0 %}
 ### Option: VMwareTimeout
 #       Specifies how many seconds vmware collector waits for response from VMware service.
 #
@@ -256,7 +256,7 @@ StartDBSyncers={{ server_startdbsyncers }}
 #
 HistoryCacheSize={{ server_historycachesize }}
 
-{% if zabbix_short_version >= 30 %}
+{% if zabbix_version >= 3.0 %}
 ### Option: HistoryIndexCacheSize
 #       Size of history index cache, in bytes.
 #       Shared memory size for indexing history cache.
@@ -270,7 +270,7 @@ HistoryIndexCacheSize={{ server_historyindexcachesize }}
 #
 TrendCacheSize={{ server_trendcachesize }}
 
-{% if zabbix_short_version < 30 %}
+{% if zabbix_version < 3.0 %}
 ### option: historytextcachesize
 #	size of text history cache, in bytes.
 #	shared memory size for storing character, text or log history data.
@@ -278,7 +278,7 @@ TrendCacheSize={{ server_trendcachesize }}
 HistoryTextCacheSize={{ server_historytextcachesize }}
 {% endif %}
 
-{% if zabbix_short_version >= 22 %}
+{% if zabbix_version >= 2.2 %}
 ### option: valuecachesize
 #	size of history value cache, in bytes.
 #	shared memory size for caching item history data requests
@@ -287,7 +287,7 @@ HistoryTextCacheSize={{ server_historytextcachesize }}
 ValueCacheSize={{ server_valuecachesize }}
 {% endif %}
 
-{% if zabbix_short_version <= 24 %}
+{% if zabbix_version <= 2.4 %}
 ### option: nodenoevents
 #	if set to '1' local events won't be sent to master node.
 #	this won't impact ability of this node to propagate events from its child nodes.
@@ -387,7 +387,7 @@ ProxyConfigFrequency={{ server_proxyconfigfrequency }}
 #
 ProxyDataFrequency={{ server_proxydatafrequency }}
 
-{% if zabbix_short_version >= 22 %}
+{% if zabbix_version >= 2.2 %}
 ### option: allowroot
 #	allow the server to run as 'root'. if disabled and the server is started by 'root', the server
 #	will try to switch to user 'zabbix' instead. has no effect if started under a regular user.
@@ -397,7 +397,7 @@ ProxyDataFrequency={{ server_proxydatafrequency }}
 AllowRoot={{ server_allowroot }}
 {% endif %}
 
-{% if zabbix_short_version >= 30 %}
+{% if zabbix_version >= 3.0 %}
 ### Option: User
 #       Drop privileges to a specific, existing user on the system.
 #       Only has effect if run as 'root' and AllowRoot is disabled.
@@ -411,7 +411,7 @@ User={{ server_user }}
 #
 Include={{ server_include }}
 
-{% if zabbix_short_version >= 30 %}
+{% if zabbix_version >= 3.0 %}
 ### Option: SSLCertLocation
 #       Location of SSL client certificates.
 #       This parameter is used only in web monitoring.
@@ -435,7 +435,7 @@ SSLCALocation={{ server_sslcalocation }}
 {% endif %}
 
 ####### loadable modules #######
-{% if zabbix_short_version >= 22 %}
+{% if zabbix_version >= 2.2 %}
 ### option: loadmodulepath
 #	full path to location of server modules.
 #	default depends on compilation options.
@@ -453,7 +453,7 @@ LoadModulePath={{ server_loadmodulepath }}
 LoadModule = {{ loadmodule }}
 {% endif %}
 
-{% if zabbix_short_version >= 30 %}
+{% if zabbix_version >= 3.0 %}
 ####### TLS-RELATED PARAMETERS #######
 
 ### Option: TLSCAFile

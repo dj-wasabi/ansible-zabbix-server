@@ -27,7 +27,7 @@
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
-  when: zabbix_short_version < 30
+  when: zabbix_version < 3.0
   tags:
     - zabbix-server
 
@@ -35,7 +35,7 @@
   set_fact:
     apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*"
-  when: zabbix_short_version >= 30
+  when: zabbix_version >= 3.0
   tags:
     - zabbix-server
 
