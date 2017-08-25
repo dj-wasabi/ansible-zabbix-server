@@ -4,10 +4,6 @@ language: python
 services:
   - docker
 
-before_install:
-- sudo apt-get -qq update
-- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
-
 install:
 - pip install molecule ansible docker
 

@@ -61,14 +61,14 @@ docker:
     - name: zabbix-server-mysql-ubuntu
       ansible_groups:
         - mysql
-      image: rastasheep/ubuntu-sshd
-      image_version: 16.04
+      image: solita/ubuntu-systemd
+      image_version: latest
       privileged: True
     - name: zabbix-server-pgsql-ubuntu
       ansible_groups:
         - postgresql
-      image: rastasheep/ubuntu-sshd
-      image_version: 16.04
+      image: solita/ubuntu-systemd
+      image_version: latest
       privileged: True
 
 verifier:

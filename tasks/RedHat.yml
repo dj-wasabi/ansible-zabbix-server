@@ -3,135 +3,138 @@
 
 - name: "RedHat | Use Zabbix package name"
   set_fact:
-      zabbix_server_package: "zabbix-server-{{ database_type }}"
-  when: zabbix_repo == "zabbix"
+    zabbix_server_package: "zabbix-server-{{ database_type }}"
+  when:
+    - zabbix_repo == "zabbix"
   tags:
     - zabbix-server
 
 - name: "RedHat | Use EPEL package name"
   set_fact:
-      zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ database_type }}"
-  when: zabbix_repo == "epel"
+    zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ database_type }}"
+  when:
+    - zabbix_repo == "epel"
   tags:
     - zabbix-server
 
 - name: "RedHat | Set some facts EPEL"
   set_fact:
-    apache_log: httpd
     datafiles_path: "/usr/share/zabbix-{{ database_type_long }}"
-  when: zabbix_repo == "epel"
+  when:
+    - zabbix_repo == "epel"
   tags:
     - zabbix-server
 
 - name: "RedHat | Set some facts Zabbix < 3.0"
   set_fact:
-    apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
-  when: zabbix_short_version < 30
+  when:
+    - zabbix_version | version_compare('3.0', '<')
   tags:
     - zabbix-server
 
 - name: "RedHat | Set facts for Zabbix >= 3.0"
   set_fact:
-    apache_log: httpd
     datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*"
-  when: zabbix_short_version >= 30
+  when:
+    - zabbix_version | version_compare('3.0', '>=')
   tags:
     - zabbix-server
 
 - name: "RedHat | Install basic repo file"
-  template: src=rhel.repo.j2
-            dest=/etc/yum.repos.d/zabbix.repo
-            owner=root
-            group=root
-            mode=0644
-  when: zabbix_repo == "zabbix"
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ zabbix_repo_yum }}"
   tags:
     - zabbix-server
 
 - name: "RedHat | Installing zabbix-server-{{ database_type }}"
-  yum:  pkg={{ zabbix_server_package }}
-        state=present
-  tags:
-    - zabbix-server
-
-- name: "RedHat | Install zabbix-web-{{ database_type }}"
-  yum:  pkg=zabbix-web-{{ database_type }}
-        state=present
-  when: zabbix_web
-  tags:
-    - zabbix-server
-
-- name: "RedHat | Install apache vhost"
-  template: src=apache_vhost.conf.j2
-            dest=/etc/httpd/conf.d/zabbix.conf
-            owner=root
-            group=root
-            mode=0644
-  when: zabbix_vhost and zabbix_web
-  notify: restart apache
+  yum:
+    pkg: "{{ zabbix_server_package }}"
+    state: present
   tags:
     - zabbix-server
 
 - name: "RedHat | Install Ansible module dependencies"
-  yum: name=python-psycopg2
-       state=present
-  when: zabbix_database_creation
+  yum:
+    name: python-psycopg2
+    state: present
+  when:
+    - zabbix_database_creation
   tags:
     - zabbix-server
 
 - name: "RedHat | Install Mysql Client package RHEL7"
-  yum: name={{ item }}
-       state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
     - mariadb
     - MySQL-python
-  when: database_type == 'mysql' and ansible_distribution_major_version == "7"
+  when:
+    - database_type == 'mysql'
+    - ansible_distribution_major_version == "7"
   tags:
     - zabbix-server
 
 - name: "RedHat | Install Mysql Client package RHEL5 - 6"
-  yum: name={{ item }}
-       state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
     - mysql
     - MySQL-python
-  when: database_type == 'mysql' and ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
+  when:
+    - database_type == 'mysql'
+    - ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
   tags:
     - zabbix-server
 
 - name: "RedHat | Install PostgreSQL client package"
-  yum: name=postgresql
-       state=present
-  when: database_type == 'pgsql'
+  yum:
+    name: postgresql
+    state: present
+  when:
+    - database_type == 'pgsql'
   tags:
     - zabbix-server
 
 - name: "RedHat | Install related SELinux package"
-  yum: name={{ item }}
-       state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
     - libsemanage-python
-  when: zabbix_web or selinux_allow_zabbix_can_network
+  when:
+    - selinux_allow_zabbix_can_network
   tags:
     - zabbix-server
 
 - name: "RedHat | Enable httpd_can_connect_zabbix SELinux boolean"
-  seboolean: name={{ item }}
-             state=yes
-             persistent=yes
+  seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
   with_items:
     - httpd_can_connect_zabbix
-  when: zabbix_web and selinux_allow_zabbix_can_http
+  when:
+    - selinux_allow_zabbix_can_http
   tags:
     - zabbix-server
 
 - name: "RedHat | Enable zabbix_can_network SELinux boolean"
-  seboolean: name={{ item }}
-             state=yes
-             persistent=yes
+  seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
   with_items:
     - zabbix_can_network
-  when: selinux_allow_zabbix_can_network
+  when:
+    - selinux_allow_zabbix_can_network
   tags:
     - zabbix-server
