@@ -1,22 +1,24 @@
 Table of Contents
 
 1. [Overview](#overview)
-2. [Requirements for this role](#requirements)
+2. [Upgrades](#upgrades)
+   * [Release 1.0.0](#100)
+3. [Requirements for this role](#requirements)
    * [List of Operating systems](#operating-systems)
    * [List supported Zabbix versions](#zabbix-version)
-3. [Installing this role](#installation)
-4. [Overview of variables which can be used](#role-variables)
+4. [Installing this role](#installation)
+5. [Overview of variables which can be used](#role-variables)
    * [Main variables](#main-variables)
    * [Zabbix 3 variables](#zabbix-3)
    * [Database variables](#databases)
-4. [Dependencies](#dependencies)
-5. [Example of using this role](#example-playbook)
+6. [Dependencies](#dependencies)
+7. [Example of using this role](#example-playbook)
    * [ Vars in role configuration](#vars-in-role-configuration)
    * [Combination of group_vars and playbook](#combination-of-group_vars-and-playbook)
-6. [Test Kitchen](#test-kitchen)
-7. [Extra information](#extra-information)
-8. [License](#license)
-9. [Author Information](#author-information)
+8. [Molecule](#molecule)
+9. [Extra information](#extra-information)
+10. [License](#license)
+11. [Author Information](#author-information)
 
 #Overview
 
@@ -33,6 +35,15 @@ This is one of the 'dj-wasabi' roles which configures your whole zabbix environm
  * zabbix-proxy (https://galaxy.ansible.com/dj-wasabi/zabbix-proxy/)
  * zabbix-javagateway (https://galaxy.ansible.com/dj-wasabi/zabbix-javagateway/)
  * zabbix-agent (https://galaxy.ansible.com/dj-wasabi/zabbix-agent/)
+
+#Upgrades
+##1.0.0
+
+With this 1.0.0 release, the following is changed:
+
+* This repository will only contain all the actions that are needed for correct configuring a Zabbix Server. All tasks regarding the frontend/webui of Zabbix has been transferred to the `dj-wasabi.zabbix-web` role.
+* All properties starts with `zabbix_` now. Example, property named `server_dbuser` is now `zabbix_server_dbuser`.
+
 
 # Requirements
 ## Operating systems
@@ -161,13 +172,16 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: zabbix-server
       become: yes
       roles:
-         - { role: geerlingguy.apache }
-         - { role: dj-wasabi.zabbix-server, zabbix_url: zabbix.dj-wasabi.nl, database_type: mysql, database_type_long: mysql }
+         - { role: dj-wasabi.zabbix-server, database_type: mysql, database_type_long: mysql }
 
 
-# Test Kitchen
+# Molecule
 
-This roles is configured to be tested with Test Kitchen. You can find on this page some more information regarding Test Kitchen: http://werner-dijkerman.nl/2015/08/20/using-test-kitchen-with-docker-and-serverspec-to-test-ansible-roles/
+This roles is configured to be tested with Molecule. You can find on this page some more information regarding Molecule:
+
+* http://werner-dijkerman.nl/2016/07/10/testing-ansible-roles-with-molecule-testinfra-and-docker/
+* http://werner-dijkerman.nl/2016/07/27/extending-ansible-role-testing-with-molecule-by-adding-group_vars-dependencies-and-using-travis-ci/
+* http://werner-dijkerman.nl/2016/07/31/testing-ansible-roles-in-a-cluster-setup-with-docker-and-molecule/
 
 # Contributors
 
