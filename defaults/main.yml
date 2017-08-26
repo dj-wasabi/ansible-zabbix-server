@@ -2,7 +2,7 @@
 # defaults file;
 # zabbix role specific
 
-zabbix_version: 3.2
+zabbix_version: 3.4
 zabbix_repo: zabbix
 
 zabbix_repo_yum:

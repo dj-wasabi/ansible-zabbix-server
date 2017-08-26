@@ -1,24 +1,23 @@
 Table of Contents
 
-1. [Overview](#overview)
-2. [Upgrades](#upgrades)
-   * [Release 1.0.0](#100)
-3. [Requirements for this role](#requirements)
-   * [List of Operating systems](#operating-systems)
-   * [List supported Zabbix versions](#zabbix-version)
-4. [Installing this role](#installation)
-5. [Overview of variables which can be used](#role-variables)
-   * [Main variables](#main-variables)
-   * [Zabbix 3 variables](#zabbix-3)
-   * [Database variables](#databases)
-6. [Dependencies](#dependencies)
-7. [Example of using this role](#example-playbook)
-   * [ Vars in role configuration](#vars-in-role-configuration)
-   * [Combination of group_vars and playbook](#combination-of-group_vars-and-playbook)
-8. [Molecule](#molecule)
-9. [Extra information](#extra-information)
-10. [License](#license)
-11. [Author Information](#author-information)
+- [Requirements](#requirements)
+  * [Operating systems](#operating-systems)
+  * [Zabbix Versions](#zabbix-versions)
+    + [Zabbix 3.4](#zabbix-34)
+    + [Zabbix 3.2](#zabbix-32)
+    + [Zabbix 3.0](#zabbix-30)
+    + [Zabbix 2.4](#zabbix-24)
+    + [Zabbix 2.2](#zabbix-22)
+  * [Main variables](#main-variables)
+    + [Overall Zabbix](#overall-zabbix)
+    + [Zabbix Server](#zabbix-server)
+  * [Database](#database)
+- [Dependencies](#dependencies)
+- [Example Playbook](#example-playbook)
+- [Molecule](#molecule)
+- [Contributors](#contributors)
+- [License](#license)
+- [Author Information](#author-information)
 
 #Overview
 
@@ -37,6 +36,7 @@ This is one of the 'dj-wasabi' roles which configures your whole zabbix environm
  * zabbix-agent (https://galaxy.ansible.com/dj-wasabi/zabbix-agent/)
 
 #Upgrades
+
 ##1.0.0
 
 With this 1.0.0 release, the following is changed:
@@ -44,8 +44,8 @@ With this 1.0.0 release, the following is changed:
 * This repository will only contain all the actions that are needed for correct configuring a Zabbix Server. All tasks regarding the frontend/webui of Zabbix has been transferred to the `dj-wasabi.zabbix-web` role.
 * All properties starts with `zabbix_` now. Example, property named `server_dbuser` is now `zabbix_server_dbuser`.
 
-
 # Requirements
+
 ## Operating systems
 
 This role will work on the following operating systems:
@@ -60,6 +60,17 @@ Please sent Pull Requests or suggestions when you want to use this role for othe
 ## Zabbix Versions
 
 See the following list of supported Operating systems with the Zabbix releases.
+
+### Zabbix 3.4
+
+  * CentOS 7.x
+  * Amazon 7.x
+  * RedHat 7.x
+  * OracleLinux 7.x
+  * Scientific Linux 7.x
+  * Ubuntu 14.04, 16.04
+  * Debian 7, 8
+
 
 ### Zabbix 3.2
 
