@@ -24,10 +24,10 @@ def test_zabbix_package(Package, TestinfraBackend, server, SystemInfo):
     if host == server:
         if SystemInfo.distribution in ['debian', 'ubuntu']:
             zabbix_server = Package(server)
-            assert zabbix_server.version.startswith("1:3.2")
+            assert zabbix_server.version.startswith("1:3.4")
         elif SystemInfo.distribution == 'centos':
             zabbix_server = Package(server)
-            assert zabbix_server.version.startswith("3.2")
+            assert zabbix_server.version.startswith("3.4")
         assert zabbix_server.is_installed
 
 

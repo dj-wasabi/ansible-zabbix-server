@@ -234,10 +234,12 @@ HousekeepingFrequency={{ zabbix_server_housekeepingfrequency }}
 #
 MaxHousekeeperDelete={{ zabbix_server_maxhousekeeperdelete }}
 
+{% if zabbix_version | version_compare('3.2', '<=') %}
 ### option: senderfrequency
 #	how often zabbix will try to send unsent alerts (in seconds).
 #
 SenderFrequency={{ zabbix_server_senderfrequency }}
+{% endif %}
 
 ### option: cachesize
 #	size of configuration cache, in bytes.
@@ -261,7 +263,6 @@ StartDBSyncers={{ zabbix_server_startdbsyncers }}
 #
 HistoryCacheSize={{ zabbix_server_historycachesize }}
 
-{#{% if zabbix_short_version >= 30 %}#}
 {% if zabbix_version | version_compare('3.0', '>=') %}
 ### Option: HistoryIndexCacheSize
 #       Size of history index cache, in bytes.
