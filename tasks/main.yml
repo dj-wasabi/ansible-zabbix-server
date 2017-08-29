@@ -44,7 +44,7 @@
     owner: zabbix
     group: zabbix
     state: directory
-    mode: 0644
+    mode: 0755
   tags:
     - zabbix-server
     - init
