@@ -1,8 +1,19 @@
-#ansible-zabbix-server Release
+# ansible-zabbix-server Release
 
 Below an overview of all changes in the releases.
 
 Version (Release date)
+
+1.0.0   (2017-08-30)
+
+  * From ini to yml style.
+  * Replace shell tasks with modules.
+  * Installing default 3.4.
+  * Prefixed all properties that started with `server_` with the value `zabbix_`.
+  * Added upgrade part in documentation.
+  * Documentation: Fix Formatting #71 (By pull request: fxfitz (Thanks!))
+  * Fix permissions on Zabbix includedir #68 (By pull request: clement-lefevre (Thanks!))
+  * Set Molecule to V1 for now since V2 is released.
 
 0.8.0   (2017-06-16)
 
