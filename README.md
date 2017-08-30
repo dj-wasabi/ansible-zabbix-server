@@ -19,7 +19,7 @@ Table of Contents
 - [License](#license)
 - [Author Information](#author-information)
 
-#Overview
+# Overview
 
 Build Status:
 
@@ -35,9 +35,9 @@ This is one of the 'dj-wasabi' roles which configures your whole zabbix environm
  * zabbix-javagateway (https://galaxy.ansible.com/dj-wasabi/zabbix-javagateway/)
  * zabbix-agent (https://galaxy.ansible.com/dj-wasabi/zabbix-agent/)
 
-#Upgrades
+# Upgrades
 
-##1.0.0
+## 1.0.0
 
 With this 1.0.0 release, the following is changed:
 
@@ -112,13 +112,13 @@ See the following list of supported Operating systems with the Zabbix releases.
   * Debian 7
   * xenserver 6
 
-#Installation
+# Installation
 
 Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-server`
 
 Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`  
 
-#Role Variables
+# Role Variables
 
 ## Main variables
 
