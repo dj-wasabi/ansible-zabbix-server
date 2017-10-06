@@ -23,10 +23,11 @@
   postgresql_user:
     db: "{{ zabbix_server_dbname }}"
     name: "{{ zabbix_server_dbuser }}"
-    password: "{{ zabbix_server_dbpassword }}"
+    password: "md5{{ (zabbix_server_dbpassword + zabbix_server_dbuser)|hash('md5') }}"
     port: "{{ zabbix_server_dbport }}"
     priv: ALL
     state: present
+    encrypted: yes
   become: yes
   become_user: postgres
   delegate_to: "{{ delegated_dbhost }}"
