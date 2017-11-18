@@ -14,6 +14,7 @@ Version (Release date)
   * Documentation: Fix Formatting #71 (By pull request: fxfitz (Thanks!))
   * Fix permissions on Zabbix includedir #68 (By pull request: clement-lefevre (Thanks!))
   * Set Molecule to V1 for now since V2 is released.
+  
 
 0.8.0   (2017-06-16)
 

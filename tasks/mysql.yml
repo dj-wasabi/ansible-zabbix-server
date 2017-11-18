@@ -9,6 +9,9 @@
     name: "{{ zabbix_server_dbname }}"
     encoding: "{{ zabbix_server_dbencoding }}"
     collation: "{{ zabbix_server_dbcollation }}"
+    login_host: "{{ zabbix_server_mysql_login_host | default(omit) }}"
+    login_user: "{{ zabbix_server_mysql_login_user | default(omit) }}"
+    login_password: "{{ zabbix_server_mysql_login_password | default(omit) }}"
     state: present
   when: zabbix_database_creation
   register: zabbix_database_created
