@@ -51,4 +51,3 @@ def test_zabbix_include_dir(File):
     assert zabbix_include_dir.user == "zabbix"
     assert zabbix_include_dir.group == "zabbix"
     # assert zabbix_include_dir.mode == 0o644
-
