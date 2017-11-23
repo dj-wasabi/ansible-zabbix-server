@@ -36,8 +36,8 @@
 
 - name: "Debian | Install gpg key"
   apt_key:
-    id: 79EA5ED4
     url: http://repo.zabbix.com/zabbix-official-repo.key
+    state: present
   when:
     - zabbix_repo == "zabbix"
   tags:
@@ -45,11 +45,18 @@
     - init
     - config
 
+- name: apt-get clean
+  shell: apt-get clean; rm -rf /tmp/*; apt-get update
+  changed_when: False
+  tags:
+    - skip_ansible_lint
+
 - name: "Debian | Installing zabbix-server-{{ database_type }}"
   apt:
     pkg: zabbix-server-{{ database_type }}
     state: present
     update_cache: yes
+    cache_valid_time: 0
   tags:
     - zabbix-server
     - init

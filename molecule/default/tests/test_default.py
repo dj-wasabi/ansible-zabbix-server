@@ -1,7 +1,10 @@
-from testinfra.utils.ansible_runner import AnsibleRunner
+import os
 import pytest
 
-testinfra_hosts = AnsibleRunner('inventory').get_hosts('all')
+import testinfra.utils.ansible_runner
+
+testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
 def test_zabbiserver_running_and_enabled(Service, SystemInfo):
