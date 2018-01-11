@@ -33,16 +33,18 @@ platforms:
     privileged: True
     groups:
       - postgresql
-#  - name: zabbix-server-mysql-ubuntu
-#    image: solita/ubuntu-systemd
-#    privileged: True
-#    groups:
-#      - mysql
-#  - name: zabbix-server-pgsql-ubuntu
-#    image: solita/ubuntu-systemd
-#    privileged: True
-#    groups:
-#      - postgresql
+  - name: zabbix-server-mysql-ubuntu
+    image: solita/ubuntu-systemd:latest
+    privileged: True
+    command: /sbin/init
+    groups:
+      - mysql
+  - name: zabbix-server-pgsql-ubuntu
+    image: solita/ubuntu-systemd:latest
+    privileged: True
+    command: /sbin/init
+    groups:
+      - postgresql
 
 provisioner:
   name: ansible
@@ -54,10 +56,6 @@ provisioner:
         database_type: mysql
         database_type_long: mysql
         server_dbport: 3306
-#        mysql_packages:
-#          - mariadb-client
-#          - mariadb-server
-#          - python-mysqldb
       postgresql:
         database_type: pgsql
         database_type_long: postgresql
