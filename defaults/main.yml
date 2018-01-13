@@ -25,6 +25,11 @@ database_type_long: postgresql
 zabbix_database_creation: True
 zabbix_database_sqlload: True
 
+# If you use mysql then you shoud define its root password to access
+# mysql_root_home: /root
+# mysql_root_username: root
+# mysql_root_password: root
+
 # zabbix-server specific vars
 zabbix_server_listenport: 10051
 zabbix_server_sourceip:
