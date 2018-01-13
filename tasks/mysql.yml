@@ -4,6 +4,15 @@
   set_fact:
     delegated_dbhost: "{{ zabbix_server_dbhost if (zabbix_server_dbhost != 'localhost') else inventory_hostname}}"
 
+- name: Copy .my.cnf file with root password credentials.
+  template:
+    src: "root-my.cnf.j2"
+    dest: "{{ mysql_root_home }}/.my.cnf"
+    owner: root
+    group: root
+    mode: 0600
+  delegate_to: "{{ delegated_dbhost }}"
+
 - name: "MySQL | Create database"
   mysql_db:
     name: "{{ zabbix_server_dbname }}"
@@ -24,9 +33,11 @@
 - name: "MySQL | Create database user"
   mysql_user:
     name: "{{ zabbix_server_dbuser }}"
+    host: "{{ item  }}"
     password: "{{ zabbix_server_dbpassword }}"
     priv: "{{ zabbix_server_dbname }}.*:ALL"
     state: present
+  with_items: "{{ groups['zabbix-server'] }}"
   when: zabbix_database_creation
   delegate_to: "{{ delegated_dbhost }}"
   tags:
