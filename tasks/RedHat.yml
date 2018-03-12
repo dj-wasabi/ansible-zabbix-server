@@ -66,6 +66,7 @@
     state: present
   when:
     - zabbix_database_creation
+    - database_type == 'pgsql'
   tags:
     - zabbix-server
 
