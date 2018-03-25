@@ -11,7 +11,7 @@
         - which
         - libselinux-python
       register: installation_dependencies
-      when: ansible_distribution == 'CentOS'
+      when: ansible_os_family == 'RedHat'
 
     - name: "Installing which on NON-CentOS"
       apt:
@@ -19,7 +19,7 @@
         state: installed
       with_items:
         - net-tools
-      when: ansible_distribution != 'CentOS'
+      when: ansible_os_family != 'RedHat'
 
     - name: "Configure SUDO."
       lineinfile:
