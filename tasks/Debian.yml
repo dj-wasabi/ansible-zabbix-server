@@ -19,6 +19,17 @@
     - zabbix-server
     - init
     - config
+    
+- name: "Debian | Install gpg key"
+  apt_key:
+    url: http://repo.zabbix.com/zabbix-official-repo.key
+    state: present
+  when:
+    - zabbix_repo == "zabbix"
+  tags:
+    - zabbix-server
+    - init
+    - config
 
 - name: "Debian | Installing repository {{ ansible_distribution }}"
   apt_repository:
@@ -29,17 +40,6 @@
   with_items:
     - deb-src
     - deb
-  tags:
-    - zabbix-server
-    - init
-    - config
-
-- name: "Debian | Install gpg key"
-  apt_key:
-    url: http://repo.zabbix.com/zabbix-official-repo.key
-    state: present
-  when:
-    - zabbix_repo == "zabbix"
   tags:
     - zabbix-server
     - init
