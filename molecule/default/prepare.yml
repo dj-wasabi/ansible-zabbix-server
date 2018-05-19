@@ -5,7 +5,7 @@
     - name: "Installing packages"
       yum:
         name: "{{ item }}"
-        state: installed
+        state: present
       with_items:
         - net-tools
         - which
@@ -16,9 +16,10 @@
     - name: "Installing which on NON-CentOS"
       apt:
         name: "{{ item }}"
-        state: installed
+        state: present
       with_items:
         - net-tools
+        - apt-utils
       when: ansible_os_family != 'RedHat'
 
     - name: "Configure SUDO."

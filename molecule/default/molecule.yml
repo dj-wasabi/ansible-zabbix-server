@@ -13,38 +13,40 @@ lint:
   options:
     config-file: molecule/default/yaml-lint.yml
 platforms:
-  - name: zabbix-server-mysql-centos
-    image: milcom/centos7-systemd
-    privileged: True
-    groups:
-      - mysql
-  - name: zabbix-server-pgsql-centos
-    image: milcom/centos7-systemd
-    privileged: True
-    groups:
-      - postgresql
+#  - name: zabbix-server-mysql-centos
+#    image: milcom/centos7-systemd
+#    privileged: True
+#    groups:
+#      - mysql
+#  - name: zabbix-server-pgsql-centos
+#    image: milcom/centos7-systemd
+#    privileged: True
+#    groups:
+#      - postgresql
   - name: zabbix-server-mysql-debian
-    image: maint/debian-systemd
+    image: minimum2scp/systemd-stretch
     privileged: True
+    command: /sbin/init
     groups:
       - mysql
   - name: zabbix-server-pgsql-debian
-    image: maint/debian-systemd
-    privileged: True
-    groups:
-      - postgresql
-  - name: zabbix-server-mysql-ubuntu
-    image: solita/ubuntu-systemd:latest
-    privileged: True
-    command: /sbin/init
-    groups:
-      - mysql
-  - name: zabbix-server-pgsql-ubuntu
-    image: solita/ubuntu-systemd:latest
+    image: minimum2scp/systemd-stretch
     privileged: True
     command: /sbin/init
     groups:
       - postgresql
+#  - name: zabbix-server-mysql-ubuntu
+#    image: solita/ubuntu-systemd:xenial
+#    privileged: True
+#    command: /sbin/init
+#    groups:
+#      - mysql
+#  - name: zabbix-server-pgsql-ubuntu
+#    image: solita/ubuntu-systemd:xenial
+#    privileged: True
+#    command: /sbin/init
+#    groups:
+#      - postgresql
 
 provisioner:
   name: ansible

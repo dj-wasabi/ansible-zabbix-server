@@ -37,7 +37,7 @@
   shell: ls -1 {{ datafiles_path }}/create.sq*
   changed_when: False
   when:
-    - zabbix_version | version_compare('3.0', '>=')
+    - zabbix_version is version_compare('3.0', '>=')
     - zabbix_database_sqlload
   register: ls_output_create
   tags:
@@ -49,7 +49,7 @@
     path: /etc/zabbix/create.done
   register: done_file
   when:
-    - zabbix_version | version_compare('3.0', '>=')
+    - zabbix_version is version_compare('3.0', '>=')
     - zabbix_database_sqlload
 
 - name: "MySQL | Create database and import file >= 3.0"
@@ -60,7 +60,7 @@
     state: import
     target: "{{ ls_output_create.stdout }}"
   when:
-    - zabbix_version | version_compare('3.0', '>=')
+    - zabbix_version is version_compare('3.0', '>=')
     - zabbix_database_sqlload
     - not done_file.stat.exists
   delegate_to: "{{ delegated_dbhost }}"
@@ -73,7 +73,7 @@
     path: /etc/zabbix/create.done
     state: touch
   when:
-    - zabbix_version | version_compare('3.0', '>=')
+    - zabbix_version is version_compare('3.0', '>=')
     - zabbix_database_sqlload
     - not done_file.stat.exists
 
@@ -86,7 +86,7 @@
     - images
     - data
   when:
-    - zabbix_version | version_compare('3.0', '<')
+    - zabbix_version is version_compare('3.0', '<')
     - zabbix_database_sqlload
   tags:
     - zabbix-server
@@ -101,7 +101,7 @@
     - images
     - data
   when:
-    - zabbix_version | version_compare('3.0', '<')
+    - zabbix_version is version_compare('3.0', '<')
     - zabbix_database_sqlload
   tags:
     - zabbix-server
@@ -112,7 +112,7 @@
     sql_files_executed: "{{ sql_files_executed | default({}) | combine({item.item: item.stat}) }}"
   with_items: "{{ done_files.results }}"
   when:
-    - zabbix_version | version_compare('3.0', '<')
+    - zabbix_version is version_compare('3.0', '<')
     - zabbix_database_sqlload
   tags:
     - zabbix-server
@@ -127,7 +127,7 @@
     target: "{{ item.stdout }}"
   with_items: "{{ ls_output_schema.results }}"
   when:
-    - zabbix_version | version_compare('3.0', '<')
+    - zabbix_version is version_compare('3.0', '<')
     - zabbix_database_sqlload
     - not sql_files_executed[item.item].exists
   delegate_to: "{{ delegated_dbhost }}"
@@ -144,7 +144,7 @@
     - images
     - data
   when:
-    - zabbix_version | version_compare('3.0', '<')
+    - zabbix_version is version_compare('3.0', '<')
     - zabbix_database_sqlload
     - not sql_files_executed[item].exists
   tags:
