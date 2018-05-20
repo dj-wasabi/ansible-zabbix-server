@@ -17,12 +17,12 @@
 - name: "Installing the postgresql database"
   include: "postgresql.yml"
   when:
-    - database_type_long == "postgresql"
+    - zabbix_server_database_long == "postgresql"
 
 - name: "Installing the mysql database"
   include: "mysql.yml"
   when:
-    - database_type_long == "mysql"
+    - zabbix_server_database_long == "mysql"
 
 - name: "Configure zabbix-server"
   template:

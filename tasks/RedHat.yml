@@ -66,7 +66,7 @@
     state: present
   when:
     - zabbix_database_creation
-    - database_type == 'pgsql'
+    - zabbix_server_database == 'pgsql'
   tags:
     - zabbix-server
 
@@ -78,7 +78,7 @@
     - mariadb
     - MySQL-python
   when:
-    - database_type == 'mysql'
+    - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "7"
   tags:
     - zabbix-server
@@ -91,7 +91,7 @@
     - mysql
     - MySQL-python
   when:
-    - database_type == 'mysql'
+    - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
   tags:
     - zabbix-server
@@ -101,7 +101,7 @@
     name: postgresql
     state: present
   when:
-    - database_type == 'pgsql'
+    - zabbix_server_database == 'pgsql'
   tags:
     - zabbix-server
 

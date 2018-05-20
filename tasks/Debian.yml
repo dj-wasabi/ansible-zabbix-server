@@ -86,7 +86,7 @@
     - mysql-client
     - python-mysqldb
   when:
-    - database_type == 'mysql'
+    - zabbix_server_database == 'mysql'
   tags:
     - zabbix-server
     - init
@@ -97,7 +97,7 @@
     name: postgresql-client
     state: present
   when:
-    - database_type == 'pgsql'
+    - zabbix_server_database == 'pgsql'
   tags:
     - zabbix-server
     - init
