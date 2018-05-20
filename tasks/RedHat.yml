@@ -3,7 +3,7 @@
 
 - name: "RedHat | Use Zabbix package name"
   set_fact:
-    zabbix_server_package: "zabbix-server-{{ database_type }}"
+    zabbix_server_package: "zabbix-server-{{ zabbix_server_database }}"
   when:
     - zabbix_repo == "zabbix"
   tags:
@@ -11,7 +11,7 @@
 
 - name: "RedHat | Use EPEL package name"
   set_fact:
-    zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ database_type }}"
+    zabbix_server_package: "zabbix{{ zabbix_short_version }}-server-{{ zabbix_server_database }}"
   when:
     - zabbix_repo == "epel"
   tags:
@@ -19,7 +19,7 @@
 
 - name: "RedHat | Set some facts EPEL"
   set_fact:
-    datafiles_path: "/usr/share/zabbix-{{ database_type_long }}"
+    datafiles_path: "/usr/share/zabbix-{{ zabbix_server_database_long }}"
   when:
     - zabbix_repo == "epel"
   tags:
@@ -27,7 +27,7 @@
 
 - name: "RedHat | Set some facts Zabbix < 3.0"
   set_fact:
-    datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*/create"
+    datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*/create"
   when:
     - zabbix_version is version_compare('3.0', '<')
   tags:
@@ -35,7 +35,7 @@
 
 - name: "RedHat | Set facts for Zabbix >= 3.0"
   set_fact:
-    datafiles_path: "/usr/share/doc/zabbix-server-{{ database_type }}-{{ zabbix_version }}*"
+    datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
     - zabbix_version is version_compare('3.0', '>=')
   tags:
@@ -53,7 +53,7 @@
   tags:
     - zabbix-server
 
-- name: "RedHat | Installing zabbix-server-{{ database_type }}"
+- name: "RedHat | Installing zabbix-server-{{ zabbix_server_database }}"
   yum:
     pkg: "{{ zabbix_server_package }}"
     state: present
