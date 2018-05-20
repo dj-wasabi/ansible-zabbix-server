@@ -55,5 +55,17 @@
     name: zabbix-server
     state: started
     enabled: yes
+  when:
+    - ansible_distribution != 'Ubuntu' or (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('14.04', '>'))
+  tags:
+    - zabbix-server
+
+- name: "Zabbix-server started for Ubuntu"
+  service:
+    name: zabbix-server
+    state: started
+    enabled: yes
+  when:
+    - ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('14.04', '<=')
   tags:
     - zabbix-server
