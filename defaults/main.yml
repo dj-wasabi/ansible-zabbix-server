@@ -20,8 +20,8 @@ zabbix_repo_yum:
     state: present
 
 # Database
-database_type: pgsql
-database_type_long: postgresql
+zabbix_server_database: pgsql
+zabbix_server_database_long: postgresql
 zabbix_database_creation: True
 zabbix_database_sqlload: True
 
