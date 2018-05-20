@@ -4,6 +4,19 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+1.1.0   (2018-05-20)
+
+  * Use the service for ubuntu 14.04
+  * Use the `zabbix_server_database` and `zabbix_server_database_long` as how it is documented
+  * Support Debian 9
+  * Use Ansible 2.4 as minimum version
+  * Fixed/Removed some deprecation warnings
+  * Use specific version of libraries #87
+  * Postgresql 10 support #73 (By pull request: eshikhov (Thanks!))
+  * Update README.md #76 (By pull request: aminmaghsodi (Thanks!))
+  * Update RedHat.yml #82 (By pull request: tshtilman (Thanks!))
+  * Testing with Molecule V2
+
 1.0.0   (2017-08-30)
 
   * From ini to yml style.
@@ -14,7 +27,6 @@ Version (Release date)
   * Documentation: Fix Formatting #71 (By pull request: fxfitz (Thanks!))
   * Fix permissions on Zabbix includedir #68 (By pull request: clement-lefevre (Thanks!))
   * Set Molecule to V1 for now since V2 is released.
-  
 
 0.8.0   (2017-06-16)
 
