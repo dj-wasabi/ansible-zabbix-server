@@ -21,4 +21,8 @@ galaxy_info:
         - wheezy
   categories:
     - monitoring
+  galaxy_tags:
+    - zabbix
+    - zabbix-server
+    - monitoring
 dependencies: []
