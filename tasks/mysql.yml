@@ -23,6 +23,9 @@
 
 - name: "MySQL | Create database user"
   mysql_user:
+    login_host: "{{ zabbix_server_mysql_login_host | default(omit) }}"
+    login_user: "{{ zabbix_server_mysql_login_user | default(omit) }}"
+    login_password: "{{ zabbix_server_mysql_login_password | default(omit) }}"
     name: "{{ zabbix_server_dbuser }}"
     password: "{{ zabbix_server_dbpassword }}"
     priv: "{{ zabbix_server_dbname }}.*:ALL"
