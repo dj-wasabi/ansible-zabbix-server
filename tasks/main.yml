@@ -39,7 +39,7 @@
     - config
 
 - name: include custom role
-  include_role: 
+  include_role:
     name: "{{ zabbix_custom_role_name }}"
   when: zabbix_include_custom_role
   tags: always

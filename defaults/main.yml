@@ -5,7 +5,7 @@
 zabbix_version: 3.4
 zabbix_repo: zabbix
 zabbix_include_custom_role: False
-zabbix_custom_role_name: 
+zabbix_custom_role_name:
 
 zabbix_repo_yum:
   - name: zabbix
