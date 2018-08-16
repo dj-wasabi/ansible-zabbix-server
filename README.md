@@ -126,7 +126,7 @@ The following is an overview of all available configuration default for this rol
 
 ### Overall Zabbix
 
-* `zabbix_version`: This is the version of zabbix. Default: 3.2. Can be overridden to 2.0, 2.4, 2.2 or 2.0.
+* `zabbix_version`: This is the version of zabbix. Default: 3.4. Can be overridden to 3.2, 3.0, 2.4, or 2.2.
 * `zabbix_repo_yum`: A list with Yum repository configuration.
 * `zabbix_repo`: Default: _zabbix_
   * _epel_ install agent from EPEL repo
