@@ -169,17 +169,20 @@ There are some zabbix-server specific variables which will be used for the zabbi
 There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use and adjust the port number (`server_dbport`) accordingly (`5432` is the default postgresql port). In example from above, the postgresql database is used. If you want to use mysql, uncomment the 2 lines from mysql and comment the 2 lines for postgresql and change the database port to the mysql one (default mysql port is `3306`).
 
 If you use mysql, then you should define mysql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefor, connecting to database will be considered as connecting to localhost with no password). the keys are belows:
+
+```bash
    zabbix_server_mysql_login_host
    zabbix_server_mysql_login_user
    zabbix_server_mysql_login_password
+```
 
 # Dependencies
 
-This role has 1 "hardcoded" dependency: geerlingguy.apache. This is an role which support the 3 main operating systems (Red Hat/Debian/Ubuntu). I can't find an mysql or postgresql role which also supports these 3 operating systems.
+For the databases you should find a role that suits your needs, as I don't want to force you for using a specific role. Before applying this Zabbix Server role, the database service should already been installed and running and should be able to handle the modules in Ansible that belongs to that database.
 
-```text
-You'll need to find the correct database role by yourself. I only want to use roles which supports the 3 main operating systems as well and for now I can't find one. If there is an role which supports these 3 operating systems, please let me know and I'll use it as dependency.
-```
+This role will **not** install a MySQL or PostgreSQL service.
+
+This role will create a Zabbix user and a Zabbix database in the configured database type.
 
 # Example Playbook
 
