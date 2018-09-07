@@ -216,7 +216,7 @@ The following have contributed to this Ansible role (List of Fame):
 
 # License
 
-GPLv3
+MIT
 
 # Author Information
 
