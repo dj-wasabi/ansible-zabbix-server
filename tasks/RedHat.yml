@@ -27,7 +27,7 @@
 
 - name: "RedHat | Set some facts Zabbix < 3.0"
   set_fact:
-    datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*/create"
+    datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
     - zabbix_version is version_compare('3.0', '<')
   tags:
