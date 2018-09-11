@@ -4,6 +4,17 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+1.2.0   (2018-09-11)
+
+  * Added several files like license, code-of-conduct and contributing #92
+  * added parameters to mysql_user task #95 (By pull request: average-joe (Thanks!))
+  * Adding login parameters to database import task #103 (By pull request: rubentsirunyan (Thanks!))
+  * Updated supported versions #104 (By pull request: dnmvisser (Thanks!))
+  * Clarifying some stuff about dependencies #105
+  * Reflect license change to MIT in README #107 (By pull request: stephankn (Thanks!))
+  * Made some fixes specific to work with older Zabbix versions #108
+  * Changes path to suggested in issue #109
+
 1.1.0   (2018-05-20)
 
   * Use the service for ubuntu 14.04
