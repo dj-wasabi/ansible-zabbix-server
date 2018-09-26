@@ -175,6 +175,14 @@ If you use mysql, then you should define mysql username, password and host to pr
    zabbix_server_mysql_login_user
    zabbix_server_mysql_login_password
 ```
+If you use pgsql, then you should define pgsql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefor, connecting to database will be considered as connecting to localhost with no password). the keys are belows:
+
+```bash
+   zabbix_server_pgsql_login_host
+   zabbix_server_pgsql_login_user
+   zabbix_server_pgsql_login_password
+```
+
 
 # Dependencies
 
