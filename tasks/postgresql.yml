@@ -5,34 +5,58 @@
   set_fact:
     delegated_dbhost: "{{ zabbix_server_dbhost if (zabbix_server_dbhost != 'localhost') else inventory_hostname }}"
 
-- name: "PostgreSQL | Create database"
-  postgresql_db:
-    name: "{{ zabbix_server_dbname }}"
-    port: "{{ zabbix_server_dbport }}"
-    state: present
+- name: "PostgreSQL | Delegated"
+  block:
+    - name: "PostgreSQL | Delegated | Create database"
+      postgresql_db:
+        name: "{{ zabbix_server_dbname }}"
+        port: "{{ zabbix_server_dbport }}"
+        state: present
+    - name: "PostgreSQL | Delegated | Create database user"
+      postgresql_user:
+        db: "{{ zabbix_server_dbname }}"
+        name: "{{ zabbix_server_dbuser }}"
+        password: "md5{{ (zabbix_server_dbpassword + zabbix_server_dbuser)|hash('md5') }}"
+        port: "{{ zabbix_server_dbport }}"
+        priv: ALL
+        state: present
+        encrypted: yes
   become: yes
   become_user: postgres
   delegate_to: "{{ delegated_dbhost }}"
   when:
     - zabbix_database_creation
+    - zabbix_server_pgsql_login_host is not defined
   tags:
     - zabbix-server
     - database
 
-- name: "PostgreSQL | Create database user"
-  postgresql_user:
-    db: "{{ zabbix_server_dbname }}"
-    name: "{{ zabbix_server_dbuser }}"
-    password: "md5{{ (zabbix_server_dbpassword + zabbix_server_dbuser)|hash('md5') }}"
-    port: "{{ zabbix_server_dbport }}"
-    priv: ALL
-    state: present
-    encrypted: yes
-  become: yes
-  become_user: postgres
-  delegate_to: "{{ delegated_dbhost }}"
+- name: "PostgreSQL | Remote"
+  block:
+    - name: "PostgreSQL | Remote | Create database"
+      postgresql_db:
+        login_host: "{{ zabbix_server_pgsql_login_host | default(omit)}}"
+        login_user: "{{ zabbix_server_pgsql_login_user | default(omit) }}"
+        login_password: "{{ zabbix_server_pgsql_login_password | default(omit) }}"
+        login_unix_socket: "{{ zabbix_server_pgsql_login_unix_socket | default(omit) }}"
+        name: "{{ zabbix_server_dbname }}"
+        port: "{{ zabbix_server_dbport }}"
+        state: present
+    - name: "PostgreSQL | Remote | Create database user"
+      postgresql_user:
+        login_host: "{{ zabbix_server_pgsql_login_host | default(omit)}}"
+        login_user: "{{ zabbix_server_pgsql_login_user | default(omit) }}"
+        login_password: "{{ zabbix_server_pgsql_login_password | default(omit) }}"
+        db: "{{ zabbix_server_dbname }}"
+        name: "{{ zabbix_server_dbuser }}"
+        password: "md5{{ (zabbix_server_dbpassword + zabbix_server_dbuser)|hash('md5') }}"
+        port: "{{ zabbix_server_dbport }}"
+        priv: ALL
+        state: present
+        encrypted: yes
   when:
     - zabbix_database_creation
+    - zabbix_server_pgsql_login_host is defined
   tags:
     - zabbix-server
     - database
