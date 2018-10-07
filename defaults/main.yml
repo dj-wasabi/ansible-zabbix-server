@@ -2,7 +2,7 @@
 # defaults file;
 # zabbix role specific
 
-zabbix_version: 3.4
+zabbix_version: 4.0
 zabbix_repo: zabbix
 
 zabbix_repo_yum:
@@ -28,10 +28,12 @@ zabbix_database_sqlload: True
 # zabbix-server specific vars
 zabbix_server_listenport: 10051
 zabbix_server_sourceip:
+zabbix_server_logtype: file
 zabbix_server_logfile: /var/log/zabbix/zabbix_server.log
 zabbix_server_logfilesize: 10
 zabbix_server_debuglevel: 3
 zabbix_server_pidfile: /var/run/zabbix/zabbix_server.pid
+zabbix_server_socketdir: /var/run/zabbix
 zabbix_server_dbhost: localhost
 zabbix_server_dbname: zabbix-server
 zabbix_server_dbencoding: utf8
@@ -41,6 +43,11 @@ zabbix_server_dbuser: zabbix-server
 zabbix_server_dbpassword: zabbix-server
 zabbix_server_dbsocket:
 zabbix_server_dbport: 5432
+zabbix_server_historystorageurl:
+zabbix_server_historystoragetypes: uint,dbl,str,log,text
+zabbix_server_historystoragedateindex: 0
+zabbix_server_exportdir:
+zabbix_server_exportfilesize: 1G
 zabbix_server_startpollers: 5
 zabbix_server_startipmipollers: 0
 zabbix_server_startpollersunreachable: 1
