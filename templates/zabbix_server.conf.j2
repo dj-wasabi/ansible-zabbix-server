@@ -1,6 +1,5 @@
 # this is a configuration file for zabbix server process
-# to get more information about zabbix,
-# visit http://www.zabbix.com
+# to get more information about zabbix, visit http://www.zabbix.com
 
 ############ general parameters #################
 ### option: listenport
@@ -14,6 +13,16 @@ ListenPort={{ zabbix_server_listenport }}
 {% if zabbix_server_sourceip is defined and zabbix_server_sourceip %}
 SourceIP={{ zabbix_server_sourceip }}
 {% endif %}
+
+### Option: LogType
+#	Specifies where log messages are written to:
+#		system  - syslog
+#		file    - file specified with LogFile parameter
+#		console - standard output
+#
+# Mandatory: no
+# Default:
+LogType={{ zabbix_server_logtype }}
 
 ### option: logfile
 #	name of log file.
@@ -36,6 +45,16 @@ LogFileSize={{ zabbix_server_logfilesize }}
 #	4 - for debugging (produces lots of information)
 #
 DebugLevel={{ zabbix_server_debuglevel }}
+
+### Option: SocketDir
+#	IPC socket directory.
+#       Directory to store IPC sockets used by internal Zabbix services.
+#
+# Mandatory: no
+# Default:
+# SocketDir=/tmp
+
+SocketDir={{ zabbix_server_socketdir }}
 
 ### option: pidfile
 #	name of pid file.
@@ -86,6 +105,50 @@ DBSocket={{ zabbix_server_dbsocket }}
 {% if zabbix_server_dbport is defined and zabbix_server_dbport %}
 DBPort={{ zabbix_server_dbport }}
 {% endif %}
+
+### Option: HistoryStorageURL
+#	History storage HTTP[S] URL.
+#
+# Mandatory: no
+# Default:
+{% if zabbix_server_historystorageurl is defined and zabbix_server_historystorageurl %}
+HistoryStorageURL={{ zabbix_server_historystorageurl }}
+{% endif %}
+
+### Option: HistoryStorageTypes
+#	Comma separated list of value types to be sent to the history storage.
+#
+# Mandatory: no
+# Default:
+HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
+
+### Option: HistoryStorageDateIndex
+#	Enable preprocessing of history values in history storage to store values in different indices based on date.
+#	0 - disable
+#	1 - enable
+#
+# Mandatory: no
+# Default:
+HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
+
+### Option: ExportDir
+#	Directory for real time export of events, history and trends in newline delimited JSON format.
+#	If set, enables real time export.
+#
+# Mandatory: no
+# Default:
+{% if zabbix_server_exportdir is defined and zabbix_server_exportdir %}
+ExportDir={{ zabbix_server_exportdir }}
+{% endif %}
+
+### Option: ExportFileSize
+#	Maximum size per export file in bytes.
+#	Only used for rotation if ExportDir is set.
+#
+# Mandatory: no
+# Range: 1M-1G
+# Default:
+ExportFileSize={{ zabbix_server_exportfilesize }}
 
 ############ advanced parameters ################
 
@@ -161,7 +224,7 @@ StartJavaPollers={{ zabbix_server_startjavapollers }}
 {% endif  %}
 
 {% if zabbix_version is version_compare('2.2', '>=') %}
-    ### option: startvmwarecollectors
+### option: startvmwarecollectors
 #	number of pre-forked vmware collector instances.
 #
 StartVMwareCollectors={{ zabbix_server_startvmwarecollectors }}
@@ -214,18 +277,24 @@ ListenIp={{ zabbix_server_listenip }}
 {% endif %}
 
 ### option: housekeepingfrequency
-#	how often zabbix will perform housekeeping procedure (in hours).
-#	housekeeping is removing unnecessary information from history, alert, and alarms tables.
+#	How often Zabbix will perform housekeeping procedure (in hours).
+#	Housekeeping is removing outdated information from the database.
+#	To prevent Housekeeper from being overloaded, no more than 4 times HousekeepingFrequency
+#	hours of outdated information are deleted in one housekeeping cycle, for each item.
+#	To lower load on server startup housekeeping is postponed for 30 minutes after server start.
+#	With HousekeepingFrequency=0 the housekeeper can be only executed using the runtime control option.
+#	In this case the period of outdated information deleted in one housekeeping cycle is 4 times the
+#	period since the last housekeeping cycle, but not less than 4 hours and not greater than 4 days.
 #
 HousekeepingFrequency={{ zabbix_server_housekeepingfrequency }}
 
 ### option: maxhousekeeperdelete
-#	the table "housekeeper" contains "tasks" for housekeeping procedure in the format:
+#	The table "housekeeper" contains "tasks" for housekeeping procedure in the format:
 #	[housekeeperid], [tablename], [field], [value].
-#	no more than 'maxhousekeeperdelete' rows (corresponding to [tablename], [field], [value])
+#	No more than 'MaxHousekeeperDelete' rows (corresponding to [tablename], [field], [value])
 #	will be deleted per one task in one housekeeping cycle.
-#	sqlite3 does not use this parameter, deletes all corresponding rows without a limit.
-#	if set to 0 then no limit is used at all. in this case you must know what you are doing!
+#	SQLite3 does not use this parameter, deletes all corresponding rows without a limit.
+#	If set to 0 then no limit is used at all. In this case you must know what you are doing!
 #
 MaxHousekeeperDelete={{ zabbix_server_maxhousekeeperdelete }}
 

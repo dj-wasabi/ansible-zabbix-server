@@ -1,16 +1,23 @@
 Table of Contents
 
+- [Overview](#overview)
+- [Upgrades](#upgrades)
+  * [1.0.0](#100)
 - [Requirements](#requirements)
   * [Operating systems](#operating-systems)
   * [Zabbix Versions](#zabbix-versions)
+    + [Zabbix 4.0](#zabbix-40)
     + [Zabbix 3.4](#zabbix-34)
     + [Zabbix 3.2](#zabbix-32)
     + [Zabbix 3.0](#zabbix-30)
     + [Zabbix 2.4](#zabbix-24)
     + [Zabbix 2.2](#zabbix-22)
+- [Installation](#installation)
+- [Role Variables](#role-variables)
   * [Main variables](#main-variables)
     + [Overall Zabbix](#overall-zabbix)
     + [Zabbix Server](#zabbix-server)
+    + [TLS Specific configuration](#tls-specific-configuration)
   * [Database](#database)
 - [Dependencies](#dependencies)
 - [Example Playbook](#example-playbook)
@@ -60,6 +67,16 @@ Please sent Pull Requests or suggestions when you want to use this role for othe
 ## Zabbix Versions
 
 See the following list of supported Operating systems with the Zabbix releases.
+
+### Zabbix 4.0
+
+  * CentOS 7.x
+  * Amazon 7.x
+  * RedHat 7.x
+  * OracleLinux 7.x
+  * Scientific Linux 7.x
+  * Ubuntu 14.04, 16.04, 18.04
+  * Debian 8, 9
 
 ### Zabbix 3.4
 
@@ -145,12 +162,29 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_server_dbuser`: The database username which is used by the Zabbix Server.
 * `zabbix_server_dbpassword`: The database user password which is used by the Zabbix Server.
 * `zabbix_server_dbport`: The database port which is used by the Zabbix Server.
-* `zabbix_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
-* `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
+* `zabbix_server_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
+* `zabbix_server_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 * `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 * `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
+
+### TLS Specific configuration
+
+These variables are specific for Zabbix 3.0 and higher:
+
+* `zabbix_server_tlsconnect`: How the agent should connect to server or proxy. Used for active checks.
+    Possible values:
+    * unencrypted
+    * psk
+    * cert
+* `zabbix_server_tlsaccept`: What incoming connections to accept.
+    Possible values:
+    * unencrypted
+    * psk
+    * cert
 * `zabbix_server_tlscafile`: Full pathname of a file containing the top-level CA(s) certificates for peer certificate verification.
 * `zabbix_server_tlscrlfile`: Full pathname of a file containing revoked certificates.
+* `zabbix_server_tlsservercertissuer`: Allowed server certificate issuer.
+* `zabbix_server_tlsservercertsubject`: Allowed server certificate subject.
 * `zabbix_server_tlscertfile`: Full pathname of a file containing the agent certificate or certificate chain.
 * `zabbix_server_tlskeyfile`: Full pathname of a file containing the agent private key.
 
