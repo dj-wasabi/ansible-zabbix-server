@@ -61,7 +61,7 @@
 - name: "Debian | Installing zabbix-server-{{ zabbix_server_database }}"
   apt:
     pkg: zabbix-server-{{ zabbix_server_database }}
-    state: present
+    state: "{{ zabbix_server_package_state }}"
     update_cache: yes
     cache_valid_time: 0
   tags:

@@ -5,6 +5,8 @@
 zabbix_version: 4.0
 zabbix_repo: zabbix
 
+zabbix_server_package_state: present
+
 zabbix_repo_yum:
   - name: zabbix
     description: Zabbix Official Repository - $basearch
