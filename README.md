@@ -149,6 +149,7 @@ The following is an overview of all available configuration default for this rol
   * _epel_ install agent from EPEL repo
   * _zabbix_ (default) install agent from Zabbix repo
   * _other_ install agent from pre-existing or other repo
+* `zabbix_server_package_state`: Default: _present_. Can be overridden to "latest" to update packages when needed.   
 
 ### Zabbix Server
 

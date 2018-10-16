@@ -56,7 +56,7 @@
 - name: "RedHat | Installing zabbix-server-{{ zabbix_server_database }}"
   yum:
     pkg: "{{ zabbix_server_package }}"
-    state: present
+    state: "{{ zabbix_server_package_state }}"
   tags:
     - zabbix-server
 
