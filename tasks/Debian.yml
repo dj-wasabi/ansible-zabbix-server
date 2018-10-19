@@ -80,11 +80,10 @@
 
 - name: "Debian | Install Mysql Client package"
   apt:
-    name: "{{ item }}"
+    name:
+      - mysql-client
+      - python-mysqldb
     state: present
-  with_items:
-    - mysql-client
-    - python-mysqldb
   when:
     - zabbix_server_database == 'mysql'
   tags:
