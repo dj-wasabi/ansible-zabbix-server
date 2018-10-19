@@ -72,11 +72,10 @@
 
 - name: "RedHat | Install Mysql Client package RHEL7"
   yum:
-    name: "{{ item }}"
+    name:
+      - mariadb
+      - MySQL-python
     state: present
-  with_items:
-    - mariadb
-    - MySQL-python
   when:
     - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "7"
@@ -85,11 +84,10 @@
 
 - name: "RedHat | Install Mysql Client package RHEL5 - 6"
   yum:
-    name: "{{ item }}"
+    name:
+      - mysql
+      - MySQL-python
     state: present
-  with_items:
-    - mysql
-    - MySQL-python
   when:
     - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
@@ -107,10 +105,9 @@
 
 - name: "RedHat | Install related SELinux package"
   yum:
-    name: "{{ item }}"
+    name:
+      - libsemanage-python
     state: present
-  with_items:
-    - libsemanage-python
   when:
     - selinux_allow_zabbix_can_network
   tags:
@@ -118,11 +115,10 @@
 
 - name: "RedHat | Enable httpd_can_connect_zabbix SELinux boolean"
   seboolean:
-    name: "{{ item }}"
+    name:
+      - httpd_can_connect_zabbix
     state: yes
     persistent: yes
-  with_items:
-    - httpd_can_connect_zabbix
   when:
     - selinux_allow_zabbix_can_http
   tags:
@@ -130,11 +126,10 @@
 
 - name: "RedHat | Enable zabbix_can_network SELinux boolean"
   seboolean:
-    name: "{{ item }}"
+    name:
+      - zabbix_can_network
     state: yes
     persistent: yes
-  with_items:
-    - zabbix_can_network
   when:
     - selinux_allow_zabbix_can_network
   tags:
