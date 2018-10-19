@@ -8,3 +8,4 @@ vendor/
 __pycache__
 .env
 .virtualenv
+requirements.txt
