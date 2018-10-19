@@ -4,23 +4,21 @@
   pre_tasks:
     - name: "Installing packages"
       yum:
-        name: "{{ item }}"
+        name:
+          - net-tools
+          - which
+          - libselinux-python
         state: present
-      with_items:
-        - net-tools
-        - which
-        - libselinux-python
       register: installation_dependencies
       when:
         - ansible_os_family == 'RedHat'
 
     - name: "Installing which on NON-CentOS"
       apt:
-        name: "{{ item }}"
+        name:
+          - net-tools
+          - apt-utils
         state: present
-      with_items:
-        - net-tools
-        - apt-utils
       when:
         - ansible_os_family != 'RedHat'
 
