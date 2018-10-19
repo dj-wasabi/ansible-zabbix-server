@@ -4,6 +4,12 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+1.3.0   (2018-10-19)
+
+  * Make it work with Zabbix 4.0 #112
+  * added zabbix server package variable to upgrade packages when necessary #116 (By pull request: average-joe (Thanks!))
+  * Changes to allow pgsql connection without ssh to remote db #111 (By pull request: ericsysmin (Thanks!))
+
 1.2.0   (2018-09-11)
 
   * Added several files like license, code-of-conduct and contributing #92
