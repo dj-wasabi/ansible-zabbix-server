@@ -122,7 +122,7 @@ HistoryStorageURL={{ zabbix_server_historystorageurl }}
 # Default:
 HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 
-{% if zabbix_version is ('4.0', '>=') %}
+{% if zabbix_version is version('4.0', '>=') %}
 ### Option: HistoryStorageDateIndex
 #	Enable preprocessing of history values in history storage to store values in different indices based on date.
 #	0 - disable
@@ -143,7 +143,7 @@ HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
 ExportDir={{ zabbix_server_exportdir }}
 {% endif %}
 
-{% if zabbix_version is ('4.0', '>=') %}
+{% if zabbix_version is version('4.0', '>=') %}
 ### Option: ExportFileSize
 #	Maximum size per export file in bytes.
 #	Only used for rotation if ExportDir is set.
