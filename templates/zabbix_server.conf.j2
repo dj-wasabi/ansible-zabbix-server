@@ -122,6 +122,7 @@ HistoryStorageURL={{ zabbix_server_historystorageurl }}
 # Default:
 HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 
+{% if zabbix_version is version('4.0', '>=') %}
 ### Option: HistoryStorageDateIndex
 #	Enable preprocessing of history values in history storage to store values in different indices based on date.
 #	0 - disable
@@ -130,6 +131,7 @@ HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 # Mandatory: no
 # Default:
 HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
+{% endif %}
 
 ### Option: ExportDir
 #	Directory for real time export of events, history and trends in newline delimited JSON format.
@@ -141,6 +143,7 @@ HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
 ExportDir={{ zabbix_server_exportdir }}
 {% endif %}
 
+{% if zabbix_version is version('4.0', '>=') %}
 ### Option: ExportFileSize
 #	Maximum size per export file in bytes.
 #	Only used for rotation if ExportDir is set.
@@ -149,7 +152,7 @@ ExportDir={{ zabbix_server_exportdir }}
 # Range: 1M-1G
 # Default:
 ExportFileSize={{ zabbix_server_exportfilesize }}
-
+{% endif %}
 ############ advanced parameters ################
 
 ### option: startpollers
