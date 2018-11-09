@@ -4,6 +4,8 @@
 
 zabbix_version: 4.0
 zabbix_repo: zabbix
+zabbix_include_custom_role: False
+zabbix_custom_role_name:
 
 zabbix_server_package_state: present
 

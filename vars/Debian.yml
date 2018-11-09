@@ -2,3 +2,5 @@
 apache_user: www-data
 apache_group: www-data
 apache_log: apache2
+zabbix_server_fpinglocation: /usr/bin/fping
+zabbix_server_fping6location: /usr/bin/fping6
