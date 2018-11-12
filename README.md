@@ -164,6 +164,8 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_server_dbpassword`: The database user password which is used by the Zabbix Server.
 * `zabbix_server_dbport`: The database port which is used by the Zabbix Server.
 * `zabbix_server_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
+* `zabbix_server_install_recommends`: True / False. False does not install the recommended packages that come with the zabbix-server install. Default true
+* `zabbix_server_install_database_client`: True / False. False does not install database client. Default true
 * `zabbix_server_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 * `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 * `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
