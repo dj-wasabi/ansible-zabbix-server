@@ -14,6 +14,7 @@ ListenPort={{ zabbix_server_listenport }}
 SourceIP={{ zabbix_server_sourceip }}
 {% endif %}
 
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: LogType
 #	Specifies where log messages are written to:
 #		system  - syslog
@@ -23,6 +24,7 @@ SourceIP={{ zabbix_server_sourceip }}
 # Mandatory: no
 # Default:
 LogType={{ zabbix_server_logtype }}
+{% endif %}
 
 ### option: logfile
 #	name of log file.
@@ -54,7 +56,9 @@ DebugLevel={{ zabbix_server_debuglevel }}
 # Default:
 # SocketDir=/tmp
 
+{% if zabbix_version is version('3.4', '>=') %}
 SocketDir={{ zabbix_server_socketdir }}
+{% endif %}
 
 ### option: pidfile
 #	name of pid file.
@@ -115,12 +119,14 @@ DBPort={{ zabbix_server_dbport }}
 HistoryStorageURL={{ zabbix_server_historystorageurl }}
 {% endif %}
 
+{% if zabbix_version is version('3.4', '>=') %}
 ### Option: HistoryStorageTypes
 #	Comma separated list of value types to be sent to the history storage.
 #
 # Mandatory: no
 # Default:
 HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
+{% endif %}
 
 {% if zabbix_version is version('4.0', '>=') %}
 ### Option: HistoryStorageDateIndex
@@ -133,6 +139,7 @@ HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
 {% endif %}
 
+{% if zabbix_version is version('4.0', '>=') %}
 ### Option: ExportDir
 #	Directory for real time export of events, history and trends in newline delimited JSON format.
 #	If set, enables real time export.
@@ -141,6 +148,7 @@ HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
 # Default:
 {% if zabbix_server_exportdir is defined and zabbix_server_exportdir %}
 ExportDir={{ zabbix_server_exportdir }}
+{% endif %}
 {% endif %}
 
 {% if zabbix_version is version('4.0', '>=') %}
