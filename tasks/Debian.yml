@@ -64,6 +64,7 @@
     state: "{{ zabbix_server_package_state }}"
     update_cache: yes
     cache_valid_time: 0
+    install_recommends: "{{ zabbix_server_install_recommends }}"
   tags:
     - zabbix-server
     - init
@@ -86,6 +87,7 @@
     state: present
   when:
     - zabbix_server_database == 'mysql'
+    - zabbix_server_install_database_client == true
   tags:
     - zabbix-server
     - init
@@ -97,6 +99,7 @@
     state: present
   when:
     - zabbix_server_database == 'pgsql'
+    - zabbix_server_install_database_client == true
   tags:
     - zabbix-server
     - init
