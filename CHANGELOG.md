@@ -4,6 +4,17 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+1.4.0   (2018-11-23)
+
+  * Fixes Deprecation Warnings for Ansible 2.7 to prepare.yml #121 (By pull request: borener (Thanks!))
+  * Removes loops that are now causing Deprecation warnings in redhat.yml #122 (By pull request: borener (Thanks!))
+  * Fix Deprecation warning associated with apt loops in Debian.yml #123 (By pull request: borener (Thanks!))
+  * Make it a service only #124
+  * Pre 4.0 config #125 (By pull request: Boolman (Thanks!))
+  * Add install_recommends option to the apt-get install of zabbix-server #127 (By pull request: gmcgilvray (Thanks!))
+  * Fix for: unable to install older releases of zabbix-server #129
+  * Set the correct rights for configuration file #130
+
 1.3.0   (2018-10-19)
 
   * Make it work with Zabbix 4.0 #112
