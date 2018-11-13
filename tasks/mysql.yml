@@ -90,7 +90,7 @@
     - not done_file.stat.exists
 
 - name: "Get the correct path for the SQL files < 3.0"
-  shell: ls -1 {{ datafiles_path }}/create/{{ item }}.sql*
+  shell: ls -1 {{ datafiles_path }}/{{ mysql_create_dir }}{{ item }}.sql*
   changed_when: False
   register: ls_output_schema
   with_items:
