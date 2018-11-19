@@ -87,7 +87,7 @@
     state: present
   when:
     - zabbix_server_database == 'mysql'
-    - zabbix_server_install_database_client == true
+    - zabbix_server_install_database_client
   tags:
     - zabbix-server
     - init
@@ -99,7 +99,7 @@
     state: present
   when:
     - zabbix_server_database == 'pgsql'
-    - zabbix_server_install_database_client == true
+    - zabbix_server_install_database_client
   tags:
     - zabbix-server
     - init
