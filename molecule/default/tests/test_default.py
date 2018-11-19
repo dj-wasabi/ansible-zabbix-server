@@ -14,10 +14,7 @@ def test_zabbiserver_running_and_enabled(Service, SystemInfo):
         assert zabbix.is_running
 
 
-@pytest.mark.parametrize("server", (
-        ("zabbix-server-pgsql"),
-        ("zabbix-server-mysql"),
-))
+@pytest.mark.parametrize("server", [("zabbix-server-pgsql"), ("zabbix-server-mysql")])
 def test_zabbix_package(Package, TestinfraBackend, server, SystemInfo):
     host = TestinfraBackend.get_hostname()
     host = host.replace("-centos", "")
