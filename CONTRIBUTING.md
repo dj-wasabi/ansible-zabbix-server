@@ -11,7 +11,7 @@
   * [Virtualenv](#virtualenv)
   * [Links](#links)
 
-Thank you very much for making time to improve this Ansible role.
+Thank you very much for taking time to improve this Ansible role.
 
 ## Contributing
 
@@ -31,7 +31,7 @@ Please note that this project is released with a Contributor Code of Conduct. By
 
 **Note**
 
-Pull Requests that fails during the tests will not be merged.
+Pull Requests that fail during the tests will not be merged.
 
 ## Coding Guidelines
 
@@ -44,7 +44,7 @@ Style guides are important because they ensure consistency in the content, look,
 
 ## (local) Development
 
-This role make use of Molecule to test the execution of the role and verificate it. In the root of the repository, a file named `requirements.txt` exists and contains the versions used by the tests.
+This role makes use of Molecule to test the execution of the role and verify it. In the root of the repository, a file named `requirements.txt` exists and contains the versions used by the tests.
 
 ### Requirements
 
@@ -54,7 +54,7 @@ You can install them with the following command:
 pip install -r requirements.txt
 ```
 
-Once the dependencies are installed, please install Docker as Molecule is configured in this repository to create Docker containers. See [this](https://docs.docker.com/install/) link to install Docker on your system.
+Once the dependencies are installed, please install Docker, as Molecule is configured in this repository to create Docker containers. See [this](https://docs.docker.com/install/) link to install Docker on your system.
 
 ### Execution
 

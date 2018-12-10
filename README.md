@@ -32,9 +32,9 @@ Build Status:
 
 [![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server)
 
-This is an role for installing and maintaining the zabbix-server.
+This is a role for installing and maintaining the zabbix-server.
 
-This is one of the 'dj-wasabi' roles which configures your whole zabbix environment. See an list for the complete list:
+This is one of the 'dj-wasabi' roles which configures your whole zabbix environment. See below for the complete list:
 
  * zabbix-web (https://galaxy.ansible.com/dj-wasabi/zabbix-web/)
  * zabbix-server (https://galaxy.ansible.com/dj-wasabi/zabbix-server/)
@@ -48,8 +48,8 @@ This is one of the 'dj-wasabi' roles which configures your whole zabbix environm
 
 With this 1.0.0 release, the following is changed:
 
-* This repository will only contain all the actions that are needed for correct configuring a Zabbix Server. All tasks regarding the frontend/webui of Zabbix has been transferred to the `dj-wasabi.zabbix-web` role.
-* All properties starts with `zabbix_` now. Example, property named `server_dbuser` is now `zabbix_server_dbuser`.
+* This repository will only contain all the actions that are needed for correctly configuring a Zabbix Server. All tasks regarding the frontend/webui of Zabbix has been transferred to the `dj-wasabi.zabbix-web` role.
+* All properties start with `zabbix_` now. Example, property named `server_dbuser` is now `zabbix_server_dbuser`.
 
 # Requirements
 
@@ -62,11 +62,11 @@ This role will work on the following operating systems:
  * Ubuntu
 
 So, you'll need one of those operating systems.. :-)
-Please sent Pull Requests or suggestions when you want to use this role for other Operating systems.
+Please send Pull Requests or suggestions when you want to use this role for other Operating systems.
 
 ## Zabbix Versions
 
-See the following list of supported Operating systems with the Zabbix releases.
+See the following list of supported Operating systems with the Zabbix releases:
 
 ### Zabbix 4.0
 
@@ -193,7 +193,7 @@ These variables are specific for Zabbix 3.0 and higher:
 
 ## Database
 
-There are some zabbix-server specific variables which will be used for the zabbix-server configuration file, these can be found in the defaults/main.yml file. There are 3 which needs some explanation:
+There are some zabbix-server specific variables which will be used for the zabbix-server configuration file. These can be found in the defaults/main.yml file. There are 3 which need some explanation:
 ```bash
   #database_type: mysql
   #database_type_long: mysql
@@ -205,14 +205,14 @@ There are some zabbix-server specific variables which will be used for the zabbi
 
 There are 2 database_types which will be supported: mysql and postgresql. You'll need to comment or uncomment the database you would like to use and adjust the port number (`server_dbport`) accordingly (`5432` is the default postgresql port). In example from above, the postgresql database is used. If you want to use mysql, uncomment the 2 lines from mysql and comment the 2 lines for postgresql and change the database port to the mysql one (default mysql port is `3306`).
 
-If you use mysql, then you should define mysql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefor, connecting to database will be considered as connecting to localhost with no password). the keys are belows:
+If you use mysql, then you should define mysql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefore, connecting to database will be considered as connecting to localhost with no password). The keys are below:
 
 ```bash
    zabbix_server_mysql_login_host
    zabbix_server_mysql_login_user
    zabbix_server_mysql_login_password
 ```
-If you use pgsql, then you should define pgsql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefor, connecting to database will be considered as connecting to localhost with no password). the keys are belows:
+If you use pgsql, then you should define pgsql username, password and host to prepare zabbix database, otherwise they will be considered as their default value (and therefore, connecting to database will be considered as connecting to localhost with no password). The keys are below:
 
 ```bash
    zabbix_server_pgsql_login_host
@@ -223,7 +223,7 @@ If you use pgsql, then you should define pgsql username, password and host to pr
 
 # Dependencies
 
-For the databases you should find a role that suits your needs, as I don't want to force you for using a specific role. Before applying this Zabbix Server role, the database service should already been installed and running and should be able to handle the modules in Ansible that belongs to that database.
+For the databases you should find a role that suits your needs, as I don't want to force you for using a specific role. Before applying this Zabbix Server role, the database service should already be installed and running, and should be able to handle the modules in Ansible that belong to that database.
 
 This role will **not** install a MySQL or PostgreSQL service.
 
@@ -241,7 +241,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 # Molecule
 
-This roles is configured to be tested with Molecule. You can find on this page some more information regarding Molecule:
+This role is configured to be tested with Molecule. You can find on these pages some more information regarding Molecule:
 
 * http://werner-dijkerman.nl/2016/07/10/testing-ansible-roles-with-molecule-testinfra-and-docker/
 * http://werner-dijkerman.nl/2016/07/27/extending-ansible-role-testing-with-molecule-by-adding-group_vars-dependencies-and-using-travis-ci/
