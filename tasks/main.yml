@@ -5,22 +5,22 @@
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: "Install the correct repository"
-  include: "RedHat.yml"
+  include_tasks: "RedHat.yml"
   when:
     - ansible_os_family == "RedHat"
 
 - name: "Install the correct repository"
-  include: "Debian.yml"
+  include_tasks: "Debian.yml"
   when:
     - ansible_os_family == "Debian"
 
 - name: "Installing the postgresql database"
-  include: "postgresql.yml"
+  include_tasks: "postgresql.yml"
   when:
     - zabbix_server_database_long == "postgresql"
 
 - name: "Installing the mysql database"
-  include: "mysql.yml"
+  include_tasks: "mysql.yml"
   when:
     - zabbix_server_database_long == "mysql"
 
