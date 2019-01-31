@@ -168,6 +168,21 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 * `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
 
+### Custom Zabbix Scripts
+
+Define these variables to copy scripts to your respective scripts path.
+
+* `zabbix_server_alertscripts`: List of alertscripts to be added to `zabbix_server_alertscriptspath`
+* `zabbix_server_externalscripts`: List of alertscripts to be added to `zabbix_server_externalscriptspath`
+
+Example:
+
+```bash
+   zabbix_server_alertscripts:
+    - path: "{{ lookup('first_found', 'zabbix-scripts/somescript.php') }}"
+      name: "somescript.php"
+```
+
 ### TLS Specific configuration
 
 These variables are specific for Zabbix 3.0 and higher:
