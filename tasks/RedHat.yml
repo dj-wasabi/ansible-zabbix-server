@@ -115,8 +115,7 @@
 
 - name: "RedHat | Enable httpd_can_connect_zabbix SELinux boolean"
   seboolean:
-    name:
-      - httpd_can_connect_zabbix
+    name: httpd_can_connect_zabbix
     state: yes
     persistent: yes
   when:
@@ -126,8 +125,7 @@
 
 - name: "RedHat | Enable zabbix_can_network SELinux boolean"
   seboolean:
-    name:
-      - zabbix_can_network
+    name: zabbix_can_network
     state: yes
     persistent: yes
   when:
