@@ -12,7 +12,7 @@
 - name: "Configure zabbix-server externalscripts"
   template:
     src: "{{ item.path }}"
-    dest: "{{ zabbix_server_externalscripts }}/{{ item.name }}"
+    dest: "{{ zabbix_server_externalscriptspath }}/{{ item.name }}"
     owner: zabbix
     group: zabbix
     mode: 0755
