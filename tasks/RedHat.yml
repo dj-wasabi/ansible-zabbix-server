@@ -5,7 +5,7 @@
   set_fact:
     zabbix_server_package: "zabbix-server-{{ zabbix_server_database }}"
   when:
-    - zabbix_repo == "zabbix"
+    - zabbix_repo == "zabbix" or zabbix_repo == "other"
   tags:
     - zabbix-server
 
@@ -50,6 +50,8 @@
     gpgkey: "{{ item.gpgkey }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ zabbix_repo_yum }}"
+  when:
+    - zabbix_repo == "zabbix"
   tags:
     - zabbix-server
 
