@@ -65,6 +65,8 @@
     update_cache: yes
     cache_valid_time: 0
     install_recommends: "{{ zabbix_server_install_recommends }}"
+  register: zabbix_server_package_installed
+  until: zabbix_server_package_installed is succeeded
   tags:
     - zabbix-server
     - init
@@ -73,6 +75,8 @@
   apt:
     name: python-psycopg2
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_database_creation
   tags:
@@ -85,6 +89,8 @@
       - mysql-client
       - python-mysqldb
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'mysql'
     - zabbix_server_install_database_client
@@ -97,6 +103,8 @@
   apt:
     name: postgresql-client
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'pgsql'
     - zabbix_server_install_database_client
