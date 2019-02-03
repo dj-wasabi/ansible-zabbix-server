@@ -3,9 +3,13 @@
 - name: "Include Zabbix gpg ids"
   include_vars: zabbix.yml
 
-- name: "Set short version name"
+- name: "Set some variables"
   set_fact:
     zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
+    zabbix_server_apt_repository:
+      - "http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/"
+      - "{{ ansible_distribution_release }}"
+      - "main"
 
 - name: "Debian | Set some facts"
   set_fact:
@@ -31,6 +35,8 @@
   apt_key:
     id: "{{ sign_keys[zabbix_short_version][ansible_distribution_release]['sign_key'] }}"
     url: http://repo.zabbix.com/zabbix-official-repo.key
+  register: zabbix_server_repo_files_installed
+  until: zabbix_server_repo_files_installed is succeeded
   when:
     - zabbix_repo == "zabbix"
   become: yes
@@ -40,7 +46,7 @@
 
 - name: "Debian | Installing repository {{ ansible_distribution }}"
   apt_repository:
-    repo: "{{ item }} http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/ {{ ansible_distribution_release }} main"
+    repo: "{{ item }} {{ zabbix_server_apt_repository | join(' ') }}"
     state: present
   when: zabbix_repo == "zabbix"
   with_items:
