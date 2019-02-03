@@ -59,6 +59,8 @@
   yum:
     pkg: "{{ zabbix_server_package }}"
     state: "{{ zabbix_server_package_state }}"
+  register: zabbix_server_package_installed
+  until: zabbix_server_package_installed is succeeded
   tags:
     - zabbix-server
 
@@ -66,6 +68,8 @@
   yum:
     name: python-psycopg2
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_database_creation
     - zabbix_server_database == 'pgsql'
@@ -78,6 +82,8 @@
       - mariadb
       - MySQL-python
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "7"
@@ -90,6 +96,8 @@
       - mysql
       - MySQL-python
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'mysql'
     - ansible_distribution_major_version == "6" or ansible_distribution_major_version == "5"
@@ -100,6 +108,8 @@
   yum:
     name: postgresql
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'pgsql'
   tags:
@@ -110,6 +120,8 @@
     name:
       - libsemanage-python
     state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
   when:
     - selinux_allow_zabbix_can_network
   tags:
