@@ -98,6 +98,7 @@
   shell: "{{ postgres_create_command | join(' ') }}"
   args:
     creates: /etc/zabbix/schema.done
+    warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when:
@@ -135,6 +136,7 @@
   shell: "{{ postgres_schema_command | join(' ') }}"
   args:
     creates: /etc/zabbix/schema.done
+    warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when:
@@ -147,6 +149,7 @@
   shell: "{{ postgres_images_command | join(' ') }}"
   args:
     creates: /etc/zabbix/images.done
+    warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when: (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
@@ -158,6 +161,7 @@
   shell: "{{ postgres_data_command | join(' ') }}"
   args:
     creates: /etc/zabbix/data.done
+    warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when: (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
