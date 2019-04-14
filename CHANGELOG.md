@@ -4,6 +4,23 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
+UNRELEASED:
+
+1.5.0   (2019-04-14)
+
+  * docs: fix basic grammar mistakes #131 (By pull request: mirmire (Thanks!))
+  * fix deprecation warning in ansible 2.4 #132 (By pull request: bessonovevgen (Thanks!))
+  * Add Alertscript and Externalscript install #133 (By pull request: gmcgilvray (Thanks!))
+  * modified placement of seboolean variables #135 (By pull request: average-joe (Thanks!))
+  * fix installation when zabbix_repo="other" #136 (By pull request: wschaft (Thanks!))
+  * alertscripts-fix #137 (By pull request: gmcgilvray (Thanks!))
+  * Added retries for package installations #139
+  * [E204] Lines should be no longer than 120 chars #140
+  * Update README.md #141 (By pull request: mklvr (Thanks!))
+  * Fix Zabbix installation on Bionic #142 (By pull request: logan2211 (Thanks!))
+  * Fix typo on config #143 (By pull request: mrdumpty (Thanks!))
+  * Updating to Zabbix 4.2 #145
+
 1.4.0   (2018-11-23)
 
   * Fixes Deprecation Warnings for Ansible 2.7 to prepare.yml #121 (By pull request: borener (Thanks!))
