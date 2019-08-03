@@ -1,39 +1,6 @@
 ---
 # task file for postgresql
 
-- name: "Set facts for usage in this playbook"
-  set_fact:
-    postgres_create_command:
-      - "cd {{ datafiles_path }} &&"
-      - "if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi &&"
-      - "psql -h '{{ zabbix_server_dbhost }}'"
-      - "-U '{{ zabbix_server_dbuser }}'"
-      - "-d '{{ zabbix_server_dbname }}'"
-      - "-p '{{ zabbix_server_dbport }}'"
-      - "-f create.sql && touch /etc/zabbix/schema.done"
-    postgres_schema_command:
-      - "cd {{ datafiles_path }} && "
-      - "if [ -f schema.sql.gz ]; then gunzip schema.sql.gz ; fi &&"
-      - "psql -h '{{ zabbix_server_dbhost }}'"
-      - "-U '{{ zabbix_server_dbuser }}'"
-      - "-d '{{ zabbix_server_dbname }}'"
-      - "-p '{{ zabbix_server_dbport }}'"
-      - "-f schema.sql && touch /etc/zabbix/schema.done"
-    postgres_images_command:
-      - "cd {{ datafiles_path }} &&"
-      - "psql -h '{{ zabbix_server_dbhost }}'"
-      - "-U '{{ zabbix_server_dbuser }}'"
-      - "-d '{{ zabbix_server_dbname }}'"
-      - "-p '{{ zabbix_server_dbport }}'"
-      - "-f images.sql && touch /etc/zabbix/images.done"
-    postgres_data_command:
-      - "cd {{ datafiles_path }} &&"
-      - "psql -h '{{ zabbix_server_dbhost }}'"
-      - "-U '{{ zabbix_server_dbuser }}'"
-      - "-d '{{ zabbix_server_dbname }}'"
-      - "-p '{{ zabbix_server_dbport }}'"
-      - "-f data.sql && touch /etc/zabbix/data.done"
-
 - name: "Set the correct delegated_dbhost (to support postgres db deployment on a remote dbhost)"
   set_fact:
     delegated_dbhost: "{{ zabbix_server_dbhost if (zabbix_server_dbhost != 'localhost') else inventory_hostname }}"
@@ -95,7 +62,14 @@
     - database
 
 - name: "PostgreSQL | Create schema"
-  shell: "{{ postgres_create_command | join(' ') }}"
+  shell: >
+    cd {{ datafiles_path }} &&
+    if [ -f create.sql.gz ]; then gunzip create.sql.gz ; fi &&
+    psql -h '{{ zabbix_server_dbhost }}'
+    -U '{{ zabbix_server_dbuser }}'
+    -d '{{ zabbix_server_dbname }}'
+    -p '{{ zabbix_server_dbport }}'
+    -f create.sql && touch /etc/zabbix/schema.done
   args:
     creates: /etc/zabbix/schema.done
     warn: no
@@ -133,7 +107,14 @@
     - create_dir_or_not.stat.exists
 
 - name: "PostgreSQL | Importing schema file"
-  shell: "{{ postgres_schema_command | join(' ') }}"
+  shell: >
+    cd {{ datafiles_path }} &&
+    if [ -f schema.sql.gz ]; then gunzip schema.sql.gz ; fi &&
+    psql -h '{{ zabbix_server_dbhost }}'
+    -U '{{ zabbix_server_dbuser }}'
+    -d '{{ zabbix_server_dbname }}'
+    -p '{{ zabbix_server_dbport }}'
+    -f schema.sql && touch /etc/zabbix/schema.done
   args:
     creates: /etc/zabbix/schema.done
     warn: no
@@ -146,7 +127,13 @@
     - database
 
 - name: "PostgreSQL | Importing images file"
-  shell: "{{ postgres_images_command | join(' ') }}"
+  shell: >
+    cd {{ datafiles_path }} &&
+    psql -h '{{ zabbix_server_dbhost }}'
+    -U '{{ zabbix_server_dbuser }}'
+    -d '{{ zabbix_server_dbname }}'
+    -p '{{ zabbix_server_dbport }}'
+    -f images.sql && touch /etc/zabbix/images.done
   args:
     creates: /etc/zabbix/images.done
     warn: no
@@ -158,7 +145,13 @@
     - database
 
 - name: "PostgreSQL | Importing data file"
-  shell: "{{ postgres_data_command | join(' ') }}"
+  shell: >
+    cd {{ datafiles_path }} &&
+    psql -h '{{ zabbix_server_dbhost }}'
+    -U '{{ zabbix_server_dbuser }}'
+    -d '{{ zabbix_server_dbname }}'
+    -p '{{ zabbix_server_dbport }}'
+    -f data.sql && touch /etc/zabbix/data.done
   args:
     creates: /etc/zabbix/data.done
     warn: no
