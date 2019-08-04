@@ -10,6 +10,7 @@
       - "http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/"
       - "{{ ansible_distribution_release }}"
       - "main"
+    zabbix_python_prefix: "python{% if ansible_python_version | version_compare('3', '>=') %}3{% endif %}"
 
 - name: "Debian | Set some facts"
   set_fact:
@@ -96,7 +97,7 @@
 
 - name: "Debian | Install Ansible module dependencies"
   apt:
-    name: python-psycopg2
+    name: "{{ zabbix_python_prefix }}-psycopg2"
     state: present
   register: zabbix_server_dependencies_installed
   until: zabbix_server_dependencies_installed is succeeded
@@ -110,7 +111,7 @@
   apt:
     name:
       - mysql-client
-      - python-mysqldb
+      - "{{ zabbix_python_prefix }}-mysqldb"
     state: present
   register: zabbix_server_dependencies_installed
   until: zabbix_server_dependencies_installed is succeeded
