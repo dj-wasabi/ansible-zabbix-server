@@ -14,7 +14,7 @@ ListenPort={{ zabbix_server_listenport }}
 SourceIP={{ zabbix_server_sourceip }}
 {% endif %}
 
-{% if zabbix_version is version('3.0', '>=') %}
+{% if zabbix_version is version_compare('3.0', '>=') %}
 ### Option: LogType
 #	Specifies where log messages are written to:
 #		system  - syslog
@@ -56,7 +56,7 @@ DebugLevel={{ zabbix_server_debuglevel }}
 # Default:
 # SocketDir=/tmp
 
-{% if zabbix_version is version('3.4', '>=') %}
+{% if zabbix_version is version_compare('3.4', '>=') %}
 SocketDir={{ zabbix_server_socketdir }}
 {% endif %}
 
@@ -119,7 +119,7 @@ DBPort={{ zabbix_server_dbport }}
 HistoryStorageURL={{ zabbix_server_historystorageurl }}
 {% endif %}
 
-{% if zabbix_version is version('3.4', '>=') %}
+{% if zabbix_version is version_compare('3.4', '>=') %}
 ### Option: HistoryStorageTypes
 #	Comma separated list of value types to be sent to the history storage.
 #
@@ -128,7 +128,7 @@ HistoryStorageURL={{ zabbix_server_historystorageurl }}
 HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 {% endif %}
 
-{% if zabbix_version is version('4.0', '>=') %}
+{% if zabbix_version is version_compare('4.0', '>=') %}
 ### Option: HistoryStorageDateIndex
 #	Enable preprocessing of history values in history storage to store values in different indices based on date.
 #	0 - disable
@@ -139,7 +139,7 @@ HistoryStorageTypes={{ zabbix_server_historystoragetypes }}
 HistoryStorageDateIndex={{ zabbix_server_historystoragedateindex }}
 {% endif %}
 
-{% if zabbix_version is version('4.0', '>=') %}
+{% if zabbix_version is version_compare('4.0', '>=') %}
 ### Option: ExportDir
 #	Directory for real time export of events, history and trends in newline delimited JSON format.
 #	If set, enables real time export.
@@ -151,7 +151,7 @@ ExportDir={{ zabbix_server_exportdir }}
 {% endif %}
 {% endif %}
 
-{% if zabbix_version is version('4.0', '>=') %}
+{% if zabbix_version is version_compare('4.0', '>=') %}
 ### Option: ExportFileSize
 #	Maximum size per export file in bytes.
 #	Only used for rotation if ExportDir is set.
