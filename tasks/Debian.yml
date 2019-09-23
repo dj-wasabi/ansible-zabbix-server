@@ -118,6 +118,24 @@
   when:
     - zabbix_server_database == 'mysql'
     - zabbix_server_install_database_client
+    - ansible_distribution_release != "buster"
+  tags:
+    - zabbix-server
+    - init
+    - database
+
+- name: "Debian 10 | Install Mysql Client package"
+  apt:
+    name:
+      - mariadb-client
+      - "{{ zabbix_python_prefix }}-mysqldb"
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - zabbix_server_database == 'mysql'
+    - zabbix_server_install_database_client
+    - ansible_distribution_release == "buster"
   tags:
     - zabbix-server
     - init
