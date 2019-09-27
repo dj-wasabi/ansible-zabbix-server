@@ -59,6 +59,20 @@
     - zabbix_version is version_compare('3.0', '>=')
     - zabbix_database_sqlload
 
+- name: "MySQL | Disable InnoDB Strict Mode"
+  mysql_variables:
+    variable: innodb_strict_mode
+    value: 0
+  when:
+    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_database_sqlload
+    - not done_file.stat.exists
+    - ansible_distribution_release == "buster"
+  delegate_to: "{{ delegated_dbhost }}"
+  tags:
+    - zabbix-server
+    - database
+
 - name: "MySQL | Create database and import file >= 3.0"
   mysql_db:
     login_host: "{{ zabbix_server_mysql_login_host | default(omit) }}"
