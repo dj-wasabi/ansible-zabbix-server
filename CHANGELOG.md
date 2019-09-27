@@ -6,6 +6,13 @@ Version (Release date)
 
 UNRELEASED:
 
+1.6.0   (2019-09-27)
+
+  * Install Python bindings based on interpreter; Closes dj-wasabi/ansible-zabbix-server#148 #149 (By pull request: kr4ut (Thanks!))
+  * Update zabbix_server.conf.j2 #153 (By pull request: Grzyboll (Thanks!))
+  * Fixed installation on Debian 10 (buster) #156 (By pull request: banzayats (Thanks!))
+  * Workaround for importing create.sql.gz issue on Debian 10 #157 (By pull request: banzayats (Thanks!))
+
 1.5.0   (2019-04-14)
 
   * docs: fix basic grammar mistakes #131 (By pull request: mirmire (Thanks!))
