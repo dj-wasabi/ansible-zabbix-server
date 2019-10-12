@@ -29,9 +29,9 @@ Table of Contents
 
 # Overview
 
-Build Status:
+Badges:
 
-[![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server)
+[![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server) <img src="https://img.shields.io/ansible/role/d/2070"/> <img src="https://img.shields.io/ansible/quality/2070"/>
 
 This is a role for installing and maintaining the zabbix-server.
 
