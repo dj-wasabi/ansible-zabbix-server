@@ -226,8 +226,8 @@ These variables are specific for Zabbix 3.0 and higher:
 
 There are some zabbix-server specific variables which will be used for the zabbix-server configuration file. These can be found in the defaults/main.yml file. There are 3 which need some explanation:
 ```bash
-  #database_type: mysql
-  #database_type_long: mysql
+  #zabbix_server_database: mysql
+  #zabbix_server_database_long: mysql
   zabbix_server_database: pgsql
   zabbix_server_database_long: postgresql
   [...]
@@ -267,7 +267,7 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: zabbix-server
       become: yes
       roles:
-         - { role: dj-wasabi.zabbix-server, database_type: mysql, database_type_long: mysql }
+         - { role: dj-wasabi.zabbix-server, zabbix_server_database: mysql, zabbix_server_database_long: mysql }
 
 
 # Molecule
