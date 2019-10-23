@@ -4,6 +4,29 @@ language: python
 services:
   - docker
 
+env:
+  global:
+    - ROLE_NAME: zabbix-server
+  matrix:
+    - MOLECULE_CONTAINER: mysql-centos
+      MOLECULE_IMAGE: milcom/centos7-systemd
+      MOLECULE_GROUP: mysql
+    - MOLECULE_CONTAINER: pgsql-centos
+      MOLECULE_IMAGE: milcom/centos7-systemd
+      MOLECULE_GROUP: postgresql
+    - MOLECULE_CONTAINER: mysql-debian
+      MOLECULE_IMAGE: minimum2scp/systemd-stretch
+      MOLECULE_GROUP: mysql
+    - MOLECULE_CONTAINER: pgsql-debian
+      MOLECULE_IMAGE: minimum2scp/systemd-stretch
+      MOLECULE_GROUP: postgresql
+    - MOLECULE_CONTAINER: mysql-ubuntu
+      MOLECULE_IMAGE: solita/ubuntu-systemd:xenial
+      MOLECULE_GROUP: mysql
+    - MOLECULE_CONTAINER: pgsql-ubuntu
+      MOLECULE_IMAGE: solita/ubuntu-systemd:xenial
+      MOLECULE_GROUP: postgresql
+
 install:
   - curl -sSlo requirements.txt https://raw.githubusercontent.com/dj-wasabi/ansible-ci-base/master/requirements.txt
   - pip install -r requirements.txt
