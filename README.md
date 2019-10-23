@@ -146,10 +146,10 @@ Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-se
 
 Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`  
 
- Default username/password for the Zabbix Web interface is the default.
+Default username/password for the Zabbix Web interface is the default one installed by Zabbix.
 
- Username: Admin
- Password: zabbix
+Username: Admin
+Password: zabbix
 
 # Role Variables
 
