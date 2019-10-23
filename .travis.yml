@@ -8,22 +8,22 @@ env:
   global:
     - ROLE_NAME: zabbix-server
   matrix:
-    - MY_MOLECULE_CONTAINER: mysql-centos,
+    - MY_MOLECULE_CONTAINER: mysql-centos
       MY_MOLECULE_IMAGE: milcom/centos7-systemd
       MY_MOLECULE_GROUP: mysql
-    - MY_MOLECULE_CONTAINER: mysql-debian,
+    - MY_MOLECULE_CONTAINER: mysql-debian
       MY_MOLECULE_IMAGE: minimum2scp/systemd-stretch
       MY_MOLECULE_GROUP: mysql
-    - MY_MOLECULE_CONTAINER: mysql-ubuntu,
+    - MY_MOLECULE_CONTAINER: mysql-ubuntu
       MY_MOLECULE_IMAGE: solita/ubuntu-systemd:xenial
       MY_MOLECULE_GROUP: mysql
-    - MY_MOLECULE_CONTAINER: pgsql-centos,
+    - MY_MOLECULE_CONTAINER: pgsql-centos
       MY_MOLECULE_IMAGE: milcom/centos7-systemd
       MY_MOLECULE_GROUP: postgresql
-    - MY_MOLECULE_CONTAINER: pgsql-debian,
+    - MY_MOLECULE_CONTAINER: pgsql-debian
       MY_MOLECULE_IMAGE: minimum2scp/systemd-stretch
       MY_MOLECULE_GROUP: postgresql
-    - MY_MOLECULE_CONTAINER: pgsql-ubuntu,
+    - MY_MOLECULE_CONTAINER: pgsql-ubuntu
       MY_MOLECULE_IMAGE: solita/ubuntu-systemd:xenial
       MY_MOLECULE_GROUP: postgresql
 
