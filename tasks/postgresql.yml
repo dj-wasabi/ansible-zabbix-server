@@ -76,7 +76,7 @@
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when:
-    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_version is version('3.0', '>=')
     - zabbix_database_sqlload
   tags:
     - zabbix-server
@@ -87,7 +87,7 @@
   register: datafiles_path_full
   changed_when: False
   when:
-    - (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+    - (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - skip_ansible_lint
 
@@ -96,13 +96,13 @@
     path: "{{ datafiles_path_full.stdout }}/create"
   register: create_dir_or_not
   when:
-    - (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+    - (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
 
 - name: "Set fact"
   set_fact:
     datafiles_path: "{{ datafiles_path }}/create"
   when:
-    - (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+    - (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
     - create_dir_or_not.stat.isdir is defined and create_dir_or_not.stat.isdir
     - create_dir_or_not.stat.exists
 
@@ -121,7 +121,7 @@
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
   when:
-    - (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+    - (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -139,7 +139,7 @@
     warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
-  when: (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+  when: (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
@@ -157,7 +157,7 @@
     warn: no
   environment:
     PGPASSWORD: '{{ zabbix_server_dbpassword }}'
-  when: (zabbix_version is version_compare('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
+  when: (zabbix_version is version('3.0', '<') and zabbix_database_sqlload) or (zabbix_repo == "epel" and zabbix_database_sqlload)
   tags:
     - zabbix-server
     - database
