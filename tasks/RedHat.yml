@@ -29,7 +29,7 @@
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
-    - zabbix_version is version_compare('3.0', '<')
+    - zabbix_version is version('3.0', '<')
   tags:
     - zabbix-server
 
@@ -37,7 +37,7 @@
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
-    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_version is version('3.0', '>=')
   tags:
     - zabbix-server
 

@@ -10,13 +10,13 @@
       - "http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/"
       - "{{ ansible_distribution_release }}"
       - "main"
-    zabbix_python_prefix: "python{% if ansible_python_version | version_compare('3', '>=') %}3{% endif %}"
+    zabbix_python_prefix: "python{% if ansible_python_version is version('3', '>=') %}3{% endif %}"
 
 - name: "Debian | Set some facts"
   set_fact:
     datafiles_path: /usr/share/zabbix-server-{{ zabbix_server_database }}
   when:
-    - zabbix_version is version_compare('3.0', '<')
+    - zabbix_version is version('3.0', '<')
   tags:
     - zabbix-server
     - init
@@ -26,7 +26,7 @@
   set_fact:
     datafiles_path: /usr/share/doc/zabbix-server-{{ zabbix_server_database }}
   when:
-    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_version is version('3.0', '>=')
   tags:
     - zabbix-server
     - init
