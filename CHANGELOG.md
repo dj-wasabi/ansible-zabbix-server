@@ -6,6 +6,14 @@ Version (Release date)
 
 UNRELEASED:
 
+1.7.0   (2019-12-01)
+
+  * Using the correct properties in examples #159
+  * Updating to Zabbix 4.4 #160
+  * Trying to use a Matrix in Travis and see what happens.. :-) #161
+  * Added RHEL8 specific stuff #162 (By pull request: bdekker-routit (Thanks!))
+  * Replaced version_compare #164 (By pull request: m3t4Lm4n (Thanks!))
+
 1.6.0   (2019-09-27)
 
   * Install Python bindings based on interpreter; Closes dj-wasabi/ansible-zabbix-server#148 #149 (By pull request: kr4ut (Thanks!))

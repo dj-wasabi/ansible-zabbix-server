@@ -72,11 +72,11 @@ See the following list of supported Operating systems with the Zabbix releases:
 
 ### Zabbix 4.4
 
-  * CentOS 7.x
+  * CentOS 7.x, 8.x
   * Amazon 7.x
-  * RedHat 7.x
-  * OracleLinux 7.x
-  * Scientific Linux 7.x
+  * RedHat 7.x, 8.x
+  * OracleLinux 7.x, 8.x
+  * Scientific Linux 7.x, 8.x
   * Ubuntu 14.04, 16.04, 18.04
   * Debian 8, 9
 
