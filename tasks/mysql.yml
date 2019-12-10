@@ -33,6 +33,7 @@
     name: "{{ zabbix_server_dbuser }}"
     password: "{{ zabbix_server_dbpassword }}"
     priv: "{{ zabbix_server_dbname }}.*:ALL"
+    host: "{{ zabbix_server_privileged_host }}"
     state: present
   when: zabbix_database_creation
   delegate_to: "{{ delegated_dbhost }}"
