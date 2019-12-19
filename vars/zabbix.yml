@@ -1,6 +1,25 @@
 ---
 
 sign_keys:
+  "44":
+    bionic:
+      sign_key: A14FE591
+    sonya:
+      sign_key: A14FE591
+    serena:
+      sign_key: A14FE591
+    stretch:
+      sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
+    wheezy:
+      sign_key: 79EA5ED4
+    jessie:
+      sign_key: 79EA5ED4
+    trusty:
+      sign_key: 79EA5ED4
+    xenial:
+      sign_key: E709712C
   "42":
     bionic:
       sign_key: A14FE591
@@ -10,6 +29,8 @@ sign_keys:
       sign_key: A14FE591
     stretch:
       sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
     wheezy:
       sign_key: 79EA5ED4
     jessie:
@@ -27,6 +48,8 @@ sign_keys:
       sign_key: A14FE591
     stretch:
       sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
     wheezy:
       sign_key: 79EA5ED4
     jessie:
@@ -44,6 +67,8 @@ sign_keys:
       sign_key: A14FE591
     stretch:
       sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
     wheezy:
       sign_key: 79EA5ED4
     jessie:
@@ -59,6 +84,8 @@ sign_keys:
       sign_key: 79EA5ED4
     stretch:
       sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
     wheezy:
       sign_key: 79EA5ED4
     jessie:
@@ -74,6 +101,8 @@ sign_keys:
       sign_key: 79EA5ED4
     stretch:
       sign_key: A14FE591
+    buster:
+      sign_key: 79EA5ED4
     trusty:
       sign_key: 79EA5ED4
     xenial:

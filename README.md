@@ -6,6 +6,7 @@ Table of Contents
 - [Requirements](#requirements)
   * [Operating systems](#operating-systems)
   * [Zabbix Versions](#zabbix-versions)
+    + [Zabbix 4.4](#zabbix-44)
     + [Zabbix 4.2](#zabbix-42)
     + [Zabbix 4.0](#zabbix-40)
     + [Zabbix 3.4](#zabbix-34)
@@ -29,9 +30,9 @@ Table of Contents
 
 # Overview
 
-Build Status:
+Badges:
 
-[![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server)
+[![Build Status](https://travis-ci.org/dj-wasabi/ansible-zabbix-server.svg?branch=master)](https://travis-ci.org/dj-wasabi/ansible-zabbix-server) <img src="https://img.shields.io/ansible/role/d/2070"/> <img src="https://img.shields.io/ansible/quality/2070"/>
 
 This is a role for installing and maintaining the zabbix-server.
 
@@ -68,6 +69,16 @@ Please send Pull Requests or suggestions when you want to use this role for othe
 ## Zabbix Versions
 
 See the following list of supported Operating systems with the Zabbix releases:
+
+### Zabbix 4.4
+
+  * CentOS 7.x, 8.x
+  * Amazon 7.x
+  * RedHat 7.x, 8.x
+  * OracleLinux 7.x, 8.x
+  * Scientific Linux 7.x, 8.x
+  * Ubuntu 14.04, 16.04, 18.04
+  * Debian 8, 9
 
 ### Zabbix 4.2
 
@@ -146,6 +157,11 @@ Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-se
 
 Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`  
 
+Default username/password for the Zabbix Web interface is the default one installed by Zabbix.
+
+Username: Admin
+Password: zabbix
+
 # Role Variables
 
 ## Main variables
@@ -221,8 +237,8 @@ These variables are specific for Zabbix 3.0 and higher:
 
 There are some zabbix-server specific variables which will be used for the zabbix-server configuration file. These can be found in the defaults/main.yml file. There are 3 which need some explanation:
 ```bash
-  #database_type: mysql
-  #database_type_long: mysql
+  #zabbix_server_database: mysql
+  #zabbix_server_database_long: mysql
   zabbix_server_database: pgsql
   zabbix_server_database_long: postgresql
   [...]
@@ -262,7 +278,7 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: zabbix-server
       become: yes
       roles:
-         - { role: dj-wasabi.zabbix-server, database_type: mysql, database_type_long: mysql }
+         - { role: dj-wasabi.zabbix-server, zabbix_server_database: mysql, zabbix_server_database_long: mysql }
 
 
 # Molecule

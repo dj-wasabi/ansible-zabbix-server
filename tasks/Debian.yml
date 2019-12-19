@@ -10,12 +10,13 @@
       - "http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution.lower() }}/"
       - "{{ ansible_distribution_release }}"
       - "main"
+    zabbix_python_prefix: "python{% if ansible_python_version is version('3', '>=') %}3{% endif %}"
 
 - name: "Debian | Set some facts"
   set_fact:
     datafiles_path: /usr/share/zabbix-server-{{ zabbix_server_database }}
   when:
-    - zabbix_version is version_compare('3.0', '<')
+    - zabbix_version is version('3.0', '<')
   tags:
     - zabbix-server
     - init
@@ -25,7 +26,7 @@
   set_fact:
     datafiles_path: /usr/share/doc/zabbix-server-{{ zabbix_server_database }}
   when:
-    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_version is version('3.0', '>=')
   tags:
     - zabbix-server
     - init
@@ -96,7 +97,7 @@
 
 - name: "Debian | Install Ansible module dependencies"
   apt:
-    name: python-psycopg2
+    name: "{{ zabbix_python_prefix }}-psycopg2"
     state: present
   register: zabbix_server_dependencies_installed
   until: zabbix_server_dependencies_installed is succeeded
@@ -110,13 +111,31 @@
   apt:
     name:
       - mysql-client
-      - python-mysqldb
+      - "{{ zabbix_python_prefix }}-mysqldb"
     state: present
   register: zabbix_server_dependencies_installed
   until: zabbix_server_dependencies_installed is succeeded
   when:
     - zabbix_server_database == 'mysql'
     - zabbix_server_install_database_client
+    - ansible_distribution_release != "buster"
+  tags:
+    - zabbix-server
+    - init
+    - database
+
+- name: "Debian 10 | Install Mysql Client package"
+  apt:
+    name:
+      - mariadb-client
+      - "{{ zabbix_python_prefix }}-mysqldb"
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - zabbix_server_database == 'mysql'
+    - zabbix_server_install_database_client
+    - ansible_distribution_release == "buster"
   tags:
     - zabbix-server
     - init

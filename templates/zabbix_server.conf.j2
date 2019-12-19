@@ -200,7 +200,7 @@ StartDiscoverers={{ zabbix_server_startdiscoverers }}
 #
 StartHTTPPollers={{ zabbix_server_starthttppollers }}
 
-{% if zabbix_version is version_compare('2.0', '>=') %}
+{% if zabbix_version is version('2.0', '>=') %}
 ### option: starttimers
 #	number of pre-forked instances of timers.
 #	timers process time-based trigger functions and maintenance periods.
@@ -209,7 +209,7 @@ StartHTTPPollers={{ zabbix_server_starthttppollers }}
 StartTimers={{ zabbix_server_starttimers }}
 {% endif %}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: StartEscalators
 #   Number of pre-forked instances of escalators.
 #
@@ -234,7 +234,7 @@ JavaGatewayPort={{ zabbix_server_javagatewayport }}
 StartJavaPollers={{ zabbix_server_startjavapollers }}
 {% endif  %}
 
-{% if zabbix_version is version_compare('2.2', '>=') %}
+{% if zabbix_version is version('2.2', '>=') %}
 ### option: startvmwarecollectors
 #	number of pre-forked vmware collector instances.
 #
@@ -245,7 +245,7 @@ StartVMwareCollectors={{ zabbix_server_startvmwarecollectors }}
 #
 VMwareFrequency={{ zabbix_server_vmwarefrequency }}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: VMwarePerfFrequency
 #       How often Zabbix will connect to VMware service to obtain performance data.
 #
@@ -261,7 +261,7 @@ VMwarePerfFrequency={{ zabbix_server_vmwareperffrequency }}
 VMwareCacheSize={{ zabbix_server_vmwarecachesize }}
 {% endif  %}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: VMwareTimeout
 #       Specifies how many seconds vmware collector waits for response from VMware service.
 #
@@ -309,7 +309,7 @@ HousekeepingFrequency={{ zabbix_server_housekeepingfrequency }}
 #
 MaxHousekeeperDelete={{ zabbix_server_maxhousekeeperdelete }}
 
-{% if zabbix_version is version_compare('3.2', '<=') %}
+{% if zabbix_version is version('3.2', '<=') %}
 ### option: senderfrequency
 #	how often zabbix will try to send unsent alerts (in seconds).
 #
@@ -338,7 +338,7 @@ StartDBSyncers={{ zabbix_server_startdbsyncers }}
 #
 HistoryCacheSize={{ zabbix_server_historycachesize }}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: HistoryIndexCacheSize
 #       Size of history index cache, in bytes.
 #       Shared memory size for indexing history cache.
@@ -352,7 +352,7 @@ HistoryIndexCacheSize={{ zabbix_server_historyindexcachesize }}
 #
 TrendCacheSize={{ zabbix_server_trendcachesize }}
 
-{% if zabbix_version is version_compare('3.0', '<') %}
+{% if zabbix_version is version('3.0', '<') %}
     ### option: historytextcachesize
 #	size of text history cache, in bytes.
 #	shared memory size for storing character, text or log history data.
@@ -360,7 +360,7 @@ TrendCacheSize={{ zabbix_server_trendcachesize }}
 HistoryTextCacheSize={{ zabbix_server_historytextcachesize }}
 {% endif %}
 
-{% if zabbix_version is version_compare('2.2', '>=') %}
+{% if zabbix_version is version('2.2', '>=') %}
 ### option: valuecachesize
 #	size of history value cache, in bytes.
 #	shared memory size for caching item history data requests
@@ -369,7 +369,7 @@ HistoryTextCacheSize={{ zabbix_server_historytextcachesize }}
 ValueCacheSize={{ zabbix_server_valuecachesize }}
 {% endif %}
 
-{% if zabbix_version is version_compare('2.4', '<') %}
+{% if zabbix_version is version('2.4', '<') %}
 ### option: nodenoevents
 #	if set to '1' local events won't be sent to master node.
 #	this won't impact ability of this node to propagate events from its child nodes.
@@ -469,7 +469,7 @@ ProxyConfigFrequency={{ zabbix_server_proxyconfigfrequency }}
 #
 ProxyDataFrequency={{ zabbix_server_proxydatafrequency }}
 
-{% if zabbix_version is version_compare('2.2', '>=') %}
+{% if zabbix_version is version('2.2', '>=') %}
 ### option: allowroot
 #	allow the server to run as 'root'. if disabled and the server is started by 'root', the server
 #	will try to switch to user 'zabbix' instead. has no effect if started under a regular user.
@@ -479,7 +479,7 @@ ProxyDataFrequency={{ zabbix_server_proxydatafrequency }}
 AllowRoot={{ zabbix_server_allowroot }}
 {% endif %}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: User
 #       Drop privileges to a specific, existing user on the system.
 #       Only has effect if run as 'root' and AllowRoot is disabled.
@@ -493,7 +493,7 @@ User={{ zabbix_server_user }}
 #
 Include={{ zabbix_server_include }}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ### Option: SSLCertLocation
 #       Location of SSL client certificates.
 #       This parameter is used only in web monitoring.
@@ -517,7 +517,7 @@ SSLCALocation={{ zabbix_server_sslcalocation }}
 {% endif %}
 
 ####### loadable modules #######
-{% if zabbix_version is version_compare('2.2', '>=') %}
+{% if zabbix_version is version('2.2', '>=') %}
 ### option: loadmodulepath
 #	full path to location of server modules.
 #	default depends on compilation options.
@@ -535,7 +535,7 @@ LoadModulePath={{ zabbix_server_loadmodulepath }}
 LoadModule = {{ loadmodule }}
 {% endif %}
 
-{% if zabbix_version is version_compare('3.0', '>=') %}
+{% if zabbix_version is version('3.0', '>=') %}
 ####### TLS-RELATED PARAMETERS #######
 
 ### Option: TLSCAFile

@@ -29,7 +29,7 @@
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
-    - zabbix_version is version_compare('3.0', '<')
+    - zabbix_version is version('3.0', '<')
   tags:
     - zabbix-server
 
@@ -37,7 +37,7 @@
   set_fact:
     datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}-{{ zabbix_version }}*"
   when:
-    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_version is version('3.0', '>=')
   tags:
     - zabbix-server
 
@@ -73,6 +73,20 @@
   when:
     - zabbix_database_creation
     - zabbix_server_database == 'pgsql'
+    - ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Install Ansible module dependencies on RHEL8"
+  yum:
+    name: python3-psycopg2
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - zabbix_database_creation
+    - zabbix_server_database == 'pgsql'
+    - ansible_distribution_major_version == "8"
   tags:
     - zabbix-server
 
@@ -124,6 +138,20 @@
   until: zabbix_server_dependencies_installed is succeeded
   when:
     - selinux_allow_zabbix_can_network
+    - ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Install related SELinux package on RHEL8"
+  yum:
+    name:
+      - python3-libsemanage
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - selinux_allow_zabbix_can_network
+    - ansible_distribution_major_version == "8"
   tags:
     - zabbix-server
 

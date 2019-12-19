@@ -2,7 +2,7 @@
 # defaults file;
 # zabbix role specific
 
-zabbix_version: 4.2
+zabbix_version: 4.4
 zabbix_repo: zabbix
 
 zabbix_server_package_state: present
@@ -47,6 +47,7 @@ zabbix_server_dbuser: zabbix-server
 zabbix_server_dbpassword: zabbix-server
 zabbix_server_dbsocket:
 zabbix_server_dbport: 5432
+zabbix_server_privileged_host: localhost
 zabbix_server_historystorageurl:
 zabbix_server_historystoragetypes: uint,dbl,str,log,text
 zabbix_server_historystoragedateindex: 0
