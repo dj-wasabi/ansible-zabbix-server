@@ -38,6 +38,7 @@ zabbix_server_logfilesize: 10
 zabbix_server_debuglevel: 3
 zabbix_server_pidfile: /var/run/zabbix/zabbix_server.pid
 zabbix_server_socketdir: /var/run/zabbix
+zabbix_server_real_dbhost:
 zabbix_server_dbhost: localhost
 zabbix_server_dbname: zabbix-server
 zabbix_server_dbencoding: utf8

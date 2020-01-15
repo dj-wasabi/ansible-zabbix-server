@@ -186,6 +186,7 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_server_hostname`: The hostname on which the zabbix-server is running. Default set to: {{ inventory_hostname }}
 * `zabbix_server_listenport`: On which port the Zabbix Server is available. Default: 10051
 * `zabbix_server_dbhost`: The hostname on which the database is running.
+* `zabbix_server_real_dbhost`: The hostname of the dbhost that is running behind a loadbalancer/VIP (loadbalancers doesn't accept ssh connections)
 * `zabbix_server_dbname`: The database name which is used by the Zabbix Server.
 * `zabbix_server_dbuser`: The database username which is used by the Zabbix Server.
 * `zabbix_server_dbpassword`: The database user password which is used by the Zabbix Server.
