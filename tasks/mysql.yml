@@ -4,6 +4,11 @@
   set_fact:
     delegated_dbhost: "{{ zabbix_server_dbhost if (zabbix_server_dbhost != 'localhost') else inventory_hostname }}"
 
+- name: "Override delegated_dbhost with real dbhost when dbhost is behind loadbalancer"
+  set_fact:
+    delegated_dbhost: "{{ zabbix_server_real_dbhost }}"
+  when: zabbix_server_real_dbhost | default(false)
+
 - name: "MySQL | Create database"
   mysql_db:
     name: "{{ zabbix_server_dbname }}"
@@ -73,6 +78,26 @@
   tags:
     - zabbix-server
     - database
+
+- name: "Fetch sql create file"
+  fetch:
+    src: "{{ ls_output_create.stdout }}"
+    dest: /tmp/{{ role_name }}/
+    flat: yes
+  when:
+    - delegated_dbhost != inventory_hostname
+    - zabbix_database_sqlload
+    - not done_file.stat.exists
+
+- name: "Copy sql create file"
+  copy:
+    src: /tmp/{{ role_name }}/
+    dest: "{{ ls_output_create.stdout | dirname }}"
+  delegate_to: "{{ delegated_dbhost }}"
+  when:
+    - delegated_dbhost != inventory_hostname
+    - zabbix_database_sqlload
+    - not done_file.stat.exists
 
 - name: "MySQL | Create database and import file >= 3.0"
   mysql_db:
