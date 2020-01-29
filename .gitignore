@@ -1,1 +1,13 @@
+.kitchen/
+.idea/
+.bundle/
+vendor/
+*.retry
+.molecule
+.cache
+__pycache__
+.env
+.virtualenv
+requirements.txt
+.vscode/
 meta/.galaxy_install_info
