@@ -2,25 +2,26 @@ Table of Contents
 
 - [Overview](#overview)
 - [Upgrades](#upgrades)
-  * [1.0.0](#100)
+  - [1.0.0](#100)
 - [Requirements](#requirements)
-  * [Operating systems](#operating-systems)
-  * [Zabbix Versions](#zabbix-versions)
-    + [Zabbix 4.4](#zabbix-44)
-    + [Zabbix 4.2](#zabbix-42)
-    + [Zabbix 4.0](#zabbix-40)
-    + [Zabbix 3.4](#zabbix-34)
-    + [Zabbix 3.2](#zabbix-32)
-    + [Zabbix 3.0](#zabbix-30)
-    + [Zabbix 2.4](#zabbix-24)
-    + [Zabbix 2.2](#zabbix-22)
+  - [Operating systems](#operating-systems)
+  - [Zabbix Versions](#zabbix-versions)
+    - [Zabbix 4.4](#zabbix-44)
+    - [Zabbix 4.2](#zabbix-42)
+    - [Zabbix 4.0](#zabbix-40)
+    - [Zabbix 3.4](#zabbix-34)
+    - [Zabbix 3.2](#zabbix-32)
+    - [Zabbix 3.0](#zabbix-30)
+    - [Zabbix 2.4](#zabbix-24)
+    - [Zabbix 2.2](#zabbix-22)
 - [Installation](#installation)
 - [Role Variables](#role-variables)
-  * [Main variables](#main-variables)
-    + [Overall Zabbix](#overall-zabbix)
-    + [Zabbix Server](#zabbix-server)
-    + [TLS Specific configuration](#tls-specific-configuration)
-  * [Database](#database)
+  - [Main variables](#main-variables)
+    - [Overall Zabbix](#overall-zabbix)
+    - [Zabbix Server](#zabbix-server)
+    - [Custom Zabbix Scripts](#custom-zabbix-scripts)
+    - [TLS Specific configuration](#tls-specific-configuration)
+  - [Database](#database)
 - [Dependencies](#dependencies)
 - [Example Playbook](#example-playbook)
 - [Molecule](#molecule)
@@ -194,7 +195,7 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_database_creation`: True / False. When you don't want to create the database including user, you can set it to False.
 * `zabbix_server_install_recommends`: True / False. False does not install the recommended packages that come with the zabbix-server install. Default true
 * `zabbix_server_install_database_client`: True / False. False does not install database client. Default true
-* `zabbix_server_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
+* `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 * `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 * `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
 
