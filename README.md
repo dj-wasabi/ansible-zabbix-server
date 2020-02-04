@@ -155,7 +155,7 @@ See the following list of supported Operating systems with the Zabbix releases:
 
 Installing this role is very simple: `ansible-galaxy install dj-wasabi.zabbix-server`
 
-Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`  
+Please be aware that this role only installs the Zabbix Server and not the Zabbix Web. If you do want to have a Zabbix Web, please execute the following command: `ansible-galaxy install dj-wasabi.zabbix-web`
 
 Default username/password for the Zabbix Web interface is the default one installed by Zabbix.
 
@@ -170,13 +170,13 @@ The following is an overview of all available configuration default for this rol
 
 ### Overall Zabbix
 
-* `zabbix_version`: This is the version of zabbix. Default: 3.4. Can be overridden to 3.2, 3.0, 2.4, or 2.2.
+* `zabbix_server_version`: This is the version of zabbix. Default: 4.4. Can be overridden to 3.2, 3.0, 2.4, or 2.2. Previously the variable `zabbix_version` was used directly but it could cause [some inconvenience](https://github.com/dj-wasabi/ansible-zabbix-agent/pull/303). That variable is maintained by retrocompativility.
 * `zabbix_repo_yum`: A list with Yum repository configuration.
 * `zabbix_repo`: Default: _zabbix_
   * _epel_ install agent from EPEL repo
   * _zabbix_ (default) install agent from Zabbix repo
   * _other_ install agent from pre-existing or other repo
-* `zabbix_server_package_state`: Default: _present_. Can be overridden to "latest" to update packages when needed.   
+* `zabbix_server_package_state`: Default: _present_. Can be overridden to "latest" to update packages when needed.
 
 ### Zabbix Server
 
