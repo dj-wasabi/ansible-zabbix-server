@@ -51,7 +51,7 @@
   changed_when: False
   when:
     - zabbix_version is version('3.0', '>=')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
   register: ls_output_create
   tags:
     - zabbix-server
@@ -63,7 +63,7 @@
   register: done_file
   when:
     - zabbix_version is version('3.0', '>=')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
 
 - name: "MySQL | Disable InnoDB Strict Mode"
   mysql_variables:
@@ -71,7 +71,7 @@
     value: 0
   when:
     - zabbix_version is version('3.0', '>=')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not done_file.stat.exists
     - ansible_distribution_release == "buster"
   delegate_to: "{{ delegated_dbhost }}"
@@ -86,7 +86,7 @@
     flat: yes
   when:
     - delegated_dbhost != inventory_hostname
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not done_file.stat.exists
 
 - name: "Copy sql create file"
@@ -96,7 +96,7 @@
   delegate_to: "{{ delegated_dbhost }}"
   when:
     - delegated_dbhost != inventory_hostname
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not done_file.stat.exists
 
 - name: "MySQL | Create database and import file >= 3.0"
@@ -113,7 +113,7 @@
     target: "{{ ls_output_create.stdout }}"
   when:
     - zabbix_version is version('3.0', '>=')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not done_file.stat.exists
   delegate_to: "{{ delegated_dbhost }}"
   tags:
@@ -126,7 +126,7 @@
     state: touch
   when:
     - zabbix_version is version('3.0', '>=')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not done_file.stat.exists
 
 - name: "Get the correct path for the SQL files < 3.0"
@@ -139,7 +139,7 @@
     - data
   when:
     - zabbix_version is version('3.0', '<')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
   tags:
     - zabbix-server
     - database
@@ -154,7 +154,7 @@
     - data
   when:
     - zabbix_version is version('3.0', '<')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
   tags:
     - zabbix-server
     - database
@@ -165,7 +165,7 @@
   with_items: "{{ done_files.results }}"
   when:
     - zabbix_version is version('3.0', '<')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
   tags:
     - zabbix-server
     - database
@@ -180,7 +180,7 @@
   with_items: "{{ ls_output_schema.results }}"
   when:
     - zabbix_version is version('3.0', '<')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not sql_files_executed[item.item].exists
   delegate_to: "{{ delegated_dbhost }}"
   tags:
@@ -197,7 +197,7 @@
     - data
   when:
     - zabbix_version is version('3.0', '<')
-    - zabbix_database_sqlload
+    - zabbix_database_sqlload | bool
     - not sql_files_executed[item].exists
   tags:
     - zabbix-server
