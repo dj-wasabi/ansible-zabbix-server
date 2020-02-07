@@ -38,12 +38,13 @@
 
 - name: "Add zabbix-server scripts"
   include: "scripts.yml"
-  when: zabbix_server_alertscripts is defined or zabbix_server_externalscripts is defined
+  when: ( zabbix_server_alertscripts is defined ) or
+        ( zabbix_server_externalscripts is defined )
 
 - name: "Zabbix-server started"
   service:
     name: zabbix-server
-    state: started
-    enabled: yes
+    state: "{{ zabbix_service_state }}"
+    enabled: "{{ zabbix_service_enabled }}"
   tags:
     - zabbix-server

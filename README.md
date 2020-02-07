@@ -178,6 +178,8 @@ The following is an overview of all available configuration default for this rol
   * _zabbix_ (default) install agent from Zabbix repo
   * _other_ install agent from pre-existing or other repo
 * `zabbix_server_package_state`: Default: _present_. Can be overridden to "latest" to update packages when needed.
+* `zabbix_service_state`: Default: `started`. Can be overridden to stopped if needed
+* `zabbix_service_enabled`: Default: `True` Can be overridden to `False` if needed
 
 ### Zabbix Server
 
