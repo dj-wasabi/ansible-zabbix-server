@@ -133,12 +133,15 @@
   yum:
     name:
       - libsemanage-python
+      - policycoreutils
+      - checkpolicy
     state: present
   register: zabbix_server_dependencies_installed
   until: zabbix_server_dependencies_installed is succeeded
   when:
     - selinux_allow_zabbix_can_network
     - ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
+    - zabbix_selinux | bool
   tags:
     - zabbix-server
 
@@ -152,6 +155,7 @@
   when:
     - selinux_allow_zabbix_can_network
     - ansible_distribution_major_version == "8"
+    - zabbix_selinux | bool
   tags:
     - zabbix-server
 
@@ -162,6 +166,7 @@
     persistent: yes
   when:
     - selinux_allow_zabbix_can_http
+    - zabbix_selinux | bool
   tags:
     - zabbix-server
 
@@ -172,5 +177,41 @@
     persistent: yes
   when:
     - selinux_allow_zabbix_can_network
+    - zabbix_selinux | bool
   tags:
     - zabbix-server
+
+- name: "RedHat | Install related SELinux package to fix issues"
+  yum:
+    name:
+      - policycoreutils-python
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
+    - zabbix_selinux | bool
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Install related SELinux package to fix issues on RHEL8"
+  yum:
+    name:
+      - policycoreutils
+      - checkpolicy
+    state: present
+  register: zabbix_server_dependencies_installed
+  until: zabbix_server_dependencies_installed is succeeded
+  when:
+    - ansible_distribution_major_version == "8"
+    - zabbix_selinux | bool
+  tags:
+    - zabbix-server
+
+- name: "RedHat | Add SEmodule to fix SELinux issue: zabbix_server_alerter.sock"
+  script:
+    cmd: files/install_semodule.bsx
+  args:
+    creates: /etc/selinux/targeted/active/modules/400/zabbix_server_add/cil
+  when:
+    - zabbix_selinux | bool

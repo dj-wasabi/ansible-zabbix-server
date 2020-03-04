@@ -120,5 +120,6 @@ zabbix_server_vmwareperffrequency: 60
 zabbix_server_vmwaretimeout: 10
 
 # SELinux specific
+zabbix_selinux: False
 selinux_allow_zabbix_can_network: False
 selinux_allow_zabbix_can_http: False
