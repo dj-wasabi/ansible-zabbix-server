@@ -41,6 +41,14 @@
   tags:
     - zabbix-server
 
+- name: "RedHat | Set facts for RHEL8"
+  set_fact:
+    datafiles_path: "/usr/share/doc/zabbix-server-{{ zabbix_server_database }}"
+  when:
+    - ansible_distribution_major_version == "8"
+  tags:
+    - zabbix-server
+
 - name: "Make sure old file is absent"
   file:
     path: /etc/yum.repos.d/zabbix-supported.repo
