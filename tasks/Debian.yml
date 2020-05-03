@@ -74,6 +74,7 @@
   register: dpkg_exclude_line
   failed_when: false
   changed_when: false
+  check_mode: no
 
 - name: Allow Zabbix dpkg installs to /usr/share/doc/zabbix*
   lineinfile:
