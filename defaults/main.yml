@@ -118,6 +118,7 @@ zabbix_server_tlskeyfile:
 zabbix_server_startescalators: 1
 zabbix_server_vmwareperffrequency: 60
 zabbix_server_vmwaretimeout: 10
+zabbix_server_manage_service: True
 
 # SELinux specific
 zabbix_selinux: False
