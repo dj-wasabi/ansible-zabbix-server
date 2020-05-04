@@ -201,6 +201,7 @@ The following is an overview of all available configuration default for this rol
 * `zabbix_database_sqlload`:True / False. When you don't want to load the sql files into the database, you can set it to False.
 * `zabbix_server_dbencoding`: The encoding for the MySQL database. Default set to `utf8`
 * `zabbix_server_dbcollation`: The collation for the MySQL database. Default set to `utf8_bin`
+* `zabbix_server_manage_service`: True / False. When you run multiple Zabbix servers in a High Available cluster setup (e.g. pacemaker), you don't want Ansible to manage the zabbix-server service, because Pacemaker is in control of zabbix-server service.
 
 ### Custom Zabbix Scripts
 
