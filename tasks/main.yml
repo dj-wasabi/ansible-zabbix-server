@@ -68,3 +68,4 @@
     enabled: "{{ zabbix_service_enabled }}"
   tags:
     - zabbix-server
+  when: zabbix_server_manage_service | bool
