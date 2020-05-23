@@ -4,7 +4,21 @@ Below an overview of all changes in the releases.
 
 Version (Release date)
 
-UNRELEASED:
+FINAL and LAST release for this role in this repository. This role will be transferred to: https://github.com/ansible-collections/community.zabbix/
+
+1.8.0   (2020-05-23)
+
+  * allow remote login to db server from zabbix server #166 (By pull request: Vinclame (Thanks!))
+  * Improving readability #167 (By pull request: santiagomr (Thanks!))
+  * delegated_dbhost create/import tasks was missing create.sql file. #168 (By pull request: Vinclame (Thanks!))
+  * zabbix_database_sqlload variable README fix #171 (By pull request: bdekker-routit (Thanks!))
+  * Avoid conflicts with zabbix_version var #172 (By pull request: santiagomr (Thanks!))
+  * make zabbix service start/enable optional #174 (By pull request: tenhishadow (Thanks!))
+  * Add SELinux workaround #175 (By pull request: SimBou (Thanks!))
+  * Use the correct naming as suggested in dj-wasabi/ansible-zabbix-agent #301 #176
+  * fix issue with datafiles_path on RHEL8 #177 (By pull request: SimBou (Thanks!))
+  * Fix check_mode for dpkg_exclude_line.rc on Debian/Ubuntu (Closes: #179) #180 (By pull request: kr4ut (Thanks!))
+  * ability to manage zabbix-server service #181 (By pull request: Vinclame (Thanks!))
 
 1.7.0   (2019-12-01)
 
