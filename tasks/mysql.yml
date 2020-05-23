@@ -99,6 +99,25 @@
     - zabbix_database_sqlload | bool
     - not done_file.stat.exists
 
+- name: "Retrieve database creation file"
+  fetch:
+    src: "{{ ls_output_create.stdout }}"
+    dest: /var/tmp/
+  become: no
+  when:
+    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_database_sqlload
+    - not done_file.stat.exists
+
+- name: "Send database creation file to {{ delegated_dbhost }}"
+  copy:
+    src: /var/tmp/{{ inventory_hostname }}/{{ ls_output_create.stdout }}
+    dest: /var/tmp/
+  when:
+    - zabbix_version is version_compare('3.0', '>=')
+    - zabbix_database_sqlload
+    - not done_file.stat.exists
+
 - name: "MySQL | Create database and import file >= 3.0"
   mysql_db:
     login_host: "{{ zabbix_server_mysql_login_host | default(omit) }}"
@@ -110,7 +129,7 @@
     encoding: "{{ zabbix_server_dbencoding }}"
     collation: "{{ zabbix_server_dbcollation }}"
     state: import
-    target: "{{ ls_output_create.stdout }}"
+    target: "/var/tmp/{{ inventory_hostname }}/{{ ls_output_create.stdout }}"
   when:
     - zabbix_version is version('3.0', '>=')
     - zabbix_database_sqlload | bool
