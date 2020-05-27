@@ -44,6 +44,12 @@
     - init
     - config
 
+- name: include custom role
+  include_role: 
+    name: "{{ zabbix_custom_role_name }}"
+  when: zabbix_include_custom_role
+  tags: always
+
 - name: "Create include dir zabbix-server"
   file:
     path: "{{ zabbix_server_include }}"
